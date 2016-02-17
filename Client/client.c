@@ -41,33 +41,37 @@
 /***********************************************************************************/
 /*                             GLOBAL VARIABLES                                    */
 /***********************************************************************************/
-FILE *LOG_FILE = NULL;                //File to store the log information
-char msg_info[256];                   //Buffer to store message for the log file
-fd_set direcs_fds;                     //Set of socket descriptor for select for directories
-fd_set replicas_fd;                   //Set of socket descriptor for select for replicas
-fd_set crash_direc_fds;               //To store all the crash directories that exist in the system
-fd_set crash_repli_fds;               //To store all the crash replicas that exist in the system
-int max_direc_fd=-1;                  //To store the max directory socket descriptor for the SELECT
-int max_replica_fd=-1;                //To store the max replica socket descriptor for the SELECT
+FILE *LOG_FILE = NULL;                       //File to store the log information
+char msg_info[256];                          //Buffer to store message for the log file
+fd_set direcs_fds;                           //Set of socket descriptor for select for directories
+fd_set replicas_fd;                          //Set of socket descriptor for select for replicas
+fd_set crash_direc_fds;                      //To store all the crash directories that exist in the system
+fd_set crash_repli_fds;                      //To store all the crash replicas that exist in the system
+int max_direc_fd=-1;                         //To store the max directory socket descriptor for the SELECT
+int max_replica_fd=-1;                       //To store the max replica socket descriptor for the SELECT
 
-int message_id;                       //Store the message counter
+int message_id;                              //Store the message counter
 
-int    *direcSocks;                   //Store all the sockets for directories
-int    *replicaSocks;                 //Store all the sockets for replicas
-struct sockaddr_in *direc_sockaddr;   //Store all the ips and ports for directories
-struct sockaddr_in *replica_sockaddr; //Store all the ips and ports for Replicas
-struct serinfo *direcNodes;           //Store IP and port for each directory server
-struct serinfo *replicaNodes;         //Store IP and port for each replica server
-int    MAX_DIRECTORIES=0;             //Store the number of directories that exist in the system
-int    MAX_REPLICAS=0;                //Store the number of replicas that exist in the system
-long   clientID=0;                    //Store clientID
+int    *direcSocks;                          //Store all the sockets for directories
+int    *replicaSocks;                        //Store all the sockets for replicas
+int    *filemanagerSocks;                    //Store all the sockets for filemanagers
+struct sockaddr_in *direc_sockaddr;          //Store all the ips and ports for directories
+struct sockaddr_in *replica_sockaddr;        //Store all the ips and ports for Replicas
+struct sockaddr_in *filemanager_sockaddr;    //Store all the ips and ports for filemanagers
+struct serinfo *direcNodes;                  //Store IP and port for each directory server
+struct serinfo *replicaNodes;                //Store IP and port for each replica server
+struct serinfo *filemanagerNodes;            //Store IP and port for each filemanager
+int    MAX_DIRECTORIES=0;                    //Store the number of directories that exist in the system
+int    MAX_REPLICAS=0;                       //Store the number of replicas that exist in the system
+int    MAX_FILEMANAGERS;                     //Store the number of filemanagers that exist in the system
+
+long   clientID=0;                           //Store clientID
 
 
+int    failrate=0.10;                        //store the rate for the fail
 
-int    failrate=0.10;                 //store the rate for the fail
 
-
-GHashTable * hashFiletags;           //Metadata table that holds all tag for the data
+GHashTable * hashFiletags;                   //Metadata table that holds all tag for the data
 
 
 int isMaxTag(struct TAG *tag1 , struct TAG tag2 )
@@ -875,7 +879,7 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
     cmd = strtok(cmd_str, " ");
     strcpy(cmdmsg->oper,cmd);
 
-    if(strcmp(cmd,"exit\n") !=0 )
+    if(strcmp(cmd,"exit\n") !=0 && strcmp(cmd,"loggin") !=0 )
     {
         temp=strtok(NULL," ");
         cmdmsg->filename=strdup(strtok(temp,"."));
@@ -896,6 +900,19 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
     {
          writer_oper(message_id,cmdmsg);
     }
+
+    else if(strcmp(cmd , "loggin" ) == 0)
+    {
+        //Store the username of the client
+        char *username;
+
+        username = strdup(strtok(cmd_str," "));
+
+        //Request clientID
+        reqClientID(username);
+
+    }
+
 
     //deallocate
     free(cmdmsg->filename);
@@ -919,7 +936,7 @@ void readConfig(char *filename)
     fp = fopen(filename, "r");
     if (fp == NULL)
     {
-        printf("Unable to open config fie\n");
+        printf("Unable to open config fiLe\n");
         exit(EXIT_FAILURE);
     }
 
@@ -952,6 +969,10 @@ void readConfig(char *filename)
         {
             while ((read = getline(&line, &len, fp)) != -1)
             {
+                if(strcmp(line,"#FILEMANAGERS\n") == 0)
+                {
+                    break;
+                }
                 if (MAX_REPLICAS == 0)
                 {
                     MAX_REPLICAS = atoi(line);
@@ -965,12 +986,56 @@ void readConfig(char *filename)
                 }
             }//While
         }
+        if(strcmp(line,"#FILEMANAGERS\n") == 0)
+        {
+            while ((read = getline(&line, &len, fp)) != -1)
+            {
+                if (MAX_FILEMANAGERS == 0)
+                {
+                    MAX_FILEMANAGERS = atoi(line);
+                    filemanagerNodes=(struct serinfo *)malloc(sizeof(struct serinfo ) * MAX_FILEMANAGERS );
+                }
+                else
+                {
+                    strcpy(filemanagerNodes[j].ip_addr, strdup(strtok(line, " ")));
+                    filemanagerNodes[j].port = atoi(strtok(NULL, ","));
+                    j += 1;
+                }
+            }//While
+        }
+
     }
 
     fclose(fp);
     if (line)
         free(line);
 
+
+}
+
+void reqClientID(char *username)
+{
+    //Buffer message
+    char buf[60];
+
+    int bytes;
+
+    //Request from the filemanager to set up a client ID
+    sprintf(buf,"REQCLIENTID,%s",username);
+
+    if (bytes = send(filemanagerSocks[0] , buf, strlen(buf) , 0) < 0)
+    {
+        perror("Send:Unable to request clientID");
+    }
+
+    bzero(buf,sizeof(buf));
+    if (recv(direcSocks[0], buf, sizeof(buf), 0) < 0)
+    {
+        perror("Received() Unable to receive clientID");
+    }
+
+    //Retrieve ClientID
+    clientID=atol(strtok(buf, ","));
 
 }
 
@@ -1026,23 +1091,28 @@ void conn2direc()
         }
     }//For statment
 
-    //Retrieve the clientID from the first directory
-
-    strcpy(buf,"CLIENTID");
-    if (bytes = send(direcSocks[0] , buf, strlen(buf) , 0) < 0)
-    {
-        perror("Send:Unable to request clientID");
-    }
-    bzero(buf,sizeof(buf));
-    if (recv(direcSocks[0], buf, sizeof(buf), 0) < 0)
-    {
-        perror("Received() Unable to receive clientID");
-    }
-
-    //Retrieve ClientID
-    clientID=atol(strtok(buf, ","));
-
 }//Function establish connections
+
+int conn2filemanager()
+{
+    int i=0;
+
+    //Establish Connection with all the filemanager servers
+    for(i=0; i < MAX_FILEMANAGERS; i++)
+    {
+        /*Establish a connection withe the IP address from the struct server*/
+        if (connect(filemanagerSocks[i] , (struct sockaddr *) &filemanager_sockaddr[i], sizeof(filemanager_sockaddr[i])) < 0)
+        {
+            /*Use htohs to convert network port to host port.*/
+            printf("Unable to Connect to : %s ,  PORT: %d\n", inet_ntoa(filemanager_sockaddr[i].sin_addr), ntohs(filemanager_sockaddr[i].sin_port) );
+        }
+        else
+        {
+            printf("Connection established to IP: %s ,  PORT: %d\n", inet_ntoa(filemanager_sockaddr[i].sin_addr),ntohs(filemanager_sockaddr[i].sin_port));
+        }
+    }
+
+}
 
 int get_file(int sock, struct message *msg )
 {
@@ -1241,11 +1311,17 @@ void inisialization()
     //Allocate the array to store all the sockaddr_in for Replicas
     replica_sockaddr=(struct sockaddr_in *)malloc(sizeof(struct sockaddr_in ) * MAX_REPLICAS );
 
+    //Allocate the array to store all the sockaddr_in for file managers
+    filemanager_sockaddr=(struct sockaddr_in *)malloc(sizeof(struct sockaddr_in ) * MAX_FILEMANAGERS );
+
     //Allocate the array to store all the sockets descriptor for each directory
     direcSocks=( int *)malloc(sizeof(int ) * MAX_DIRECTORIES );
 
     //Allocate the array to store all the sockets descriptor for each Replicas
     replicaSocks=(int *)malloc(sizeof(int ) * MAX_REPLICAS );
+
+    //Allocate the array to store all the sockets descriptor for each Replicas
+    filemanagerSocks=(int *)malloc(sizeof(int ) * MAX_FILEMANAGERS );
 
     //Fill the direcSocks for directories server which is type sockaddr_in
     for (i = 0; i < MAX_DIRECTORIES; i++)
@@ -1261,6 +1337,17 @@ void inisialization()
         replica_sockaddr[i].sin_family = AF_INET; /*Internet domain*/
         replica_sockaddr[i].sin_addr.s_addr = inet_addr(replicaNodes[i].ip_addr);
         replica_sockaddr[i].sin_port = htons(replicaNodes[i].port);
+    }//For statement
+
+
+    //Fill the replicaSocks for directories server which is type sockaddr_in
+    for (i = 0; i < MAX_FILEMANAGERS; i++)
+    {
+        filemanager_sockaddr[i].sin_family = AF_INET; /*Internet domain*/
+     //   filemanager_sockaddr[i].sin_addr.s_addr = inet_addr(filemanagerNodes[i].ip_addr);
+       // filemanager_sockaddr[i].sin_port = htons(filemanagerNodes[i].port);
+        filemanager_sockaddr[i].sin_addr.s_addr = inet_addr("127.0.0.1");
+        filemanager_sockaddr[i].sin_port = htons(40001);
     }//For statement
 
 
@@ -1305,6 +1392,7 @@ void inisialization()
 
 }//Function inisialization
 
+
 /***********************************************************************************/
 /*                                  MAIN                                           */
 /***********************************************************************************/
@@ -1318,23 +1406,36 @@ int main(int agrc , char *argc[])
 
     inisialization();
 
-    //Establish a connection with all available diretories & replicas  servers.
+    //Establish  connection with all available diretories & replicas  servers.
     conn2direc();
     connect2Replicas();
+
+    //Establish connection with the filemanager
+    conn2filemanager();
 
     /*Declaration of buffers in order to store the sending&receiving
      *data* */
     char buf[BUF_SIZE]; //Buffer to store the send msg.
+
+    //Store the command that received from client
+    char command[256];
+    struct cmd *input_cmd;
+    input_cmd=(struct cmd*)malloc(sizeof(struct cmd));
 
     /*Initialize the message id*/
     message_id=0;
 
     printf("Client is running...\n");
 
-    //Store the command that received from client
-    char command[256];
-    struct cmd *input_cmd;
-    input_cmd=(struct cmd*)malloc(sizeof(struct cmd));
+    printf("Logging...\n");
+
+    //Insert the client username inorder to receive
+    //a clientID
+    printf("\nInsert username: ");
+    //Read from stdin/
+    fgets(command,sizeof(command),stdin);
+    //Read command input
+    read_cmd(command,input_cmd);
 
     do
     {

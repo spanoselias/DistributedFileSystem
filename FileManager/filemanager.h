@@ -26,4 +26,7 @@ typedef struct
 
 
 
+void *accept_thread(void *accept_sock);
+unsigned long registerClient(char *username);
+
 #endif //DISTRIBUTEDALGORITHMS_FILEMANAGER_H

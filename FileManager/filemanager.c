@@ -28,7 +28,6 @@
 //Format for error for the threads
 #define perror2(s,e) fprintf(stderr, "%s:%s\n" , s, strerror(e))
 
-
 /***********************************************************************************/
 /*                             DATA STRUCTURES                                     */
 /***********************************************************************************/
@@ -55,7 +54,6 @@ long countClientIds;
 
 //Counter for File IDs
 unsigned long countFileIds;
-
 
 /***********************************************************************************/
 /*                                 FUNCTIONS                                       */
@@ -229,7 +227,7 @@ void *accept_thread(void *accept_sock)
         {
             bzero(buf,sizeof(buf));
             //encode the clientID
-            sprintf(buf,"%ld" , registerClient(msg->username );
+            sprintf(buf,"%ld" , registerClient(msg->username ));
             if (send(acptsock, buf, 16 , 0) < 0 )
             {
                 perror("Send:Unable to send clientID");
