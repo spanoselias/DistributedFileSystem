@@ -906,7 +906,8 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
         //Store the username of the client
         char *username;
 
-        username = strdup(strtok(cmd_str," "));
+        username = strdup(strtok(NULL," "));
+        username[strlen(username)-1]='\0';
 
         //Request clientID
         reqClientID(username);
@@ -1029,7 +1030,7 @@ void reqClientID(char *username)
     }
 
     bzero(buf,sizeof(buf));
-    if (recv(direcSocks[0], buf, sizeof(buf), 0) < 0)
+    if (recv(filemanagerSocks[0], buf, sizeof(buf), 0) < 0)
     {
         perror("Received() Unable to receive clientID");
     }
@@ -1344,7 +1345,7 @@ void inisialization()
     for (i = 0; i < MAX_FILEMANAGERS; i++)
     {
         filemanager_sockaddr[i].sin_family = AF_INET; /*Internet domain*/
-     //   filemanager_sockaddr[i].sin_addr.s_addr = inet_addr(filemanagerNodes[i].ip_addr);
+      //filemanager_sockaddr[i].sin_addr.s_addr = inet_addr(filemanagerNodes[i].ip_addr);
        // filemanager_sockaddr[i].sin_port = htons(filemanagerNodes[i].port);
         filemanager_sockaddr[i].sin_addr.s_addr = inet_addr("127.0.0.1");
         filemanager_sockaddr[i].sin_port = htons(40001);
@@ -1387,8 +1388,20 @@ void inisialization()
         {
             max_replica_fd = replicaSocks[i];
         }
+    }//For statement
+
+    //Fill the replicaSocks for filemanager servers
+    for (i = 0; i < MAX_FILEMANAGERS; i++)
+    {
+        //Create a socket and check if is created correct
+        if ((filemanagerSocks[i] = socket(PF_INET, SOCK_STREAM, 0)) < 0)
+        {
+            perror("Socket() failed");
+            exit(1);
+        }
 
     }//For statement
+
 
 }//Function inisialization
 

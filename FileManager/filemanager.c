@@ -34,7 +34,6 @@
 //Store all usernames for the clients
 GPtrArray *clidata=NULL;
 
-
 /***********************************************************************************/
 /*                                      LOCKERS                                    */
 /***********************************************************************************/
@@ -164,7 +163,6 @@ void *bind_thread(void *port)
             perror("accept() failed"); exit(1);
         }
 
-
         if(err=pthread_create(&tid , NULL , &accept_thread ,  (void *) newsock))
         {
             perror2("pthread_create for accept_thread" , err);
@@ -192,11 +190,9 @@ void *accept_thread(void *accept_sock)
     //the filemanager to communicate with the client and vice versa
     HEADER *msg = (HEADER *)malloc(sizeof(HEADER));
 
-
     //While the client is connect to the system you have to keep the connection
     while(1)
     {
-
         //If connection is established then start communicating //
         //Initialize buffer with zeros //
         bzero(buf, sizeof(buf));
@@ -211,7 +207,7 @@ void *accept_thread(void *accept_sock)
         //Check if direc received a message
         if(strlen(buf) != 0)
         {
-            /*Show the message that received.*/
+            //Show the message that received//
             printf("----------------------------------\n");
             printf("accept_thread received: %s\n", buf);
         }
@@ -222,6 +218,9 @@ void *accept_thread(void *accept_sock)
             pthread_exit((void *) 0);
         }
 
+        //Decode the message that receive from the client
+        //in order to identify the type of the message//
+        decode(buf,msg);
 
         if( strcmp(msg->type , "REQCLIENTID" )== 0)
         {
@@ -234,9 +233,13 @@ void *accept_thread(void *accept_sock)
             }
         }
 
-    }//While 1
+        //print the message that directory sent
+        printf("\nSend:%s\n", buf);
+
+    }//While
 
 }
+
 
 unsigned long registerClient(char *username)
 {
@@ -266,18 +269,18 @@ unsigned long registerClient(char *username)
             //Stop the loop
             break;
         }
-
     }
 
     if(isFound==0)
     {
-
         //Allocate memory for the new entry
         CLIENT *entry = (CLIENT *)malloc(sizeof(CLIENT));
 
+        //Initialize gstring
+        entry->username = g_string_new(NULL);
+
         //Insert the username the metadata table
         g_string_assign( entry->username , g_strdup(username));
-
 
         //Lock strtok due to is not deadlock free
         if(err=pthread_mutex_lock(&lockercliCoun))
@@ -303,10 +306,21 @@ unsigned long registerClient(char *username)
     }
 
     //If it found the client Id return it
-    point2client->client_id;
+    return  point2client->client_id;
 
 }
 
+void initialization()
+{
+    //Initialize metadata array
+    clidata = g_ptr_array_sized_new(10);
+
+    //initialize clientsIDS
+    countClientIds=0;
+
+    //Initialize fileIDS
+    countFileIds=0;
+}
 
 void signal_handler()
 {
@@ -316,7 +330,6 @@ void signal_handler()
     //exit the server
     exit(0);
 }
-
 
 
 int main(int argc , char  *argv[])
@@ -338,6 +351,9 @@ int main(int argc , char  *argv[])
         printf("\nUsage: argv[0] -p [port]\n");
         exit(-1);
     }
+
+    //Initialize
+    initialization();
 
     //Retrieve input parameters
     port=atoi(argv[2]);
