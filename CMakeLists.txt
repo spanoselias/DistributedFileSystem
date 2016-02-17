@@ -11,8 +11,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++")
 
 
 set(DIRECTORY "Directory/directory.c")
-set(CLIENT "Client/client.c" "File Manager/filemanager.c")
+set(CLIENT "Client/client.c")
 set(REPLICA "Replica/replica.c")
+set(FILEMANAGER "FileManager/filemanager.c")
 
 
 add_executable(replica ${REPLICA})
@@ -23,3 +24,6 @@ target_link_libraries(directory ${GCC_COVERAGE_COMPILE_FLAGS} ${GLIB_LIBRARIES})
 
 add_executable(client ${CLIENT})
 target_link_libraries(client ${GCC_COVERAGE_COMPILE_FLAGS} ${GLIB_LIBRARIES})
+
+add_executable(filemanager ${FILEMANAGER})
+target_link_libraries(filemanager ${GCC_COVERAGE_COMPILE_FLAGS} ${GLIB_LIBRARIES})
