@@ -106,7 +106,6 @@ void *accept_thread(void *accept_sock)
     acptsock= ((int)(accept_sock));
 
 
-
     //While the client is connect to the system you have to keep the connection
     while(1)
     {
@@ -126,6 +125,8 @@ void signal_handler()
     //exit the server
     exit(0);
 }
+
+
 
 int main(int argc , char  *argv[])
 {
