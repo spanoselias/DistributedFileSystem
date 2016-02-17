@@ -14,11 +14,15 @@ typedef struct
     unsigned long client_id;
     GString *username;
 
-}CLIENT
+}CLIENT;
 
 
+typedef struct
+{
+    char *type;
+    char *username;
 
-
+}HEADER;
 
 
 

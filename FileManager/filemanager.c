@@ -1,3 +1,13 @@
+/***********************************************************************************/
+/*                                                                                 */
+/*Name: Elias Spanos                                                 			   */
+/*Date: 16/02/2016                                                                 */
+/*Filename: filemanager.c                                                               */
+/*                                                                                 */
+/***********************************************************************************/
+/***********************************************************************************/
+/*                                     LIBRARIES                                   */
+/***********************************************************************************/
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,6 +19,9 @@
 
 #include "filemanager.h"
 
+/***********************************************************************************/
+/*                                   MACROS                                        */
+/***********************************************************************************/
 #define MAXCLIENT 10000
 
 
@@ -26,8 +39,12 @@ GPtrArray *clidata=NULL;
 /***********************************************************************************/
 /*                                      LOCKERS                                    */
 /***********************************************************************************/
-//Lock clientCounter
+//Locker clientCounter
 pthread_mutex_t lockercliCoun;
+
+
+//locker for the decode function
+pthread_mutex_t locker;
 
 
 /***********************************************************************************/
@@ -39,6 +56,38 @@ long countClientIds;
 //Counter for File IDs
 unsigned long countFileIds;
 
+
+/***********************************************************************************/
+/*                                 FUNCTIONS                                       */
+/***********************************************************************************/
+int decode(char *buf , HEADER *header )
+{
+    //Store the thread error if exist
+    int err;
+
+    //Lock strtok due to is not deadlock free//
+    if(err=pthread_mutex_lock(&locker))
+    {
+        perror2("Failed to lock()",err);
+    }
+
+         //Use comma delimiter to find the type of
+         //send message and retrieve the apropriate
+         // fields*/
+         header->type=strdup(strtok(buf, ","));
+
+        if( strcmp(header->type , "REQCLIENTID" )== 0)
+        {
+            header->username=strdup(strtok(NULL,","));
+        }
+
+    //Unloack Mutex//
+    if(err=pthread_mutex_unlock(&locker))
+    {
+        perror2("Failed to lock()",err);
+    }
+
+}
 
 void *bind_thread(void *port)
 {
@@ -135,13 +184,57 @@ void *accept_thread(void *accept_sock)
     //Retrieve the socket that passed from pthread_create
     acptsock= ((int)(accept_sock));
 
+    //Buffer to send&receive data//
+    char buf[256];
+
+    //Received bytes
+    int bytes;
+
+    //Declare the structure of the sending message in order
+    //the filemanager to communicate with the client and vice versa
+    HEADER *msg = (HEADER *)malloc(sizeof(HEADER));
+
 
     //While the client is connect to the system you have to keep the connection
     while(1)
     {
 
+        //If connection is established then start communicating //
+        //Initialize buffer with zeros //
+        bzero(buf, sizeof(buf));
+        //Waiting...to receive data from the client//
+        if (recv(acptsock, buf, sizeof(buf), 0) < 0)
+        {
+            perror("Received() failed!");
+            close(acptsock);
+            pthread_exit((void *) 0);
+        }
+
+        //Check if direc received a message
+        if(strlen(buf) != 0)
+        {
+            /*Show the message that received.*/
+            printf("----------------------------------\n");
+            printf("accept_thread received: %s\n", buf);
+        }
+        else if (strlen(buf) == 0)
+        {
+            //printf("Unable to received messsage!\n");
+            close(acptsock);
+            pthread_exit((void *) 0);
+        }
 
 
+        if( strcmp(msg->type , "REQCLIENTID" )== 0)
+        {
+            bzero(buf,sizeof(buf));
+            //encode the clientID
+            sprintf(buf,"%ld" , registerClient(msg->username );
+            if (send(acptsock, buf, 16 , 0) < 0 )
+            {
+                perror("Send:Unable to send clientID");
+            }
+        }
 
     }//While 1
 
@@ -193,7 +286,6 @@ unsigned long registerClient(char *username)
         {
             perror2("Failed to lock()",err);
         }
-
             //Increase client ID
             countClientIds +=1;
 
@@ -210,21 +302,18 @@ unsigned long registerClient(char *username)
         g_ptr_array_add(clidata, (gpointer) entry );
 
         return entry->client_id;
-
     }
-
 
     //If it found the client Id return it
     point2client->client_id;
-
 
 }
 
 
 void signal_handler()
 {
-    printf("Signal Handled here\n");
 
+    printf("Signal Handled here\n");
 
     //exit the server
     exit(0);
