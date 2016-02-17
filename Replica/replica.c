@@ -21,7 +21,6 @@
 #include <fcntl.h>
 #include <pthread.h>
 
-
 #include "replica.h"
 
 #define BUFSIZE 4098
