@@ -1,0 +1,5 @@
+#!/bin/bash
+#chmod +x run.sh
+
+
+tmux split-window -h prefix + %
