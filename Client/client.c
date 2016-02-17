@@ -21,7 +21,6 @@
 #include <unistd.h>
 #include "client.h"
 
-
 /***********************************************************************************/
 /*                                   MACROS                                        */
 /***********************************************************************************/
@@ -33,7 +32,6 @@
 #define DEVLP //Development mode
 #define DEVMODE
 #define DEVMODEDD
-
 
 #define GINT_TO_POINTER(i) ((gpointer) (glong) (i))
 #define GPOINTER_TO_INT(p) ((gint)  (glong) (p))
@@ -66,7 +64,6 @@ int    MAX_REPLICAS=0;                       //Store the number of replicas that
 int    MAX_FILEMANAGERS;                     //Store the number of filemanagers that exist in the system
 
 long   clientID=0;                           //Store clientID
-
 
 int    failrate=0.10;                        //store the rate for the fail
 
