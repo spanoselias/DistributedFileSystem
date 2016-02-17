@@ -5,9 +5,40 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <netinet/in.h>
+
+#include "filemanager.h"
+
+#define MAXCLIENT 10000
+
 
 //Format for error for the threads
 #define perror2(s,e) fprintf(stderr, "%s:%s\n" , s, strerror(e))
+
+
+/***********************************************************************************/
+/*                             DATA STRUCTURES                                     */
+/***********************************************************************************/
+//Store all usernames for the clients
+GPtrArray *clidata=NULL;
+
+
+/***********************************************************************************/
+/*                                      LOCKERS                                    */
+/***********************************************************************************/
+//Lock clientCounter
+pthread_mutex_t lockercliCoun;
+
+
+/***********************************************************************************/
+/*                                 VARIABLES                                       */
+/***********************************************************************************/
+//Counter for client IDs
+long countClientIds;
+
+//Counter for File IDs
+unsigned long countFileIds;
+
 
 void *bind_thread(void *port)
 {
@@ -93,7 +124,6 @@ void *bind_thread(void *port)
             exit(1);
         }
 
-
     }//While(1)
 
 }
@@ -116,6 +146,80 @@ void *accept_thread(void *accept_sock)
     }//While 1
 
 }
+
+unsigned long registerClient(char *username)
+{
+    //Counter for the index
+    int i=0;
+
+    //Store the error of mutex
+    int err;
+
+    //Check if the username exist in the data
+    int isFound=0;
+
+    //Pointer to the metadata
+     CLIENT *point2client = NULL;
+
+    //Check if the username exist in the array
+    for(i=0; i < clidata->len; i++)
+    {
+        //Retrieve  the data from the specific index
+        point2client = ( CLIENT *) g_ptr_array_index(clidata ,i );
+
+        if(strcmp(username , point2client->username->str)==0)
+        {
+            //Indicate that username exist in the data
+            isFound=1;
+
+            //Stop the loop
+            break;
+        }
+
+    }
+
+    if(isFound==0)
+    {
+
+        //Allocate memory for the new entry
+        CLIENT *entry = (CLIENT *)malloc(sizeof(CLIENT));
+
+        //Insert the username the metadata table
+        g_string_assign( entry->username , g_strdup(username));
+
+
+        //Lock strtok due to is not deadlock free
+        if(err=pthread_mutex_lock(&lockercliCoun))
+        {
+            perror2("Failed to lock()",err);
+        }
+
+            //Increase client ID
+            countClientIds +=1;
+
+            //Store new client ID in the struct
+            entry->client_id = countClientIds;
+
+        //Unloack Mutex
+        if (err = pthread_mutex_unlock(&lockercliCoun))
+        {
+            perror2("Failed to lock()", err);
+        }
+
+        //insert new entry in client data table
+        g_ptr_array_add(clidata, (gpointer) entry );
+
+        return entry->client_id;
+
+    }
+
+
+    //If it found the client Id return it
+    point2client->client_id;
+
+
+}
+
 
 void signal_handler()
 {

@@ -519,7 +519,7 @@ void *accept_thread(void *accept_sock)
              entry->filename=g_string_new(NULL);
 
              //Insert the string the metadata table
-             g_string_assign( entry->filename , msg->filename );
+             g_string_assign( entry->filename ,  g_strdup( msg->filename ) );
 
              //insert new entry in metadata table
              g_ptr_array_add(metatable, (gpointer) entry );
