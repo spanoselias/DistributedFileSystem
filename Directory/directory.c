@@ -547,7 +547,6 @@ void *accept_thread(void *accept_sock)
          }
 
 
-
          if (bytes = send(acpt_sock, buf, strlen(buf), 0) < 0)
          {
              perror("Send() failed");

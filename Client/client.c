@@ -879,7 +879,7 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
     cmd = strtok(cmd_str, " ");
     strcpy(cmdmsg->oper,cmd);
 
-    if(strcmp(cmd,"exit\n") !=0 && strcmp(cmd,"loggin") !=0 )
+    if(strcmp(cmd,"exit\n") !=0 && strcmp(cmd,"loggin") !=0 && strcmp(cmd,"CREATE") !=0 )
     {
         temp=strtok(NULL," ");
         cmdmsg->filename=strdup(strtok(temp,"."));
@@ -911,6 +911,14 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
 
         //Request clientID
         reqClientID(username);
+    }
+    else if(strcmp(cmd , "create" ) == 0)
+    {
+        //Store the filename
+        char *filename;
+
+        filename = strdup(strdup(strtok(NULL," ")));
+        filename[strlen(filename)-1]='\0';
 
     }
 
@@ -1037,6 +1045,28 @@ void reqClientID(char *username)
 
     //Retrieve ClientID
     clientID=atol(strtok(buf, ","));
+}
+
+void reqCreate(char *filename)
+{
+    //Buffer message
+    char buf[60];
+
+    int bytes;
+
+    //Request from the filemanager to set up a client ID
+    sprintf(buf,"REQCREATE,%s,%d" , filename , clientID );
+
+    if (bytes = send(filemanagerSocks[0] , buf, strlen(buf) , 0) < 0)
+    {
+        perror("Send:Unable to request clientID");
+    }
+
+    bzero(buf,sizeof(buf));
+    if (recv(filemanagerSocks[0], buf, sizeof(buf), 0) < 0)
+    {
+        perror("Received() Unable to receive clientID");
+    }
 
 }
 
@@ -1300,7 +1330,6 @@ int send2ftp(struct cmd *msgCmd, int newsock , struct TAG *tagIn , int msgIDIn )
 
     return SUCCESS;
 }
-
 
 void inisialization() 
 {

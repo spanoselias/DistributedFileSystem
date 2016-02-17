@@ -34,6 +34,9 @@
 //Store all usernames for the clients
 GPtrArray *clidata=NULL;
 
+//Store all metadata for the clients
+GPtrArray *metadata=NULL;
+
 /***********************************************************************************/
 /*                                      LOCKERS                                    */
 /***********************************************************************************/
@@ -57,7 +60,7 @@ unsigned long countFileIds;
 /***********************************************************************************/
 /*                                 FUNCTIONS                                       */
 /***********************************************************************************/
-int decode(char *buf , HEADER *header )
+int decode(char *buf , FILEHEADER *header )
 {
     //Store the thread error if exist
     int err;
@@ -67,7 +70,6 @@ int decode(char *buf , HEADER *header )
     {
         perror2("Failed to lock()",err);
     }
-
          //Use comma delimiter to find the type of
          //send message and retrieve the apropriate
          // fields*/
@@ -76,6 +78,11 @@ int decode(char *buf , HEADER *header )
         if( strcmp(header->type , "REQCLIENTID" )== 0)
         {
             header->username=strdup(strtok(NULL,","));
+        }
+        else if( strcmp(header->type , "REQCREATE" )== 0)
+        {
+            header->filename = strdup(strtok(NULL,","));
+            header->owner = strtok(NULL,",");
         }
 
     //Unloack Mutex//
@@ -188,7 +195,7 @@ void *accept_thread(void *accept_sock)
 
     //Declare the structure of the sending message in order
     //the filemanager to communicate with the client and vice versa
-    HEADER *msg = (HEADER *)malloc(sizeof(HEADER));
+    FILEHEADER *msg = (FILEHEADER *)malloc(sizeof(FILEHEADER));
 
     //While the client is connect to the system you have to keep the connection
     while(1)
@@ -232,6 +239,16 @@ void *accept_thread(void *accept_sock)
                 perror("Send:Unable to send clientID");
             }
         }
+        else if( strcmp(msg->type , "REQCREATE" )== 0 )
+        {
+            bzero(buf,sizeof(buf));
+            //encode the clientID
+            sprintf(buf,"%ld" , registerClient(msg->username ));
+            if (send(acptsock, buf, 16 , 0) < 0 )
+            {
+                perror("Send:Unable to send clientID");
+            }
+        }
 
         //print the message that directory sent
         printf("\nSend:%s\n", buf);
@@ -240,8 +257,7 @@ void *accept_thread(void *accept_sock)
 
 }
 
-
-unsigned long registerClient(char *username)
+long registerClient(char *username)
 {
     //Counter for the index
     int i=0;
@@ -330,7 +346,6 @@ void signal_handler()
     //exit the server
     exit(0);
 }
-
 
 int main(int argc , char  *argv[])
 {

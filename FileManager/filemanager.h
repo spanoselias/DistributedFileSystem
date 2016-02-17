@@ -5,9 +5,7 @@
 #ifndef DISTRIBUTEDALGORITHMS_FILEMANAGER_H
 #define DISTRIBUTEDALGORITHMS_FILEMANAGER_H
 
-
 #include <glib.h>
-
 
 typedef struct
 {
@@ -20,13 +18,14 @@ typedef struct
 typedef struct
 {
     char *type;
+    char *filename;
     char *username;
+    long owner;
 
-}HEADER;
-
+}FILEHEADER;
 
 
 void *accept_thread(void *accept_sock);
-unsigned long registerClient(char *username);
+long registerClient(char *username);
 
 #endif //DISTRIBUTEDALGORITHMS_FILEMANAGER_H
