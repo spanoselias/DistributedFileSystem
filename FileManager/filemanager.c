@@ -423,7 +423,7 @@ void signal_handler()
     CLIENT *point2cli = NULL;
 
     //Deallocate all the memory
-    for(int i=0; i < clidata->len; i++)
+    for(i=0; i < clidata->len; i++)
     {
         //Retrieve  the data from the specific index
         point2cli = (CLIENT *) g_ptr_array_index(clidata , i );

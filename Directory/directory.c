@@ -586,10 +586,6 @@ void *accept_thread(void *accept_sock)
 /***********************************************************************************/
 GSList* decode(struct message *msg , char *buf)
 {
-    #ifdef DEVMODED
-        printf("Decode server: %s\n" , buf);
-    #endif
-
     //Store the thread error if exist
     int err;
 
@@ -649,7 +645,6 @@ GSList* decode(struct message *msg , char *buf)
 
 }//Function decode message
 
-
 /***********************************************************************************/
 /*                              WRITE LOG                                          */
 /***********************************************************************************/
@@ -672,6 +667,7 @@ char* set_date()
     return namelog;
 }//Fucntion setDate
 
+
 void signal_handler()
 {
     printf("Signal Handled here\n");
@@ -681,14 +677,14 @@ void signal_handler()
     //Pointer to the metadata
     struct metadata *point2metadata = NULL;
 
-    for(int i=0; i < metatable->len; i++)
+    for(i=0; i < metatable->len; i++)
     {
         //Retrieve  the data from the specific index
         point2metadata = (struct metadata *) g_ptr_array_index(metatable , i );
 
         //deallocations
-        printf("Filename , TagNo , ClientID , Permission \n");
-        printf("[%s, %d , %d , %s  \n" , point2metadata->filename->str , point2metadata->tag.num ,point2metadata->tag.id , point2metadata->permission);
+        printf("[ Filename , TagNo , ClientID , Permission ] \n");
+        printf("[ %s, %d , %d , %s ] \n" , point2metadata->filename->str , point2metadata->tag.num ,point2metadata->tag.id , point2metadata->permission->str);
 
         //deallocate list
         g_slist_free (point2metadata->replicaSet);
