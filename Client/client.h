@@ -47,6 +47,6 @@ struct serinfo
 /*                               FUNCTION PROTOTYPES                               */
 /***********************************************************************************/
 
-
+long reqCreate(char *filename);
 
 #endif //DISTRIBUTEDALGORITHM_CLIENT_H

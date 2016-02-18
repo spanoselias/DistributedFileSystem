@@ -42,6 +42,7 @@ GPtrArray *metadata=NULL;
 /***********************************************************************************/
 //Locker clientCounter
 pthread_mutex_t lockercliCoun;
+pthread_mutex_t lockerFileids;
 
 
 //locker for the decode function
@@ -82,7 +83,7 @@ int decode(char *buf , FILEHEADER *header )
         else if( strcmp(header->type , "REQCREATE" )== 0)
         {
             header->filename = strdup(strtok(NULL,","));
-            header->owner = strtok(NULL,",");
+            header->owner = atol( strtok(NULL,","));
         }
 
     //Unloack Mutex//
@@ -238,16 +239,27 @@ void *accept_thread(void *accept_sock)
             {
                 perror("Send:Unable to send clientID");
             }
+
+            //Deallocations
+            free(msg->username);
         }
         else if( strcmp(msg->type , "REQCREATE" )== 0 )
         {
+            printf("Received Create: %s , owner:%ld\n" , msg->filename ,msg->owner);
+
+            //Store the new file in the metadata
+            //Also , retrieve the fileID for the file
+            unsigned long fileid = registerFile(msg->filename , msg->owner );
+
             bzero(buf,sizeof(buf));
             //encode the clientID
-            sprintf(buf,"%ld" , registerClient(msg->username ));
-            if (send(acptsock, buf, 16 , 0) < 0 )
+            sprintf(buf,"%ld" , fileid );
+            if (send(acptsock, buf, sizeof(buf) , 0) < 0 )
             {
-                perror("Send:Unable to send clientID");
+               perror("Send:Unable to send clientID");
             }
+            //Deallocations
+            free(msg->filename);
         }
 
         //print the message that directory sent
@@ -323,13 +335,59 @@ long registerClient(char *username)
 
     //If it found the client Id return it
     return  point2client->client_id;
+}
 
+long registerFile(char *filename , long owner)
+{
+    //Counter for the index
+    int i=0;
+
+    //Store the error of mutex
+    int err;
+
+    //Allocate memory for the new entry
+    METADATA *entry = (METADATA *)malloc(sizeof(METADATA));
+
+    //Initialize gstring
+    entry->filename = g_string_new(NULL);
+
+    //Insert the filename the metadata table
+    g_string_assign( entry->filename , g_strdup(filename));
+
+    //Insert create of the file in the metadata
+    entry->owner = owner;
+
+    //Lock strtok due to is not deadlock free
+    if(err=pthread_mutex_lock(&lockerFileids))
+    {
+        perror2("Failed to lock()",err);
+    }
+        //Increase counter for fileIds
+        countFileIds +=1;
+
+    //Store new client ID in the struct
+    entry->fileid = countClientIds;
+
+    //Unloack Mutex
+    if (err = pthread_mutex_unlock(&lockerFileids))
+    {
+        perror2("Failed to lock()", err);
+    }
+
+    //insert new entry in client data table
+    g_ptr_array_add(metadata, (gpointer) entry );
+
+    //Return the new fileID for the file
+    return entry->fileid;
 }
 
 void initialization()
 {
     //Initialize metadata array
     clidata = g_ptr_array_sized_new(10);
+
+    //Store metadata for all the files
+    metadata = g_ptr_array_sized_new(100);
 
     //initialize clientsIDS
     countClientIds=0;
@@ -340,8 +398,56 @@ void initialization()
 
 void signal_handler()
 {
-
     printf("Signal Handled here\n");
+
+    int i=0;
+
+    printf("\nd****************************************\n");
+    printf("CLIENTS CREDENTIALS\n");
+    printf("****************************************\n");
+
+    //Pointer to the metadata
+    CLIENT *point2cli = NULL;
+
+    //Deallocate all the memory
+    for(int i=0; i < clidata->len; i++)
+    {
+        //Retrieve  the data from the specific index
+        point2cli = (CLIENT *) g_ptr_array_index(clidata , i );
+
+        //deallocations
+        printf("Username: %s , ClientID: %ld \n" , point2cli->username->str , point2cli->client_id );
+
+        //deallocate filename
+        g_string_free (point2cli->username, TRUE);
+
+        //deallocate struct
+        free(point2cli);
+    }
+
+    //Point to metadata array
+    METADATA *point2meta = NULL;
+
+
+    printf("\n****************************************\n");
+    printf("FILES METADATA CREDENTIALS\n");
+    printf("****************************************\n");
+
+    //Deallocate all the memory
+    for(int i=0; i < metadata->len; i++)
+    {
+        //Retrieve  the data from the specific index
+        point2meta = (METADATA *) g_ptr_array_index(metadata , i );
+
+        //deallocations
+        printf("Filename: %s , Fileid: %lu , owner: %ld \n" , point2meta->filename->str , point2meta->fileid , point2meta->owner );
+
+        //deallocate filename
+        g_string_free (point2meta->filename , TRUE);
+
+        //deallocate struct
+        free(point2meta);
+    }
 
     //exit the server
     exit(0);

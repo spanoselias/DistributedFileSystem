@@ -876,7 +876,7 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
     cmd = strtok(cmd_str, " ");
     strcpy(cmdmsg->oper,cmd);
 
-    if(strcmp(cmd,"exit\n") !=0 && strcmp(cmd,"loggin") !=0 && strcmp(cmd,"CREATE") !=0 )
+    if(strcmp(cmd,"exit\n") !=0 && strcmp(cmd,"loggin") !=0 && strcmp(cmd,"create") !=0 )
     {
         temp=strtok(NULL," ");
         cmdmsg->filename=strdup(strtok(temp,"."));
@@ -908,6 +908,9 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
 
         //Request clientID
         reqClientID(username);
+
+        //Deallocate
+         free(username);
     }
     else if(strcmp(cmd , "create" ) == 0)
     {
@@ -916,8 +919,14 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
 
         filename = strdup(strdup(strtok(NULL," ")));
         filename[strlen(filename)-1]='\0';
-    }
 
+        long fileid = reqCreate(filename);
+
+        printf("Create executed! FileID: %ld" , fileid);
+
+        //Deallocate
+        free(filename);
+    }
 
     //deallocate
     free(cmdmsg->filename);
@@ -1043,12 +1052,16 @@ void reqClientID(char *username)
     clientID=atol(strtok(buf, ","));
 }
 
-void reqCreate(char *filename)
+long reqCreate(char *filename)
 {
     //Buffer message
     char buf[60];
 
+    //Store the number of bytes that sent via socket
     int bytes;
+
+    //Store the fileid for the file that it create
+    long fileid;
 
     //Request from the filemanager to set up a client ID
     sprintf(buf,"REQCREATE,%s,%d" , filename , clientID );
@@ -1058,12 +1071,16 @@ void reqCreate(char *filename)
         perror("Send:Unable to request clientID");
     }
 
-/*  bzero(buf,sizeof(buf));
+    bzero(buf,sizeof(buf));
     if (recv(filemanagerSocks[0], buf, sizeof(buf), 0) < 0)
     {
         perror("Received() Unable to receive clientID");
-    }*/
+    }
 
+    //store the fileid
+    fileid=atol(buf);
+
+    return fileid;
 }
 
 /***********************************************************************************/
