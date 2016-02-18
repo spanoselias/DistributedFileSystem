@@ -21,6 +21,7 @@
 #include <unistd.h>
 #include "client.h"
 
+
 /***********************************************************************************/
 /*                                   MACROS                                        */
 /***********************************************************************************/
@@ -204,9 +205,6 @@ GSList* decode(struct message *msg , char *buf)
 /***********************************************************************************/
 void encode(struct message *msg , char *buf , char *type)
 {
-    #ifdef DEVMODED
-         printf("Client Encoding type:%s  " , type);
-    #endif
 
     bzero(buf,sizeof(buf));
 
@@ -287,7 +285,7 @@ void encode(struct message *msg , char *buf , char *type)
 
     else if( (strcmp(type , "WREAD" )== 0))
     {
-        sprintf(buf,"%s,%d,%s" ,type , message_id , msg->filename);
+        sprintf(buf,"%s,%d,%s,L1" ,type , message_id , msg->filename ) ;
     }
 
 

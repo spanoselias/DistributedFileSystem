@@ -95,7 +95,6 @@ long clientCounter()
 //Store all the metadata information by fileID
 GPtrArray *metatable=NULL;
 
-
 //Find the index of metadata for specific fileID
 int findByFileID(char *filename , int *freePos)
 {
@@ -120,7 +119,6 @@ int findByFileID(char *filename , int *freePos)
 
    return index;
 }
-
 
 GSList * insertList(GSList *metadata , GSList *curList )
 {
@@ -517,6 +515,7 @@ void *accept_thread(void *accept_sock)
              entry->tag.id  = 0;
              entry->replicaSet=NULL;
              entry->filename=g_string_new(NULL);
+             entry->permission=g_string_new(NULL);
 
              //Insert the string the metadata table
              g_string_assign( entry->filename ,  g_strdup( msg->filename ) );
@@ -527,6 +526,8 @@ void *accept_thread(void *accept_sock)
              //Find the index of the new entry
              index = findByFileID(msg->filename, &freepos);
 
+             //Store permission for the file
+             g_string_assign( entry->permission ,  g_strdup( msg->permission ) );
 
              //Pointer to the metadata
              struct metadata *point2metadata = NULL;
@@ -606,7 +607,7 @@ GSList* decode(struct message *msg , char *buf)
          * fields*/
         msg->type=strdup(strtok(buf, ","));
 
-        /*Check if the type of the message is RWRITE*/
+        //Check if the type of the message is RWRITE//
         if( (strcmp(msg->type , "RWRITE" )== 0) || (strcmp(msg->type , "WWRITE" )== 0) )
             {
                 int i=0 , len = 0 , repliValue;
@@ -625,7 +626,7 @@ GSList* decode(struct message *msg , char *buf)
                 msg->filename=strdup(strtok(NULL,","));
                 replicaSet = msg->replicaSet;
             }
-        /*Check if the type of the message is RREAD*/
+        //Check if the type of the message is RREAD//
         else if(strcmp(msg->type , "RREAD" )== 0)
         {
             msg->msg_id=atoi(strtok(NULL,","));
@@ -635,9 +636,10 @@ GSList* decode(struct message *msg , char *buf)
         {
             msg->msg_id=atoi(strtok(NULL,","));
             msg->filename=strdup(strtok(NULL,","));
+            msg->permission = strdup(strtok(NULL,","));
         }
 
-    /*Unloack Mutex*/
+    //Unloack Mutex//
     if(err=pthread_mutex_unlock(&locker))
     {
         perror2("Failed to lock()",err);
@@ -685,7 +687,8 @@ void signal_handler()
         point2metadata = (struct metadata *) g_ptr_array_index(metatable , i );
 
         //deallocations
-        printf("filename: %s , tagNum:%d  , clinetID:%d \n" , point2metadata->filename->str , point2metadata->tag.num ,point2metadata->tag.id);
+        printf("Filename , TagNo , ClientID , Permission \n");
+        printf("[%s, %d , %d , %s  \n" , point2metadata->filename->str , point2metadata->tag.num ,point2metadata->tag.id , point2metadata->permission);
 
         //deallocate list
         g_slist_free (point2metadata->replicaSet);
@@ -693,15 +696,16 @@ void signal_handler()
         //deallocate filename
         g_string_free (point2metadata->filename, TRUE);
 
+        //deallocate permission string
+        g_string_free (point2metadata->permission, TRUE);
+
         //deallocate struct
         free(point2metadata);
-
     }
 
     //exit the server
     exit(0);
 }
-
 
 /***********************************************************************************/
 /*                                  MAIN                                           */
@@ -735,14 +739,14 @@ int main(int argc , char *argv[])
     /*store the port from the inputs*/
     port = atoi(argv[2]);
 
-
     //Inisialization
     inisializations(port);
 
 
     // SIGINT is signal name create  when Ctrl+c will pressed
     signal(SIGINT,signal_handler);
-
+    //Handle segmentation corrupt
+    signal(SIGSEGV, signal_handler);
 
     printf("----------------------------------------------------------");
     printf("\nDirectory: starting on port: %d...\n" ,  port);

@@ -2,7 +2,7 @@
 /*                                                                                 */
 /*Name: Elias Spanos                                                 			   */
 /*Date: 09/10/2015                                                                 */
-/*Filename:directory.h                                                               */
+/*Filename:directory.h                                                             */
 /*                                                                                 */
 /***********************************************************************************/
 #ifndef DISTRIBUTEDALGORITHM_DIRECTORY_H
@@ -12,7 +12,6 @@
 
 void *bind_thread(void *port);
 void *accept_thread(void *accept_sock);
-
 
 struct tagID
 {
@@ -28,11 +27,13 @@ struct message
     struct tagID  tag;
     int fileID;
     char *filename;
+    char *permission;
 };
 
 struct metadata
 {
     int  file_id;
+    GString* permission;
     struct tagID  tag;
     GSList* replicaSet;
     GString *filename;

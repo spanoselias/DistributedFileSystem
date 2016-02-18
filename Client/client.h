@@ -28,6 +28,7 @@ struct message
     char *filetype;
     unsigned int fileSize;
     char *checksum;
+    char *permission;
 };
 
 struct cmd
