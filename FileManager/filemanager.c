@@ -242,6 +242,8 @@ void *accept_thread(void *accept_sock)
             //Also , retrieve the fileID for the file
             unsigned long fileid = registerFile(msg->filename , msg->owner );
 
+            printf("RegisterFile Function return: %ld \n" , fileid);
+
             bzero(buf,sizeof(buf));
             //encode the clientID
             sprintf(buf,"%ld" , fileid );
@@ -336,6 +338,9 @@ long registerFile(char *filename , long owner)
     //Store the error of mutex
     int err;
 
+    //Store the fileid
+    long tmpfileid=0;
+
     //Allocate memory for the new entry
     METADATA *entry = (METADATA *)malloc(sizeof(METADATA));
 
@@ -356,10 +361,13 @@ long registerFile(char *filename , long owner)
         //Increase counter for fileIds
         countFileIds +=1;
 
+        //Copy fileid for consistence purpose
+        tmpfileid = countFileIds;
+
         printf("Function registerFile: %ld\n" , countFileIds);
 
     //Store new client ID in the struct
-    entry->fileid = countClientIds;
+    entry->fileid = tmpfileid;
 
     //Unloack Mutex
     if (err = pthread_mutex_unlock(&lockerFileids))
@@ -373,7 +381,7 @@ long registerFile(char *filename , long owner)
     printf("entry fileid: %ld\n" , entry->fileid);
 
     //Return the new fileID for the file
-    return entry->fileid;
+    return  entry->fileid;
 }
 
 void initialization()

@@ -1077,6 +1077,8 @@ long reqCreate(char *filename)
         perror("Received() Unable to receive clientID");
     }
 
+    printf("ReqCreate Received: %s\n" , buf );
+
     //store the fileid
     fileid=atol(buf);
 
