@@ -15,12 +15,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="074f1195-62a4-43e6-a1db-a48c9186e3a6" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Client/config2.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Client/readers1.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Client/settings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Client/tmux.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Client/writers1.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Client/writers100.sh" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/permission.txt" afterPath="$PROJECT_DIR$/Client/permission.txt" />
     </list>
@@ -42,7 +36,7 @@
     <favorites_list name="DistributedSystems" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.44520977">
+    <splitter split-orientation="horizontal" split-proportion="0.5917603">
       <split-first>
         <leaf>
           <file leaf-file-name="filemanager.c" pinned="false" current-in-tab="false">
@@ -91,16 +85,17 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="directory.c" pinned="false" current-in-tab="true">
+          <file leaf-file-name="directory.c" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Directory/directory.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.5839793">
-                  <caret line="199" column="32" selection-start-line="199" selection-start-column="32" selection-end-line="199" selection-end-column="32" />
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="90" column="0" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
                   <folding>
                     <element signature="e#2450#2970#0" expanded="false" />
                     <element signature="e#3307#3895#0" expanded="false" />
                     <element signature="e#3898#4280#0" expanded="false" />
                     <element signature="e#4282#5841#0" expanded="false" />
+                    <element signature="e#6015#6569#0" expanded="false" />
                     <element signature="e#6743#9083#0" expanded="false" />
                     <element signature="e#9275#18235#0" expanded="false" />
                     <element signature="e#18409#20476#0" expanded="false" />
@@ -108,6 +103,16 @@
                     <element signature="e#21084#21385#0" expanded="false" />
                     <element signature="e#21405#22174#0" expanded="false" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="directory.h" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/Directory/directory.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-0.13953489">
+                  <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -158,17 +163,17 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="permission.txt" pinned="false" current-in-tab="false">
+          <file leaf-file-name="permission.txt" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Client/permission.txt">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.023255814">
+                  <caret line="1" column="2" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="2" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="config.txt" pinned="false" current-in-tab="true">
+          <file leaf-file-name="config.txt" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Client/config.txt">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
@@ -271,49 +276,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Replica" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DistributedSystems" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DistributedSystems" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FileManager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DistributedSystems" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DistributedSystems" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="Directory" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DistributedSystems" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DistributedSystems" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Client" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -478,14 +441,20 @@
       <option name="project" value="LOCAL" />
       <updated>1455815623657</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="#re-organize files&amp;Scripts">
+      <created>1455816030624</created>
+      <option name="number" value="00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1455816030624</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17740175" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14628822" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20229405" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295099" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -520,7 +489,8 @@
     <MESSAGE value="#fixingCreatePhaseOfClient" />
     <MESSAGE value="#fixingRegisterFileFunction" />
     <MESSAGE value="#fixedFileGreateFunction" />
-    <option name="LAST_COMMIT_MESSAGE" value="#fixedFileGreateFunction" />
+    <MESSAGE value="#re-organize files&amp;Scripts" />
+    <option name="LAST_COMMIT_MESSAGE" value="#re-organize files&amp;Scripts" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -548,7 +518,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="21" />
+      <option name="time" value="22" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -641,14 +611,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/permission.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client/config.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -659,13 +621,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Directory/directory.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5839793">
-          <caret line="199" column="32" selection-start-line="199" selection-start-column="32" selection-end-line="199" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="90" column="0" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
           <folding>
             <element signature="e#2450#2970#0" expanded="false" />
             <element signature="e#3307#3895#0" expanded="false" />
             <element signature="e#3898#4280#0" expanded="false" />
             <element signature="e#4282#5841#0" expanded="false" />
+            <element signature="e#6015#6569#0" expanded="false" />
             <element signature="e#6743#9083#0" expanded="false" />
             <element signature="e#9275#18235#0" expanded="false" />
             <element signature="e#18409#20476#0" expanded="false" />
@@ -673,6 +636,22 @@
             <element signature="e#21084#21385#0" expanded="false" />
             <element signature="e#21405#22174#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Directory/directory.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.13953489">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/permission.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.023255814">
+          <caret line="1" column="2" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="2" />
+          <folding />
         </state>
       </provider>
     </entry>
