@@ -916,7 +916,6 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
 
         filename = strdup(strdup(strtok(NULL," ")));
         filename[strlen(filename)-1]='\0';
-
     }
 
 
@@ -1059,11 +1058,11 @@ void reqCreate(char *filename)
         perror("Send:Unable to request clientID");
     }
 
-    bzero(buf,sizeof(buf));
+/*  bzero(buf,sizeof(buf));
     if (recv(filemanagerSocks[0], buf, sizeof(buf), 0) < 0)
     {
         perror("Received() Unable to receive clientID");
-    }
+    }*/
 
 }
 
