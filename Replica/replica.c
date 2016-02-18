@@ -1350,6 +1350,8 @@ int main(int argc , char  *argv[])
 
     // SIGINT is signal name create  when Ctrl+c will pressed
     signal(SIGINT,signal_handler);
+    //Handle segmentation corrupt
+    signal(SIGSEGV, signal_handler);
 
     //Create a thread for the bind.
     if(err=pthread_create(&tid , NULL ,(void *) &bind_thread , (void *)port))

@@ -247,7 +247,7 @@ void *accept_thread(void *accept_sock)
             bzero(buf,sizeof(buf));
             //encode the clientID
             sprintf(buf,"%ld" , fileid );
-            if (send(acptsock, buf, sizeof(buf) , 0) < 0 )
+            if (send(acptsock, buf, 64 , 0) < 0 )
             {
                perror("Send:Unable to send clientID");
             }
@@ -498,6 +498,8 @@ int main(int argc , char  *argv[])
 
     // SIGINT is signal name create  when Ctrl+c will pressed
     signal(SIGINT,signal_handler);
+    //Handle segmentation corrupt
+    signal(SIGSEGV, signal_handler);
 
     //Create a thread for the bind.
     if(err=pthread_create(&tid , NULL ,(void *) &bind_thread , (void *)port))

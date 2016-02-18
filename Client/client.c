@@ -1072,7 +1072,7 @@ long reqCreate(char *filename)
     }
 
     bzero(buf,sizeof(buf));
-    if (recv(filemanagerSocks[0], buf, sizeof(buf), 0) < 0)
+    if (recv(filemanagerSocks[0], buf, 64, 0) < 0)
     {
         perror("Received() Unable to receive clientID");
     }
