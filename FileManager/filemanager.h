@@ -32,6 +32,17 @@ typedef struct
 }METADATA;
 
 
+/***********************************************************************************/
+/*                                 VARIABLES                                       */
+/***********************************************************************************/
+//Counter for client IDs
+long countClientIds;
+
+//Counter for File IDs
+long countFileIds;
+
+
+
 void *accept_thread(void *accept_sock);
 long registerClient(char *username);
 long registerFile(char *filename , long owner);

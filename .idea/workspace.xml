@@ -15,11 +15,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="074f1195-62a4-43e6-a1db-a48c9186e3a6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/cli" afterPath="$PROJECT_DIR$/Client/cli" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FileManager/fil" afterPath="$PROJECT_DIR$/FileManager/fil" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/client.c" afterPath="$PROJECT_DIR$/Client/client.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/client.h" afterPath="$PROJECT_DIR$/Client/client.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FileManager/filemanager.c" afterPath="$PROJECT_DIR$/FileManager/filemanager.c" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FileManager/filemanager.h" afterPath="$PROJECT_DIR$/FileManager/filemanager.h" />
     </list>
@@ -41,23 +38,23 @@
     <favorites_list name="DistributedSystems" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5086849">
+    <splitter split-orientation="horizontal" split-proportion="0.4931762">
       <split-first>
         <leaf>
           <file leaf-file-name="filemanager.c" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/FileManager/filemanager.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.39857143">
-                  <caret line="247" column="84" selection-start-line="247" selection-start-column="84" selection-end-line="247" selection-end-column="84" />
+                <state vertical-scroll-proportion="0.00538358">
+                  <caret line="175" column="0" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
                   <folding>
                     <element signature="e#857#877#0" expanded="true" />
-                    <element signature="e#2756#3692#0" expanded="false" />
-                    <element signature="e#3694#5825#0" expanded="false" />
-                    <element signature="e#8527#10223#0" expanded="false" />
-                    <element signature="e#10225#11290#0" expanded="false" />
-                    <element signature="e#11292#11570#0" expanded="false" />
-                    <element signature="e#11572#13098#0" expanded="false" />
-                    <element signature="e#13100#14330#0" expanded="false" />
+                    <element signature="e#2399#3335#0" expanded="false" />
+                    <element signature="e#3337#5468#0" expanded="false" />
+                    <element signature="e#5470#8168#0" expanded="false" />
+                    <element signature="e#8170#9866#0" expanded="false" />
+                    <element signature="e#11051#11639#0" expanded="false" />
+                    <element signature="e#11641#13167#0" expanded="false" />
+                    <element signature="e#13169#14399#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -67,18 +64,18 @@
             <entry file="file://$PROJECT_DIR$/Directory/directory.c">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="698" column="5" selection-start-line="698" selection-start-column="5" selection-end-line="698" selection-end-column="5" />
+                  <caret line="211" column="45" selection-start-line="207" selection-start-column="3" selection-end-line="211" selection-end-column="45" />
                   <folding>
                     <element signature="e#2450#2970#0" expanded="false" />
                     <element signature="e#3307#3895#0" expanded="false" />
                     <element signature="e#3898#4280#0" expanded="false" />
                     <element signature="e#4282#5841#0" expanded="false" />
-                    <element signature="e#6015#6569#0" expanded="false" />
                     <element signature="e#6743#9083#0" expanded="false" />
                     <element signature="e#9275#18235#0" expanded="false" />
                     <element signature="e#18409#20476#0" expanded="false" />
                     <element signature="e#20676#20891#0" expanded="false" />
                     <element signature="e#21084#21385#0" expanded="false" />
+                    <element signature="e#21405#22174#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -88,7 +85,7 @@
             <entry file="file://$PROJECT_DIR$/FileManager/filemanager.h">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="19" column="15" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
+                  <caret line="41" column="18" selection-start-line="41" selection-start-column="18" selection-end-line="41" selection-end-column="18" />
                   <folding />
                 </state>
               </provider>
@@ -101,7 +98,7 @@
           <file leaf-file-name="client.c" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Client/client.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.4391245">
+                <state vertical-scroll-proportion="1.3914728">
                   <caret line="1071" column="5" selection-start-line="1071" selection-start-column="5" selection-end-line="1071" selection-end-column="5" />
                   <folding>
                     <element signature="e#4088#4284#0" expanded="false" />
@@ -149,8 +146,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Client/client.h" />
-        <option value="$PROJECT_DIR$/FileManager/filemanager.h" />
         <option value="$PROJECT_DIR$/Client/client.c" />
+        <option value="$PROJECT_DIR$/FileManager/filemanager.h" />
         <option value="$PROJECT_DIR$/FileManager/filemanager.c" />
       </list>
     </option>
@@ -388,7 +385,13 @@
       <option name="project" value="LOCAL" />
       <updated>1455792762420</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="#fixingCreatePhaseOfClient">
+      <created>1455805382868</created>
+      <option name="number" value="00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1455805382868</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -401,9 +404,9 @@
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295099" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15849844" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1616267" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20646507" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20646507" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38373306" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -427,7 +430,8 @@
     <MESSAGE value="#extendingClient" />
     <MESSAGE value="#ClientGeneration,BugFixed" />
     <MESSAGE value="#implementingCreateFileManager" />
-    <option name="LAST_COMMIT_MESSAGE" value="#implementingCreateFileManager" />
+    <MESSAGE value="#fixingCreatePhaseOfClient" />
+    <option name="LAST_COMMIT_MESSAGE" value="#fixingCreatePhaseOfClient" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -448,7 +452,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/FileManager/filemanager.c</url>
-          <line>245</line>
+          <line>236</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
@@ -460,25 +464,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Directory/directory.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="698" column="5" selection-start-line="698" selection-start-column="5" selection-end-line="698" selection-end-column="5" />
-          <folding>
-            <element signature="e#2450#2970#0" expanded="false" />
-            <element signature="e#3307#3895#0" expanded="false" />
-            <element signature="e#3898#4280#0" expanded="false" />
-            <element signature="e#4282#5841#0" expanded="false" />
-            <element signature="e#6015#6569#0" expanded="false" />
-            <element signature="e#6743#9083#0" expanded="false" />
-            <element signature="e#9275#18235#0" expanded="false" />
-            <element signature="e#18409#20476#0" expanded="false" />
-            <element signature="e#20676#20891#0" expanded="false" />
-            <element signature="e#21084#21385#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client/client.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -487,17 +472,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FileManager/filemanager.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="15" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client/client.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4391245">
+        <state vertical-scroll-proportion="1.3914728">
           <caret line="1071" column="5" selection-start-line="1071" selection-start-column="5" selection-end-line="1071" selection-end-column="5" />
           <folding>
             <element signature="e#4088#4284#0" expanded="false" />
@@ -523,19 +500,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Directory/directory.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="211" column="45" selection-start-line="207" selection-start-column="3" selection-end-line="211" selection-end-column="45" />
+          <folding>
+            <element signature="e#2450#2970#0" expanded="false" />
+            <element signature="e#3307#3895#0" expanded="false" />
+            <element signature="e#3898#4280#0" expanded="false" />
+            <element signature="e#4282#5841#0" expanded="false" />
+            <element signature="e#6743#9083#0" expanded="false" />
+            <element signature="e#9275#18235#0" expanded="false" />
+            <element signature="e#18409#20476#0" expanded="false" />
+            <element signature="e#20676#20891#0" expanded="false" />
+            <element signature="e#21084#21385#0" expanded="false" />
+            <element signature="e#21405#22174#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FileManager/filemanager.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="41" column="18" selection-start-line="41" selection-start-column="18" selection-end-line="41" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/FileManager/filemanager.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39857143">
-          <caret line="247" column="84" selection-start-line="247" selection-start-column="84" selection-end-line="247" selection-end-column="84" />
+        <state vertical-scroll-proportion="0.00538358">
+          <caret line="175" column="0" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
           <folding>
             <element signature="e#857#877#0" expanded="true" />
-            <element signature="e#2756#3692#0" expanded="false" />
-            <element signature="e#3694#5825#0" expanded="false" />
-            <element signature="e#8527#10223#0" expanded="false" />
-            <element signature="e#10225#11290#0" expanded="false" />
-            <element signature="e#11292#11570#0" expanded="false" />
-            <element signature="e#11572#13098#0" expanded="false" />
-            <element signature="e#13100#14330#0" expanded="false" />
+            <element signature="e#2399#3335#0" expanded="false" />
+            <element signature="e#3337#5468#0" expanded="false" />
+            <element signature="e#5470#8168#0" expanded="false" />
+            <element signature="e#8170#9866#0" expanded="false" />
+            <element signature="e#11051#11639#0" expanded="false" />
+            <element signature="e#11641#13167#0" expanded="false" />
+            <element signature="e#13169#14399#0" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -50,15 +50,6 @@ pthread_mutex_t locker;
 
 
 /***********************************************************************************/
-/*                                 VARIABLES                                       */
-/***********************************************************************************/
-//Counter for client IDs
-long countClientIds;
-
-//Counter for File IDs
-unsigned long countFileIds;
-
-/***********************************************************************************/
 /*                                 FUNCTIONS                                       */
 /***********************************************************************************/
 int decode(char *buf , FILEHEADER *header )
@@ -365,6 +356,8 @@ long registerFile(char *filename , long owner)
         //Increase counter for fileIds
         countFileIds +=1;
 
+        printf("Function registerFile: %ld\n" , countFileIds);
+
     //Store new client ID in the struct
     entry->fileid = countClientIds;
 
@@ -376,6 +369,8 @@ long registerFile(char *filename , long owner)
 
     //insert new entry in client data table
     g_ptr_array_add(metadata, (gpointer) entry );
+
+    printf("entry fileid: %ld\n" , entry->fileid);
 
     //Return the new fileID for the file
     return entry->fileid;
@@ -394,6 +389,16 @@ void initialization()
 
     //Initialize fileIDS
     countFileIds=0;
+
+    //Initialization of mutex for strtok in decode function//
+    pthread_mutex_init(&locker,NULL);
+
+    //Initialization of mutex for lock the metadata table
+    pthread_mutex_init(&lockercliCoun,NULL);
+
+    //Initialization of mutex for lock the metadata table
+    pthread_mutex_init(&lockerFileids,NULL);
+
 }
 
 void signal_handler()
