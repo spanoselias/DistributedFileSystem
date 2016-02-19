@@ -14,15 +14,8 @@
     </ADDITIONAL_GENERATION_ENVIRONMENT>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="074f1195-62a4-43e6-a1db-a48c9186e3a6" name="Default" comment="#implementing_reqFileID function">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Directory/dir" afterPath="$PROJECT_DIR$/Directory/dir" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FileManager/fil" afterPath="$PROJECT_DIR$/FileManager/fil" />
+    <list default="true" id="074f1195-62a4-43e6-a1db-a48c9186e3a6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/client.c" afterPath="$PROJECT_DIR$/Client/client.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/client.h" afterPath="$PROJECT_DIR$/Client/client.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Directory/directory.c" afterPath="$PROJECT_DIR$/Directory/directory.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FileManager/filemanager.c" afterPath="$PROJECT_DIR$/FileManager/filemanager.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FileManager/filemanager.h" afterPath="$PROJECT_DIR$/FileManager/filemanager.h" />
     </list>
     <ignored path="DistributedSystems.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -468,14 +461,20 @@
       <option name="project" value="LOCAL" />
       <updated>1455891456005</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="#implementing_reqFileID function">
+      <created>1455896739052</created>
+      <option name="number" value="00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1455896739052</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20796943" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12117904" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20229405" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295099" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
