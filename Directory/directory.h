@@ -25,14 +25,14 @@ struct message
     int  msg_id;
     GSList* replicaSet;
     struct tagID  tag;
-    int fileID;
+    long fileID;
     char *filename;
     char *permission;
 };
 
 struct metadata
 {
-    int  file_id;
+    long  file_id;
     GString* permission;
     struct tagID  tag;
     GSList* replicaSet;

@@ -16,6 +16,7 @@
   <component name="ChangeListManager">
     <list default="true" id="074f1195-62a4-43e6-a1db-a48c9186e3a6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Directory/directory.h" afterPath="$PROJECT_DIR$/Directory/directory.h" />
     </list>
     <ignored path="DistributedSystems.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -69,8 +70,8 @@
           <file leaf-file-name="directory.c" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Directory/directory.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-15.4838705">
-                  <caret line="622" column="53" selection-start-line="622" selection-start-column="53" selection-end-line="622" selection-end-column="53" />
+                <state vertical-scroll-proportion="-13.741936">
+                  <caret line="622" column="34" selection-start-line="622" selection-start-column="30" selection-end-line="622" selection-end-column="34" />
                   <folding>
                     <element signature="e#2450#2970#0" expanded="false" />
                     <element signature="e#3306#3894#0" expanded="false" />
@@ -85,21 +86,21 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="directory.h" pinned="false" current-in-tab="false">
+          <file leaf-file-name="directory.h" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Directory/directory.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="29" column="21" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="21" />
+                <state vertical-scroll-proportion="0.6054334">
+                  <caret line="26" column="22" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="client.c" pinned="false" current-in-tab="true">
+          <file leaf-file-name="client.c" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Client/client.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.47708896">
-                  <caret line="255" column="5" selection-start-line="255" selection-start-column="5" selection-end-line="255" selection-end-column="5" />
+                <state vertical-scroll-proportion="1.1612903">
+                  <caret line="639" column="4" selection-start-line="639" selection-start-column="4" selection-end-line="639" selection-end-column="4" />
                   <folding>
                     <element signature="e#852#870#0" expanded="true" />
                     <element signature="e#4089#4285#0" expanded="false" />
@@ -111,6 +112,7 @@
                     <element signature="e#18386#19853#0" expanded="false" />
                     <element signature="e#20027#22105#0" expanded="false" />
                     <element signature="e#22279#23028#0" expanded="false" />
+                    <element signature="e#23220#29068#0" expanded="false" />
                     <element signature="e#29259#29498#0" expanded="false" />
                     <element signature="e#31575#34155#0" expanded="false" />
                     <element signature="e#34157#34704#0" expanded="false" />
@@ -183,13 +185,13 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Client/permission.txt" />
-        <option value="$PROJECT_DIR$/Directory/directory.h" />
         <option value="$PROJECT_DIR$/Replica/replica.c" />
         <option value="$PROJECT_DIR$/Client/client.h" />
         <option value="$PROJECT_DIR$/FileManager/filemanager.c" />
         <option value="$PROJECT_DIR$/FileManager/filemanager.h" />
         <option value="$PROJECT_DIR$/Directory/directory.c" />
         <option value="$PROJECT_DIR$/Client/client.c" />
+        <option value="$PROJECT_DIR$/Directory/directory.h" />
       </list>
     </option>
   </component>
@@ -257,7 +259,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Scripts" />
+              <option name="myItemId" value="Directory" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -467,14 +469,20 @@
       <option name="project" value="LOCAL" />
       <updated>1455896739052</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="#implementing_reqFileID function">
+      <created>1455898877925</created>
+      <option name="number" value="00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1455898877925</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12117904" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.09661572" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20229405" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295099" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -614,36 +622,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Directory/directory.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="21" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FileManager/filemanager.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Directory/directory.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.4838705">
-          <caret line="622" column="53" selection-start-line="622" selection-start-column="53" selection-end-line="622" selection-end-column="53" />
-          <folding>
-            <element signature="e#2450#2970#0" expanded="false" />
-            <element signature="e#3306#3894#0" expanded="false" />
-            <element signature="e#3896#4278#0" expanded="false" />
-            <element signature="e#4280#5839#0" expanded="false" />
-            <element signature="e#6013#6567#0" expanded="false" />
-            <element signature="e#6741#9081#0" expanded="false" />
-            <element signature="e#21292#21593#0" expanded="false" />
-            <element signature="e#21614#22596#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -665,8 +648,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/client.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47708896">
-          <caret line="255" column="5" selection-start-line="255" selection-start-column="5" selection-end-line="255" selection-end-column="5" />
+        <state vertical-scroll-proportion="1.1612903">
+          <caret line="639" column="4" selection-start-line="639" selection-start-column="4" selection-end-line="639" selection-end-column="4" />
           <folding>
             <element signature="e#852#870#0" expanded="true" />
             <element signature="e#4089#4285#0" expanded="false" />
@@ -678,6 +661,7 @@
             <element signature="e#18386#19853#0" expanded="false" />
             <element signature="e#20027#22105#0" expanded="false" />
             <element signature="e#22279#23028#0" expanded="false" />
+            <element signature="e#23220#29068#0" expanded="false" />
             <element signature="e#29259#29498#0" expanded="false" />
             <element signature="e#31575#34155#0" expanded="false" />
             <element signature="e#34157#34704#0" expanded="false" />
@@ -690,6 +674,31 @@
             <element signature="e#41401#43582#0" expanded="false" />
             <element signature="e#43584#47306#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Directory/directory.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.741936">
+          <caret line="622" column="34" selection-start-line="622" selection-start-column="30" selection-end-line="622" selection-end-column="34" />
+          <folding>
+            <element signature="e#2450#2970#0" expanded="false" />
+            <element signature="e#3306#3894#0" expanded="false" />
+            <element signature="e#3896#4278#0" expanded="false" />
+            <element signature="e#4280#5839#0" expanded="false" />
+            <element signature="e#6013#6567#0" expanded="false" />
+            <element signature="e#6741#9081#0" expanded="false" />
+            <element signature="e#21292#21593#0" expanded="false" />
+            <element signature="e#21614#22596#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Directory/directory.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6054334">
+          <caret line="26" column="22" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
