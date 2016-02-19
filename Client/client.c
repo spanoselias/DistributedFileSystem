@@ -1083,6 +1083,40 @@ long reqCreate(char *filename)
     return fileid;
 }
 
+long reqFileID(char *filename , long clientID)
+{
+    //Buffer message
+    char buf[60];
+
+    //Store the number of bytes that sent via socket
+    int bytes;
+
+    //Store the fileid for the file that it create
+    long fileid;
+
+    //Request from the filemanager to set up a client ID
+    sprintf(buf,"REQFILEID,%s,%d" , filename , clientID );
+
+    if (bytes = send(filemanagerSocks[0] , buf, strlen(buf) , 0) < 0)
+    {
+        perror("Send:Unable to request clientID");
+    }
+
+    bzero(buf,sizeof(buf));
+    if (recv(filemanagerSocks[0], buf, 64, 0) < 0)
+    {
+        perror("Received() Unable to receive clientID");
+    }
+
+    printf("REQFILEID Received: %s\n" , buf );
+
+    //store the fileid
+    fileid=atol(buf);
+
+    return fileid;
+
+}
+
 /***********************************************************************************/
 /*                            Establish connections                                */
 /***********************************************************************************/

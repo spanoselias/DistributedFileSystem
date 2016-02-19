@@ -24,7 +24,6 @@
 /***********************************************************************************/
 #define MAXCLIENT 10000
 
-
 //Format for error for the threads
 #define perror2(s,e) fprintf(stderr, "%s:%s\n" , s, strerror(e))
 
@@ -47,7 +46,6 @@ pthread_mutex_t lockerFileids;
 
 //locker for the decode function
 pthread_mutex_t locker;
-
 
 /***********************************************************************************/
 /*                                 FUNCTIONS                                       */
@@ -75,6 +73,10 @@ int decode(char *buf , FILEHEADER *header )
         {
             header->filename = strdup(strtok(NULL,","));
             header->owner = atol( strtok(NULL,","));
+        }
+        else if( strcmp(header->type , "REQID" )== 0)
+        {
+            header->filename = strdup(strtok(NULL, ","));
         }
 
     //Unloack Mutex//
@@ -382,6 +384,42 @@ long registerFile(char *filename , long owner)
 
     //Return the new fileID for the file
     return  entry->fileid;
+}
+
+long lookUpFileID(char *filename , long owner)
+{
+    //Counter for the index
+    int i=0;
+
+    //Store the error of mutex
+    int err;
+
+    //Check if the username exist in the data
+    int isFound=0;
+
+    //Look up for the fileid for the parameter filename
+    long tmpfileid=-1;
+
+    //Pointer to the metadata
+    METADATA *point2meta = NULL;
+
+    //Check if the username exist in the array
+    for(i=0; i < metadata->len; i++)
+    {
+        //Retrieve  the data from the specific index
+        point2meta = ( METADATA *) g_ptr_array_index(clidata ,i );
+
+        //Check if it found the filename that it looking for
+        if(strcmp(filename , point2meta->filename->str)==0)
+        {
+            tmpfileid = point2meta->fileid;
+
+            //Stop the loop
+            break;
+        }
+    }
+
+    return tmpfileid;
 }
 
 void initialization()

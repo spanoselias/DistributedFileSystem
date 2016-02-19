@@ -49,5 +49,6 @@ struct serinfo
 /***********************************************************************************/
 
 long reqCreate(char *filename);
+long reqFileID(char *filename , long clientID);
 
 #endif //DISTRIBUTEDALGORITHM_CLIENT_H
