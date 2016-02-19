@@ -714,7 +714,7 @@ int main(int argc , char *argv[])
 /*           LOCAL DECLARATION               */
 /********************************************/
 
-    int port=-1; //Store the port that server listen.
+   int port=-1; //Store the port that server listen.
 
 
 /*********************************************/
