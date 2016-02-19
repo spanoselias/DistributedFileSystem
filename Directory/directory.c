@@ -510,7 +510,7 @@ void *accept_thread(void *accept_sock)
              struct metadata *entry = (struct metadata*) malloc(sizeof(struct metadata));
 
              //Initialize new entry
-             entry->file_id = -1;
+             entry->file_id = msg->fileID;
              entry->tag.num = 1;
              entry->tag.id  = 0;
              entry->replicaSet=NULL;
@@ -598,9 +598,9 @@ GSList* decode(struct message *msg , char *buf)
         //To store a point to the set of replicas
         GSList *replicaSet=NULL;
 
-        /*Use comma delimiter to find the type of
-         * send message and retrieve the apropriate
-         * fields*/
+        //Use comma delimiter to find the type of
+         // send message and retrieve the apropriate
+         // fields//
         msg->type=strdup(strtok(buf, ","));
 
         //Check if the type of the message is RWRITE//
@@ -620,7 +620,6 @@ GSList* decode(struct message *msg , char *buf)
                 msg->tag.id=atoi(strtok(NULL,","));
                 msg->msg_id=atoi(strtok(NULL,","));
                 msg->filename=strdup(strtok(NULL,","));
-                msg->fileID = atol(strtok(NULL,","));
                 replicaSet = msg->replicaSet;
             }
         //Check if the type of the message is RREAD//
@@ -633,6 +632,7 @@ GSList* decode(struct message *msg , char *buf)
         {
             msg->msg_id=atoi(strtok(NULL,","));
             msg->filename=strdup(strtok(NULL,","));
+            msg->fileID = atol(strtok(NULL,","));
             msg->permission = strdup(strtok(NULL,","));
         }
 
@@ -685,7 +685,7 @@ void signal_handler()
 
         //deallocations
         printf("[ Filename , TagNo , ClientID , FILEID , Permission ] \n");
-        printf("[ %s, %d , %d , %d ,%s ] \n" , point2metadata->filename->str , point2metadata->tag.num ,point2metadata->tag.id , point2metadata->file_id, point2metadata->permission->str);
+        printf("[ %s       ,   %d  ,    %d    ,   %ld   ,     %s    ] \n" , point2metadata->filename->str , point2metadata->tag.num ,point2metadata->tag.id , point2metadata->file_id, point2metadata->permission->str);
 
         //deallocate list
         g_slist_free (point2metadata->replicaSet);

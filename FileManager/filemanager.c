@@ -433,7 +433,7 @@ long lookUpFileID(char *filename , long owner)
     for(i=0; i < metadata->len; i++)
     {
         //Retrieve  the data from the specific index
-        point2meta = ( METADATA *) g_ptr_array_index(clidata ,i );
+        point2meta = ( METADATA *) g_ptr_array_index(metadata ,i );
 
         //Check if it found the filename that it looking for
         if(strcmp(filename , point2meta->filename->str)==0)
@@ -511,7 +511,7 @@ void signal_handler()
     printf("****************************************\n");
 
     //Deallocate all the memory
-    for(int i=0; i < metadata->len; i++)
+    for(i=0; i < metadata->len; i++)
     {
         //Retrieve  the data from the specific index
         point2meta = (METADATA *) g_ptr_array_index(metadata , i );

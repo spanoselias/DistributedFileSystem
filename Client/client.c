@@ -879,6 +879,7 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
         temp=strtok(NULL," ");
         cmdmsg->filename=strdup(strtok(temp,"."));
         cmdmsg->fileType=strdup(strtok(NULL," "));
+        cmdmsg->fileType[strlen(cmdmsg->fileType)-1]= '\0';
     }
 
     if(strcmp(cmd , "read" ) == 0 )
@@ -895,6 +896,8 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
     //In case when client interested to write a file to replicasc
     else if(strcmp(cmd , "write" ) == 0)
     {
+         cmdmsg->fileid = reqFileID(cmdmsg , clientID);
+
          writer_oper(message_id,cmdmsg);
     }
 
@@ -1085,7 +1088,7 @@ long reqCreate(char *filename)
     return fileid;
 }
 
-long reqFileID(char *filename , long clientID)
+long reqFileID(struct cmd *cmdmsg , long clientID)
 {
     //Buffer message
     char buf[256];
@@ -1097,7 +1100,7 @@ long reqFileID(char *filename , long clientID)
     long fileid;
 
     //Request from the filemanager to set up a client ID
-    sprintf(buf,"REQFILEID,%s,%d" , filename , clientID );
+    sprintf(buf,"REQFILEID,%s.%s,%d" , cmdmsg->filename , cmdmsg->fileType , clientID );
 
     if (bytes = send(filemanagerSocks[0] , buf, strlen(buf) , 0) < 0)
     {
@@ -1313,7 +1316,7 @@ int send2ftp(struct cmd *msgCmd, int newsock , struct TAG *tagIn , int msgIDIn )
     bzero(filename,sizeof(filename));
 
     unsigned int length=sprintf(filename,"%s.%s", msgCmd->filename,msgCmd->fileType);
-    filename[length-1]='\0';
+    //filename[length-1]='\0';
 
     fd = open(filename,  O_RDONLY);
     if (fd < 0 )

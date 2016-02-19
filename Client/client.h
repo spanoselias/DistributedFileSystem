@@ -50,6 +50,6 @@ struct serinfo
 /***********************************************************************************/
 
 long reqCreate(char *filename);
-long reqFileID(char *filename , long clientID);
+long reqFileID(struct cmd *cmdmsg , long clientID);
 
 #endif //DISTRIBUTEDALGORITHM_CLIENT_H
