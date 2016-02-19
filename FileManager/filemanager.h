@@ -42,7 +42,7 @@ long countClientIds;
 long countFileIds;
 
 
-
+long lookUpFileID(char *filename , long owner);
 void *accept_thread(void *accept_sock);
 long registerClient(char *username);
 long registerFile(char *filename , long owner);

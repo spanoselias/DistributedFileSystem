@@ -78,6 +78,11 @@ int decode(char *buf , FILEHEADER *header )
         {
             header->filename = strdup(strtok(NULL, ","));
         }
+        else if( strcmp(header->type , "REQFILEID" )== 0)
+        {
+            header->filename = strdup(strtok(NULL,","));
+            header->owner = atol( strtok(NULL,","));
+        }
 
     //Unloack Mutex//
     if(err=pthread_mutex_unlock(&locker))
@@ -244,7 +249,7 @@ void *accept_thread(void *accept_sock)
             //Also , retrieve the fileID for the file
             unsigned long fileid = registerFile(msg->filename , msg->owner );
 
-            printf("RegisterFile Function return: %ld \n" , fileid);
+            printf("REQCREATE Function return: %ld \n" , fileid);
 
             bzero(buf,sizeof(buf));
             //encode the clientID
@@ -253,6 +258,27 @@ void *accept_thread(void *accept_sock)
             {
                perror("Send:Unable to send clientID");
             }
+            //Deallocations
+            free(msg->filename);
+        }
+        else if( strcmp(msg->type , "REQFILEID" )== 0 )
+        {
+            printf("Received REQFILEID: %s , owner:%ld\n" , msg->filename ,msg->owner);
+
+            //Store the new file in the metadata
+            //Also , retrieve the fileID for the file
+            unsigned long fileid = lookUpFileID(msg->filename , msg->owner );
+
+            printf("REQFILEID Function return: %ld \n" , fileid);
+
+            bzero(buf,sizeof(buf));
+            //encode the clientID
+            sprintf(buf,"%ld" , fileid );
+            if (send(acptsock, buf, 64 , 0) < 0 )
+            {
+                perror("Send:Unable to send clientID");
+            }
+
             //Deallocations
             free(msg->filename);
         }

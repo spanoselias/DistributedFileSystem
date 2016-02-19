@@ -36,6 +36,7 @@ struct cmd
     char oper[9];
     char *filename;
     char *fileType;
+    long fileid;
 };
 
 struct serinfo

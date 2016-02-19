@@ -620,6 +620,7 @@ GSList* decode(struct message *msg , char *buf)
                 msg->tag.id=atoi(strtok(NULL,","));
                 msg->msg_id=atoi(strtok(NULL,","));
                 msg->filename=strdup(strtok(NULL,","));
+                msg->fileID = atol(strtok(NULL,","));
                 replicaSet = msg->replicaSet;
             }
         //Check if the type of the message is RREAD//
@@ -683,8 +684,8 @@ void signal_handler()
         point2metadata = (struct metadata *) g_ptr_array_index(metatable , i );
 
         //deallocations
-        printf("[ Filename , TagNo , ClientID , Permission ] \n");
-        printf("[ %s, %d , %d , %s ] \n" , point2metadata->filename->str , point2metadata->tag.num ,point2metadata->tag.id , point2metadata->permission->str);
+        printf("[ Filename , TagNo , ClientID , FILEID , Permission ] \n");
+        printf("[ %s, %d , %d , %d ,%s ] \n" , point2metadata->filename->str , point2metadata->tag.num ,point2metadata->tag.id , point2metadata->file_id, point2metadata->permission->str);
 
         //deallocate list
         g_slist_free (point2metadata->replicaSet);

@@ -285,7 +285,7 @@ void encode(struct message *msg , char *buf , char *type)
 
     else if( (strcmp(type , "WREAD" )== 0))
     {
-        sprintf(buf,"%s,%d,%s,L1" ,type , message_id , msg->filename ) ;
+        sprintf(buf,"%s,%d,%s,%ld,L1" ,type , message_id , msg->filename , msg->fileID ) ;
     }
 
 
@@ -524,7 +524,7 @@ GSList  *read_Query(struct cmd *cmdmsgIn  ,  struct TAG *tag , struct message *m
     tag->clientID=0;
 
     //Retrieve information about the file
-    msg->fileID= 1;
+    msg->fileID= cmdmsgIn->fileid;
     msg->filename=strdup(cmdmsgIn->filename);
     msg->filetype=strdup(cmdmsgIn->fileType);
 
@@ -641,8 +641,8 @@ int read_Inform( struct cmd *cmdmsgIn  ,  struct TAG *tag , struct message *msg 
 /***********************************************************************************/
 int reader_oper(int msg_id , struct cmd *cmdmsgIn )
 {
-    //Store if the action are
-    int isSuccess=FAILURE;
+   //Store if the action are
+   int isSuccess=FAILURE;
 
    //Allocation memory
    struct message *msg=(struct message *)malloc(sizeof(struct message));
@@ -693,7 +693,7 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     tag->clientID=0;
 
     //Retrieve information about the file
-    msg->fileID = 1;
+    msg->fileID = cmdmsgIn->fileid;
     msg->filename=strdup(cmdmsgIn->filename);
     msg->filetype=strdup(cmdmsgIn->fileType);
 
@@ -883,6 +883,8 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
 
     if(strcmp(cmd , "read" ) == 0 )
     {
+        cmdmsg->fileid = reqFileID(cmdmsg->filename , clientID);
+
        // get_file(replicaSocks[1] , msg);
         if( reader_oper(message_id , cmdmsg ) == FAILURE )
         {
@@ -1086,7 +1088,7 @@ long reqCreate(char *filename)
 long reqFileID(char *filename , long clientID)
 {
     //Buffer message
-    char buf[60];
+    char buf[256];
 
     //Store the number of bytes that sent via socket
     int bytes;
@@ -1136,7 +1138,6 @@ int connect2Replicas()
         {
             printf("Connection established to IP: %s ,  PORT: %d\n", inet_ntoa(replica_sockaddr[i].sin_addr),ntohs(replica_sockaddr[i].sin_port));
         }
-
     }
 }
 
