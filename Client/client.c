@@ -1358,7 +1358,7 @@ int get_file(int sock, struct message *msg )
     decode(recvmsg,buf);
 
     length=sprintf(filename , "%s.%s" , msg->filename , msg->filetype);
-    filename[length-1]='\0';
+    //filename[length-1]='\0';
 
     received_file = fopen(filename, "w");
     if (received_file == NULL)

@@ -163,7 +163,6 @@ void *bind_thread(void *port)
     //Accept connection from clients forever.
     while(1)
     {
-
         clientPtr=(struct sockaddr *) &client_addr;
         clientlen= sizeof(client_addr);
 

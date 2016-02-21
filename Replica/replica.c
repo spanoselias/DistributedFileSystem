@@ -277,7 +277,7 @@ int send2ftp(int newsock , struct replicaHeader *msg )
 
     //
     length=sprintf(filename,"%s_%d_%d_%d.%s",msg->filename,msg->tag->num , msg->tag->clientID,msg->tag->isSecure,msg->filetype);
-    filename[length-1]='\0';
+    //filename[length-1]='\0';
 
     printf("FileNAmeIn:%s" , filename);
     fd = open(filename,  O_RDONLY);
@@ -295,7 +295,7 @@ int send2ftp(int newsock , struct replicaHeader *msg )
         close(fd);
     }
 
-    /* Sending file size */
+    // Sending file size //
     file_size=file_stat.st_size;
     printf("\nFile Size: \n %d bytes\n",file_size);
 
@@ -362,7 +362,7 @@ int ftp_recv(int sock, struct replicaHeader *msg )
     bzero(filename,sizeof(filename));
 
     length= sprintf(filename , "%s_%d_%d_0.%s" , msg->filename , msg->tag->num , msg->tag->clientID , msg->filetype);
-    filename[length-1]='\0';
+    //filename[length-1]='\0';
 
     received_file = fopen(filename, "w");
     if (received_file == NULL)
@@ -740,10 +740,10 @@ GHashTable *   addSecure(GHashTable * funmetatable ,TAG* secureTag , struct repl
                 bzero(newname,sizeof(newname));
 
                 length=sprintf(oldname,"%s_%d_%d_0.%s",header->filename,header->tag->num,header->tag->clientID,header->filetype);
-                oldname[length-1]='\0';
+                //oldname[length-1]='\0';
 
                 length = sprintf(newname,"%s_%d_%d_1.%s" ,header->filename,header->tag->num,header->tag->clientID,header->filetype);
-                newname[length-1]='\0';
+                //newname[length-1]='\0';
 
                 //Go through all the list to find which tag are smaller from
                 //the secure tags
@@ -766,7 +766,7 @@ GHashTable *   addSecure(GHashTable * funmetatable ,TAG* secureTag , struct repl
 
                         if(ret !=0)
                         {
-                            printf("Error: unable to rename the file :%s",header->filename);
+                            printf("Error: unable to rename the file :%s",newname);
                         }
 
                         //If the found the file
@@ -1134,7 +1134,6 @@ void *accept_thread(void *accept_sock)
             //Store error of pthread
             int err;
 
-
             //Lock strtok due to is not deadlock free
             if(err=pthread_mutex_lock(&lockermetadata))
             {
@@ -1149,7 +1148,6 @@ void *accept_thread(void *accept_sock)
             {
                 perror2("Failed to lock()",err);
             }
-
 
         }
 
