@@ -151,8 +151,8 @@ void *bind_thread(void *port)
         exit(1);
     }
 
-    /*Listen for connections */
-    /* MAXCLIENT. requests in queue*/
+    //Listen for connections //
+    // MAXCLIENT. requests in queue//
     if(listen(sock , MAXCLIENT) < 0)
     {
         perror("Listen() failed"); exit(1);
