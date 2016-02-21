@@ -892,19 +892,37 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
     {
         cmdmsg->fileid = reqFileID(cmdmsg->filename , clientID);
 
-       // get_file(replicaSocks[1] , msg);
-        if( reader_oper(message_id , cmdmsg ) == FAILURE )
+        //In case where it receive correct the fileid
+        if(cmdmsg->fileid != FAILURE)
         {
-            printf("Unable to read the data object\n");
+            //get_file(replicaSocks[1] , msg);
+            if( reader_oper(message_id , cmdmsg ) == FAILURE )
+            {
+                printf("Unable to read the data object\n");
+            }
         }
+        else
+        {
+            printf("Unable to receive the fileid correct\n");
+        }
+
     }
 
     //In case when client interested to write a file to replicasc
     else if(strcmp(cmd , "write" ) == 0)
     {
-         cmdmsg->fileid = reqFileID(cmdmsg , clientID);
+        cmdmsg->fileid = reqFileID(cmdmsg->filename , clientID);
 
-         writer_oper(message_id,cmdmsg);
+        //In case where it receive correct the fileid
+        if(cmdmsg->fileid != FAILURE)
+        {
+
+            writer_oper(message_id, cmdmsg);
+        }
+        else
+        {
+            printf("Unable to receive the fileid correct\n");
+        }
     }
 
     else if(strcmp(cmd , "loggin" ) == 0)
