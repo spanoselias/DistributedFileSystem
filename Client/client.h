@@ -13,14 +13,14 @@
 
 struct TAG
 {
-    unsigned int num;
-    unsigned  int clientID;
+    long num;
+    long clientID;
 };
 
 struct message
 {
     char *type;
-    int  msg_id;
+    long  msg_id;
     struct TAG tag;
     GSList* replicaSet;
     long  fileID;

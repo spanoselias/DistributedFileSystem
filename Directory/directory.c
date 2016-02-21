@@ -26,12 +26,7 @@
 
 #define MAX_PENDING 200 // Pending clients in
 
-/*Compile program under development mode*/
-#define DEVMODE1
-/*Compile program under development details mode*/
-#define DEVMODED1
 
-#define DEBUG1
 #define BUFSIZE 256
 
 //Define the array size of metadata table
@@ -59,35 +54,6 @@ pthread_mutex_t lockermetadata;
 //Lock clientCounter
 pthread_mutex_t lockercliCoun;
 
-//store the totalClientCounter
-long cliendID=0;
-
-/***********************************************************************************/
-/*                             Retrieve client counter                             */
-/***********************************************************************************/
-long clientCounter()
-{
-    //Store the error of mutex
-    int err;
-    long newClient=0;
-
-    //Lock strtok due to is not deadlock free
-    if(err=pthread_mutex_lock(&lockercliCoun))
-    {
-        perror2("Failed to lock()",err);
-    }
-
-     cliendID +=1;
-     newClient = cliendID;
-
-    //Unloack Mutex
-    if (err = pthread_mutex_unlock(&lockercliCoun))
-    {
-        perror2("Failed to lock()", err);
-    }
-
-    return newClient;
-};
 
 /***********************************************************************************/
 /*                             METADATA TABLE                                      */
@@ -153,33 +119,33 @@ int IsMaxTag(struct message *tag2)
         perror2("Failed to lock()",err);
     }
 
-    //Find the position for the specific filename
-    int index=findByFileID( tag2->filename , &funfreepos);
+            //Find the position for the specific filename
+            int index=findByFileID( tag2->filename , &funfreepos);
 
-    //Retrieve  the data from the specific index
-    point2metadata = (struct metadata *) g_ptr_array_index(metatable , index );
+            //Retrieve  the data from the specific index
+            point2metadata = (struct metadata *) g_ptr_array_index(metatable , index );
 
-    if ((point2metadata->tag.num < tag2->tag.num) \
-                                || (point2metadata->tag.num == tag2->tag.num && point2metadata->tag.id < tag2->tag.id ))
-    {
-        point2metadata->tag.num=tag2->tag.num;
-        point2metadata->tag.id=tag2->tag.id;
+            if ((point2metadata->tag.num < tag2->tag.num) \
+                                        || (point2metadata->tag.num == tag2->tag.num && point2metadata->tag.id < tag2->tag.id ))
+            {
+                point2metadata->tag.num=tag2->tag.num;
+                point2metadata->tag.id=tag2->tag.id;
 
-        //Remove old replica set because now is unnecessary due to
-        //the tag is old one
-        g_slist_free ( point2metadata->replicaSet );
-        point2metadata->replicaSet=NULL;
+                //Remove old replica set because now is unnecessary due to
+                //the tag is old one
+                g_slist_free ( point2metadata->replicaSet );
+                point2metadata->replicaSet=NULL;
 
-        //Point to new replica set with the latest tag
-        point2metadata->replicaSet=tag2->replicaSet;
+                //Point to new replica set with the latest tag
+                point2metadata->replicaSet=tag2->replicaSet;
 
-       isFound=1;
-    }
+               isFound=1;
+            }
 
-    else if(point2metadata->tag.num == tag2->tag.num && point2metadata->tag.num == tag2->tag.id )
-    {
-        point2metadata->replicaSet = insertList( point2metadata->replicaSet , tag2->replicaSet);
-    }
+            else if(point2metadata->tag.num == tag2->tag.num && point2metadata->tag.num == tag2->tag.id )
+            {
+                point2metadata->replicaSet = insertList( point2metadata->replicaSet , tag2->replicaSet);
+            }
 
     //Unloack Mutex/
     if(err=pthread_mutex_unlock(&lockermetadata))
@@ -217,7 +183,7 @@ void inisializations(int portIn)
 void *bind_thread(void *port)
 {
 
-    int PORT=(int)port;
+    int PORT=(intptr_t)port;
 
     //Socket descriptor for the directory
     int sock;
@@ -287,7 +253,7 @@ void *bind_thread(void *port)
             perror("accept() failed"); exit(1);
         }
 
-        if(err=pthread_create(&tid , NULL , &accept_thread ,  (void *) newsock))
+        if(err=pthread_create(&tid , NULL , &accept_thread ,  (void *)(intptr_t) newsock))
         {
             perror2("pthread_create for accept_thread" , err);
             exit(1);
@@ -317,7 +283,7 @@ void *accept_thread(void *accept_sock)
     msg = (struct message *) malloc(sizeof(struct message));
 
     //Retrieve the socket that passed from pthread_create
-    acpt_sock = ((int) (accept_sock));
+    acpt_sock = (intptr_t) accept_sock ;
 
  while(1)
  {
@@ -350,21 +316,10 @@ void *accept_thread(void *accept_sock)
      // in order to identify the type of the message//
      msg->replicaSet =  decode(msg, buf);
 
-     if(strcmp(msg->type , "CLIENTID" )== 0)
-     {
-         bzero(buf,sizeof(buf));
-         //encode the clientID
-         sprintf(buf,"%ld" , clientCounter() );
-         if (send(acpt_sock, buf, 16 , 0) < 0 )
-         {
-             perror("Send:Unable to send clientID");
-         }
-     }
-
      //Directory ALGORITHM//
 
      //Check if the message if of type RREAD
-     else if ((strcmp("RREAD", msg->type) == 0))
+     if ((strcmp("RREAD", msg->type) == 0))
      {
          int freepos = -1 , err=0;
 
@@ -412,7 +367,7 @@ void *accept_thread(void *accept_sock)
                      sprintf(str, ",%d", GPOINTER_TO_INT(iterator->data));
                      strcat(strSet, str);
                  }
-                 sprintf(buf, "RREAD-OK,%d,%d,%d%s,%d,%d", point2metadata->tag.num, point2metadata->tag.id, len,
+                 sprintf(buf, "RREAD-OK,%ld,%ld,%d%s,%ld,%ld", point2metadata->tag.num, point2metadata->tag.id, len,
                          strSet,
                          msg->msg_id, msg->fileID);
              }
@@ -448,7 +403,7 @@ void *accept_thread(void *accept_sock)
          }
 
          bzero(buf, sizeof(buf));
-         sprintf(buf, "RWRITE-OK,%d\n", msg->msg_id);
+         sprintf(buf, "RWRITE-OK,%ld\n", msg->msg_id);
          if (bytes = send(acpt_sock, buf, strlen(buf), 0) < 0)
          {
              perror("Send() failed");
@@ -497,7 +452,7 @@ void *accept_thread(void *accept_sock)
                      sprintf(str, ",%d", GPOINTER_TO_INT(iterator->data));
                      strcat(strSet, str);
                  }
-                 sprintf(buf, "WREAD-OK,%d,%d,%d%s,%d,%d", point2metadata->tag.num, point2metadata->tag.id, len,
+                 sprintf(buf, "WREAD-OK,%ld,%ld,%d%s,%ld,%ld", point2metadata->tag.num, point2metadata->tag.id, len,
                          strSet,
                          msg->msg_id, msg->fileID);
              }
@@ -536,7 +491,7 @@ void *accept_thread(void *accept_sock)
              point2metadata = (struct metadata *) g_ptr_array_index(metatable , index );
 
              bzero(buf, sizeof(buf));
-             sprintf(buf, "WREAD-OK,%d,%d,0,%d,%d", point2metadata->tag.num, point2metadata->tag.id, msg->msg_id,
+             sprintf(buf, "WREAD-OK,%ld,%ld,0,%ld,%ld", point2metadata->tag.num, point2metadata->tag.id, msg->msg_id,
                      point2metadata->file_id);
 
          }
@@ -564,7 +519,7 @@ void *accept_thread(void *accept_sock)
          }
 
          bzero(buf, sizeof(buf));
-         sprintf(buf, "WWRITE-OK,%d\n", msg->msg_id);
+         sprintf(buf, "WWRITE-OK,%ld\n", msg->msg_id);
          if (bytes = send(acpt_sock, buf, strlen(buf), 0) < 0)
          {
              perror("Send() failed");
@@ -631,8 +586,8 @@ GSList* decode(struct message *msg , char *buf)
         else if(strcmp(msg->type , "WREAD" )== 0)
         {
             msg->msg_id=atoi(strtok(NULL,","));
-            msg->filename=strdup(strtok(NULL,","));
             msg->fileID = atol(strtok(NULL,","));
+            msg->filename=strdup(strtok(NULL,","));
             msg->permission = strdup(strtok(NULL,","));
         }
 
@@ -659,6 +614,7 @@ int writeLog(char *info)
 /***********************************************************************************/
 /*                            GET CURRENT DATE                                     */
 /***********************************************************************************/
+/*
 char* set_date()
 {
     char namelog[100];
@@ -667,7 +623,7 @@ char* set_date()
     sprintf(namelog,"directory_%d_%d_%d.log",(tm.tm_mday),(tm.tm_mon+1),(tm.tm_year+1900));
     return namelog;
 }//Fucntion setDate
-
+*/
 
 void signal_handler()
 {
@@ -685,7 +641,7 @@ void signal_handler()
 
         //deallocations
         printf("[ Filename , TagNo , ClientID , FILEID , Permission ] \n");
-        printf("[ %s       ,   %d  ,    %d    ,   %ld   ,     %s    ] \n" , point2metadata->filename->str , point2metadata->tag.num ,point2metadata->tag.id , point2metadata->file_id, point2metadata->permission->str);
+        printf("[ %s       ,   %ld  ,    %ld    ,   %ld   ,     %s    ] \n" , point2metadata->filename->str , point2metadata->tag.num ,point2metadata->tag.id , point2metadata->file_id, point2metadata->permission->str);
 
         //deallocate list
         g_slist_free (point2metadata->replicaSet);
@@ -720,7 +676,7 @@ int main(int argc , char *argv[])
 /*           MEMORY ALLOCATIONS              */
 /********************************************/
 
-    /*Check if the input parameters are correct. */
+    //Check if the input parameters are correct. //
     if(argc!=3)
     {
         printf("\nUsage: ./executable -p [port]\n");
@@ -750,7 +706,7 @@ int main(int argc , char *argv[])
 
 
     //Create a thread for the bind.
-    if(err=pthread_create(&tid , NULL ,(void *) &bind_thread , (void *) port))
+    if(err=pthread_create(&tid , NULL ,(void *) &bind_thread , (void *) (intptr_t)port))
     {
         perror2("pthread_create" , err);
         exit(1);

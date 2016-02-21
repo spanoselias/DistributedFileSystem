@@ -47,7 +47,7 @@ fd_set crash_repli_fds;                      //To store all the crash replicas t
 int max_direc_fd=-1;                         //To store the max directory socket descriptor for the SELECT
 int max_replica_fd=-1;                       //To store the max replica socket descriptor for the SELECT
 
-int message_id;                              //Store the message counter
+long message_id;                              //Store the message counter
 
 int    *direcSocks;                          //Store all the sockets for directories
 int    *replicaSocks;                        //Store all the sockets for replicas
@@ -196,7 +196,6 @@ GSList* decode(struct message *msg , char *buf)
     }
     else if((strcmp(msg->type , "REQCREATE" )== 0))
     {
-        msg->clientID = atol(strtok(NULL, ","));
         msg->fileID = atol(strtok(NULL, ","));
         msg->msg_id =  atol(strtok(NULL, ","));
     }
@@ -222,13 +221,13 @@ void encode(struct message *msg , char *buf , char *type)
     //Check if the message is secure
     if((strcmp(type , "SECURE" )== 0) )
     {
-        sprintf(buf,"%s,%d,%d,%d,%s,%s" ,type , msg->tag.num , msg->tag.clientID, message_id , msg->filename , msg->filetype );
+        sprintf(buf,"%s,%ld,%ld,%ld,%s,%s" ,type , msg->tag.num , msg->tag.clientID, message_id , msg->filename , msg->filetype );
     }
 
     //Check if the type of the message is RREAD
     if((strcmp(type , "RREAD" )== 0) )
     {
-        sprintf(buf,"%s,%d,%s" ,type , message_id , msg->filename);
+        sprintf(buf,"%s,%ld,%s" ,type , message_id , msg->filename);
     }
     //Check if the type of the message is RWRITE
     else if( (strcmp(type , "RWRITE" )== 0 ) || (strcmp(type , "WWRITE" )== 0 ) )
@@ -253,12 +252,12 @@ void encode(struct message *msg , char *buf , char *type)
                     sprintf(str,",%d" , GPOINTER_TO_INT(iterator->data) );
                     strcat(strSet,str);
                 }
-                sprintf(buf, "%s,%d%s,%d,%d,%d,%s", type ,len, strSet ,msg->tag.num, msg->tag.clientID, message_id , msg->filename);
+                sprintf(buf, "%s,%d%s,%ld,%ld,%ld,%s", type ,len, strSet ,msg->tag.num, msg->tag.clientID, message_id , msg->filename);
 
             }
             else
             {
-                sprintf(buf, "%s,0,%d,%d,%d,%s", type , msg->tag.num, msg->tag.clientID, message_id , msg->filename);
+                sprintf(buf, "%s,0,%ld,%ld,%ld,%s", type , msg->tag.num, msg->tag.clientID, message_id , msg->filename);
             }
 
         }//If RWRITE statment
@@ -285,13 +284,18 @@ void encode(struct message *msg , char *buf , char *type)
                 sprintf(str,",%d" , GPOINTER_TO_INT(iterator->data));
                 strcat(strSet,str);
             }
-            sprintf(buf, "%s,%d%s,%d,%d,%d,%s", type ,len, strSet ,msg->tag.num, msg->tag.clientID, message_id , msg->filename);
+            sprintf(buf, "%s,%d%s,%ld,%ld,%ld,%s", type ,len, strSet ,msg->tag.num, msg->tag.clientID, message_id , msg->filename);
 
         }
         else
         {
-            sprintf(buf, "%s,0,%d,%d,%d,%s", type , msg->tag.num, msg->tag.clientID, message_id , msg->filename);
+            sprintf(buf, "%s,0,%ld,%ld,%ld,%s", type , msg->tag.num, msg->tag.clientID, message_id , msg->filename);
         }
+    }
+
+    else if( (strcmp(type , "WREAD" )== 0))
+    {
+        sprintf(buf,"%s,%ld,%ld,%s,L1" ,type , message_id , msg->fileID , msg->filename   ) ;
     }
 
 
@@ -614,7 +618,7 @@ int read_Inform( struct cmd *cmdmsgIn  ,  struct TAG *tag , struct message *msg 
     storefiletag(msg->filename , tag);
 
     printf("*************************************************************************\n");
-    printf("Read operation completed: Value: , tagNum:%d , tagID:%d\n",tag->num,tag->clientID );
+    printf("Read operation completed: Value: , tagNum:%ld , tagID:%ld\n",tag->num,tag->clientID );
     printf("*************************************************************************\n");
 
 
@@ -729,7 +733,7 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     }
 
     printf("***********************************************************************************************\n");
-    printf("READ TAG FROM DIRECTORIES OPERATION COMPLETED , TAG_NUM:%u , TAG_CLIENTID:%u\n",tag->num , tag->clientID );
+    printf("READ TAG FROM DIRECTORIES OPERATION COMPLETED , TAG_NUM:%ld , TAG_CLIENTID:%ld\n",tag->num , tag->clientID );
     printf("***********************************************************************************************\n");
 
     //Retrieve the tag for the file
@@ -788,7 +792,7 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     }
 
     printf("**********************************************************************************************\n");
-    printf("WRITE TO REPLICAS OPERATION COMPLETED , TAG_NUM:%u , TAG_CLIENTID:%u\n",tag->num , tag->clientID );
+    printf("WRITE TO REPLICAS OPERATION COMPLETED , TAG_NUM:%ld , TAG_CLIENTID:%ld\n",tag->num , tag->clientID );
     printf("*********************************************************************************************\n");
 
     GSList* iter=NULL;
@@ -828,7 +832,7 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     storefiletag(msg->filename , tag );
 
     printf("***********************************************************************************************\n");
-    printf("WRITE TO DIRECTORIES OPERATION COMPLETED , LAST_TAG_NUM:%u , LAST_TAG_IS:%u\n",tag->num , tag->clientID );
+    printf("WRITE TO DIRECTORIES OPERATION COMPLETED , LAST_TAG_NUM:%ld , LAST_TAG_IS:%ld\n",tag->num , tag->clientID );
     printf("***********************************************************************************************\n");
 
     //delete
@@ -845,7 +849,7 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
 
 
     printf("***********************************************************************************************\n");
-    printf("SEND SECURE MESSAGE TO REPLICAS , LAST_TAG_NUM:%u , LAST_TAG_IS:%u\n",tag->num , tag->clientID );
+    printf("SEND SECURE MESSAGE TO REPLICAS , LAST_TAG_NUM:%ld , LAST_TAG_IS:%ld\n",tag->num , tag->clientID );
     printf("***********************************************************************************************\n");
 
 
@@ -890,7 +894,7 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
 
     if(strcmp(cmd , "read" ) == 0 )
     {
-        cmdmsg->fileid = reqFileID(cmdmsg->filename , clientID);
+        cmdmsg->fileid = reqFileID(cmdmsg , clientID);
 
         //In case where it receive correct the fileid
         if(cmdmsg->fileid != FAILURE)
@@ -911,7 +915,7 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
     //In case when client interested to write a file to replicasc
     else if(strcmp(cmd , "write" ) == 0)
     {
-        cmdmsg->fileid = reqFileID(cmdmsg->filename , clientID);
+        cmdmsg->fileid = reqFileID(cmdmsg , clientID);
 
         //In case where it receive correct the fileid
         if(cmdmsg->fileid != FAILURE)
@@ -921,7 +925,7 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
         }
         else
         {
-            printf("Unable to receive the fileid correct\n");
+            printf("Unable to receive the fileID correct\n");
         }
     }
 
@@ -1066,7 +1070,7 @@ int reqClientID(char *username)
     int bytes;
 
     //Message ID to validate that it receive the correct message
-    int messageID = (++message_id);
+    long messageID = (++message_id);
 
     //Allocation memory
     struct message *msg=(struct message *)malloc(sizeof(struct message));
@@ -1118,7 +1122,7 @@ long reqCreate(char *filename)
     char buf[256];
 
     //Message ID to validate that it receive the correct message
-    int messageID = (++message_id);
+    long messageID = (++message_id);
 
     //Store the number of bytes that sent via socket
     int bytes;
@@ -1127,7 +1131,7 @@ long reqCreate(char *filename)
     long fileid;
 
     //Request from the filemanager to set up a client ID
-    sprintf(buf,"REQCREATE,%s,%d,%ld" , filename , clientID, messageID );
+    sprintf(buf,"REQCREATE,%s,%ld,%ld" , filename , clientID, messageID );
 
     if (bytes = send(filemanagerSocks[0] , buf, sizeof(buf) , 0) < 0)
     {
@@ -1180,14 +1184,12 @@ long reqFileID(struct cmd *cmdmsg , long clientID)
     //Store the number of bytes that sent via socket
     int bytes;
 
-    //Store the fileid for the file that it create
-    long fileid;
-
     //Message ID to validate that it receive the correct message
-    int messageID = (++message_id);
+    long messageID = (++message_id);
 
+    bzero(buf,sizeof(buf));
     //Request from the filemanager to set up a client ID
-    sprintf(buf,"REQFILEID,%s.%s,%d,%ld" , cmdmsg->filename , cmdmsg->fileType , clientID , messageID );
+    sprintf(buf,"REQFILEID,%s.%s,%ld,%ld" , cmdmsg->filename , cmdmsg->fileType , clientID , messageID );
 
     if (bytes = send(filemanagerSocks[0] , buf, sizeof(buf) , 0) < 0)
     {
@@ -1324,7 +1326,7 @@ int get_file(int sock, struct message *msg )
     //Allocation memory
     recvmsg=(struct message *)malloc(sizeof(struct message));
 
-    sprintf(buf ,"READ,%d,%d,%d,%s,%s" , msg->tag.num , msg->tag.clientID , (++msg->msg_id) , msg->filename , msg->filetype );
+    sprintf(buf ,"READ,%ld,%ld,%ld,%s,%s" , msg->tag.num , msg->tag.clientID , (++msg->msg_id) , msg->filename , msg->filetype );
 
     //printf("Filename in get_file: %s , length: %d\n",buf, file_size);
     if ((bytes=send(sock, buf, 256 , 0)) < 0)
@@ -1413,7 +1415,7 @@ int get_file(int sock, struct message *msg )
     return SUCCESS;
 }
 
-int send2ftp(struct cmd *msgCmd, int newsock , struct TAG *tagIn , int msgIDIn )
+int send2ftp(struct cmd *msgCmd, int newsock , struct TAG *tagIn , long msgIDIn )
 {
     int         fd;
     off_t       offset = 0;
@@ -1452,7 +1454,7 @@ int send2ftp(struct cmd *msgCmd, int newsock , struct TAG *tagIn , int msgIDIn )
     char *filechecksum = checksum_get(filename);
 
     bzero(buf,sizeof(buf));
-    sprintf(buf,"WRITE,%s,%s,%d,%d,%d,%d,%s" , msgCmd->filename,msgCmd->fileType,tagIn->num,tagIn->clientID , msgIDIn , file_size, filechecksum );
+    sprintf(buf,"WRITE,%s,%s,%ld,%ld,%ld,%d,%s" , msgCmd->filename,msgCmd->fileType,tagIn->num,tagIn->clientID , msgIDIn , file_size, filechecksum );
 
     // If connection is established then start communicating //
     len = send(newsock, buf, 256 , 0);

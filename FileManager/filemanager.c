@@ -83,7 +83,6 @@ int decode(char *buf , FILEHEADER *header )
         else if( strcmp(header->type , "REQFILEID" )== 0)
         {
             header->filename = strdup(strtok(NULL,","));
-            header->filetype = strdup(strtok(NULL,","));
             header->owner = atol( strtok(NULL,","));
             header->MSGID = atol( strtok(NULL,","));
         }
@@ -98,7 +97,7 @@ int decode(char *buf , FILEHEADER *header )
 
 void *bind_thread(void *port)
 {
-    int PORT=(int)port;
+    int PORT=(intptr_t)port;
 
     //Socket descriptor for the Replica
     int         sock;
@@ -125,7 +124,7 @@ void *bind_thread(void *port)
     /*Initialize socket structure */
     serv_addr.sin_family=AF_INET;
     serv_addr.sin_addr.s_addr=htonl(INADDR_ANY);
-    serv_addr.sin_port=htons(port);
+    serv_addr.sin_port=htons((intptr_t)port);
 
     //Point to struct serv_addr.
     servPtr=(struct sockaddr *) &serv_addr;
@@ -173,7 +172,7 @@ void *bind_thread(void *port)
             perror("accept() failed"); exit(1);
         }
 
-        if(err=pthread_create(&tid , NULL , &accept_thread ,  (void *) newsock))
+        if(err=pthread_create(&tid , NULL , &accept_thread ,  (void *) (intptr_t)newsock))
         {
             perror2("pthread_create for accept_thread" , err);
             exit(1);
@@ -188,7 +187,7 @@ void *accept_thread(void *accept_sock)
     //socket descriptor for each client
     int acptsock;
     //Retrieve the socket that passed from pthread_create
-    acptsock= ((int)(accept_sock));
+    acptsock= (intptr_t)accept_sock;
 
     //Buffer to send&receive data//
     char buf[256];
@@ -569,7 +568,7 @@ int main(int argc , char  *argv[])
     signal(SIGSEGV, signal_handler);
 
     //Create a thread for the bind.
-    if(err=pthread_create(&tid , NULL ,(void *) &bind_thread , (void *)port))
+    if(err=pthread_create(&tid , NULL ,(void *) &bind_thread , (void *)(intptr_t)port))
     {
         perror2("pthread_create", err);
         exit(1);

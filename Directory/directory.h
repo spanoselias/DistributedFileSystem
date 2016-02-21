@@ -15,14 +15,14 @@ void *accept_thread(void *accept_sock);
 
 struct tagID
 {
-    int num;
-    int id;
+    long num;
+    long id;
 };
 
 struct message
 {
     char *type;
-    int  msg_id;
+    long  msg_id;
     GSList* replicaSet;
     struct tagID  tag;
     long fileID;
