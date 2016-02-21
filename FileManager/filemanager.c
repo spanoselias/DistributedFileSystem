@@ -62,17 +62,19 @@ int decode(char *buf , FILEHEADER *header )
     }
          //Use comma delimiter to find the type of
          //send message and retrieve the apropriate
-         // fields*/
+         // fields//
          header->type=strdup(strtok(buf, ","));
 
         if( strcmp(header->type , "REQCLIENTID" )== 0)
         {
             header->username=strdup(strtok(NULL,","));
+            header->MSGID = atol( strtok(NULL,",") );
         }
         else if( strcmp(header->type , "REQCREATE" )== 0)
         {
             header->filename = strdup(strtok(NULL,","));
             header->owner = atol( strtok(NULL,","));
+            header->MSGID  = atol(strtok(NULL,","));
         }
         else if( strcmp(header->type , "REQID" )== 0)
         {
@@ -81,6 +83,7 @@ int decode(char *buf , FILEHEADER *header )
         else if( strcmp(header->type , "REQFILEID" )== 0)
         {
             header->filename = strdup(strtok(NULL,","));
+            header->filetype = strdup(strtok(NULL,","));
             header->owner = atol( strtok(NULL,","));
         }
 

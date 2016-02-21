@@ -19,6 +19,7 @@ typedef struct
     char *type;
     long MSGID;
     char *filename;
+    char *filetype;
     char *username;
     long owner;
 

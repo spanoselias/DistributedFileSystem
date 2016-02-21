@@ -117,10 +117,6 @@ char *checksum_get(char *filename)
 /***********************************************************************************/
 GSList* decode(struct message *msg , char *buf)
 {
-    #ifdef DEVMODED
-        printf("Client Decoding msg:%s " , buf);
-    #endif
-
     /*Use comma delimiter to find the type of
      * send message and retrieve the apropriate
      * fields*/
@@ -281,11 +277,6 @@ void encode(struct message *msg , char *buf , char *type)
         {
             sprintf(buf, "%s,0,%d,%d,%d,%s", type , msg->tag.num, msg->tag.clientID, message_id , msg->filename);
         }
-    }
-
-    else if( (strcmp(type , "WREAD" )== 0))
-    {
-        sprintf(buf,"%s,%d,%s,%ld,L1" ,type , message_id , msg->filename , msg->fileID ) ;
     }
 
 
@@ -1038,7 +1029,7 @@ void reqClientID(char *username)
     int bytes;
 
     //Request from the filemanager to set up a client ID
-    sprintf(buf,"REQCLIENTID,%s",username);
+    sprintf(buf,"REQCLIENTID,%s,%ld",username , message_id);
 
     if (bytes = send(filemanagerSocks[0] , buf, strlen(buf) , 0) < 0)
     {
@@ -1067,7 +1058,7 @@ long reqCreate(char *filename)
     long fileid;
 
     //Request from the filemanager to set up a client ID
-    sprintf(buf,"REQCREATE,%s,%d" , filename , clientID );
+    sprintf(buf,"REQCREATE,%s,%d,%ld" , filename , clientID, message_id );
 
     if (bytes = send(filemanagerSocks[0] , buf, strlen(buf) , 0) < 0)
     {
