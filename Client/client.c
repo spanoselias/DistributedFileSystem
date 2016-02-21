@@ -30,9 +30,7 @@
 
 #define MAXBUF 99999
 #define BUF_SIZE 256 //Size of the buffer
-#define DEVLP //Development mode
-#define DEVMODE
-#define DEVMODEDD
+
 
 #define GINT_TO_POINTER(i) ((gpointer) (glong) (i))
 #define GPOINTER_TO_INT(p) ((gint)  (glong) (p))
@@ -117,12 +115,12 @@ char *checksum_get(char *filename)
 /***********************************************************************************/
 GSList* decode(struct message *msg , char *buf)
 {
-    /*Use comma delimiter to find the type of
-     * send message and retrieve the apropriate
-     * fields*/
+    //Use comma delimiter to find the type of
+    //send message and retrieve the apropriate
+    //fields//
     msg->type=strdup(strtok(buf, ","));
 
-    /*Check if the type of the message is RREAD-OK*/
+    //Check if the type of the message is RREAD-OK//
     if( (strcmp(msg->type , "RREAD-OK" )== 0) )
     {
         int i=0 , len= 0 , repliValue;
@@ -191,6 +189,23 @@ GSList* decode(struct message *msg , char *buf)
         msg->msg_id = atoi(strtok(NULL, ","));
         msg->filename = strdup(strtok(NULL, ","));
     }
+    else if((strcmp(msg->type , "REQCLIENTID" )== 0))
+    {
+        msg->clientID = atol(strtok(NULL, ","));
+        msg->msg_id =  atol(strtok(NULL, ",")) ;
+    }
+    else if((strcmp(msg->type , "REQCREATE" )== 0))
+    {
+        msg->clientID = atol(strtok(NULL, ","));
+        msg->fileID = atol(strtok(NULL, ","));
+        msg->msg_id =  atol(strtok(NULL, ","));
+    }
+    else if((strcmp(msg->type , "REQFILEID" )== 0))
+    {
+        msg->fileID = atol(strtok(NULL, ","));
+        msg->msg_id =  atol(strtok(NULL, ","));
+    }
+
 
     return NULL;
 
@@ -1021,35 +1036,71 @@ void readConfig(char *filename)
 
 }
 
-void reqClientID(char *username)
+int reqClientID(char *username)
 {
     //Buffer message
-    char buf[60];
+    char buf[256];
 
+    //Initialize the buffer
+    bzero(buf,sizeof(buf));
+
+    //Store the bytes that sent
     int bytes;
 
-    //Request from the filemanager to set up a client ID
-    sprintf(buf,"REQCLIENTID,%s,%ld",username , message_id);
+    //Message ID to validate that it receive the correct message
+    int messageID = (++message_id);
 
-    if (bytes = send(filemanagerSocks[0] , buf, strlen(buf) , 0) < 0)
+    //Allocation memory
+    struct message *msg=(struct message *)malloc(sizeof(struct message));
+
+    //Request from the filemanager to set up a client ID
+    sprintf(buf,"REQCLIENTID,%s,%ld",username , messageID );
+
+    if (bytes = send(filemanagerSocks[0] , buf, sizeof(buf) , 0) < 0)
     {
         perror("Send:Unable to request clientID");
     }
 
+    //Initialize the buffer
     bzero(buf,sizeof(buf));
+
+    //Wait to receive the message
     if (recv(filemanagerSocks[0], buf, sizeof(buf), 0) < 0)
     {
         perror("Received() Unable to receive clientID");
     }
 
-    //Retrieve ClientID
-    clientID=atol(strtok(buf, ","));
+    //Decode the message that it receive
+    decode(msg,buf);
+
+    //Deallocate type
+    free(msg->type);
+
+    //Check if it received the correct message
+    if(msg->msg_id == messageID)
+    {
+        //Deallocate struct
+        free(msg);
+
+        //Assign client ID that it received
+        clientID = msg->clientID;
+    }
+    else
+    {
+        //Deallocate struct
+        free(msg);
+
+        return FAILURE;
+    }
 }
 
 long reqCreate(char *filename)
 {
     //Buffer message
-    char buf[60];
+    char buf[256];
+
+    //Message ID to validate that it receive the correct message
+    int messageID = (++message_id);
 
     //Store the number of bytes that sent via socket
     int bytes;
@@ -1058,25 +1109,49 @@ long reqCreate(char *filename)
     long fileid;
 
     //Request from the filemanager to set up a client ID
-    sprintf(buf,"REQCREATE,%s,%d,%ld" , filename , clientID, message_id );
+    sprintf(buf,"REQCREATE,%s,%d,%ld" , filename , clientID, messageID );
 
-    if (bytes = send(filemanagerSocks[0] , buf, strlen(buf) , 0) < 0)
+    if (bytes = send(filemanagerSocks[0] , buf, sizeof(buf) , 0) < 0)
     {
         perror("Send:Unable to request clientID");
     }
 
     bzero(buf,sizeof(buf));
-    if (recv(filemanagerSocks[0], buf, 64, 0) < 0)
+    if (recv(filemanagerSocks[0], buf, sizeof(buf) , 0) < 0)
     {
         perror("Received() Unable to receive clientID");
     }
 
     printf("ReqCreate Received: %s\n" , buf );
 
-    //store the fileid
-    fileid=atol(buf);
+    //Allocation memory
+    struct message *msg=(struct message *)malloc(sizeof(struct message));
 
-    return fileid;
+    //Decode the message that it receive
+    decode(msg,buf);
+
+    //Deallocate type
+    free(msg->type);
+
+    //Check if it received the correct message
+    if(msg->msg_id == messageID)
+    {
+        //Assign fileid
+        int fileid = msg->fileID;
+
+        //Deallocate struct
+        free(msg);
+
+        return fileid;
+    }
+
+    else
+    {
+        //Deallocate struct
+        free(msg);
+
+        return FAILURE;
+    }
 }
 
 long reqFileID(struct cmd *cmdmsg , long clientID)
@@ -1090,26 +1165,54 @@ long reqFileID(struct cmd *cmdmsg , long clientID)
     //Store the fileid for the file that it create
     long fileid;
 
-    //Request from the filemanager to set up a client ID
-    sprintf(buf,"REQFILEID,%s.%s,%d" , cmdmsg->filename , cmdmsg->fileType , clientID );
+    //Message ID to validate that it receive the correct message
+    int messageID = (++message_id);
 
-    if (bytes = send(filemanagerSocks[0] , buf, strlen(buf) , 0) < 0)
+    //Request from the filemanager to set up a client ID
+    sprintf(buf,"REQFILEID,%s.%s,%d,%ld" , cmdmsg->filename , cmdmsg->fileType , clientID , messageID );
+
+    if (bytes = send(filemanagerSocks[0] , buf, sizeof(buf) , 0) < 0)
     {
         perror("Send:Unable to request clientID");
     }
 
     bzero(buf,sizeof(buf));
-    if (recv(filemanagerSocks[0], buf, 64, 0) < 0)
+    if (recv(filemanagerSocks[0], buf, sizeof(buf), 0) < 0)
     {
         perror("Received() Unable to receive clientID");
     }
 
     printf("REQFILEID Received: %s\n" , buf );
 
-    //store the fileid
-    fileid=atol(buf);
+    //Allocation memory
+    struct message *msg=(struct message *)malloc(sizeof(struct message));
 
-    return fileid;
+    //Decode the message that it receive
+    decode(msg,buf);
+
+    //Deallocate type
+    free(msg->type);
+
+    //Check if it received the correct message
+    if(msg->msg_id == messageID)
+    {
+        //Assign fileid
+        int fileid = msg->fileID;
+
+        //Deallocate struct
+        free(msg);
+
+        return fileid;
+    }
+
+    else
+    {
+        //Deallocate struct
+        free(msg);
+
+        return FAILURE;
+    }
+
 
 }
 

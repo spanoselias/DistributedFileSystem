@@ -85,6 +85,7 @@ int decode(char *buf , FILEHEADER *header )
             header->filename = strdup(strtok(NULL,","));
             header->filetype = strdup(strtok(NULL,","));
             header->owner = atol( strtok(NULL,","));
+            header->MSGID = atol( strtok(NULL,","));
         }
 
     //Unloack Mutex//
@@ -235,8 +236,8 @@ void *accept_thread(void *accept_sock)
         {
             bzero(buf,sizeof(buf));
             //encode the clientID
-            sprintf(buf,"%ld" , registerClient(msg->username ));
-            if (send(acptsock, buf, 16 , 0) < 0 )
+            sprintf(buf,"REQCLIENTID,%ld,%ld" , registerClient(msg->username ), msg->MSGID );
+            if (send(acptsock, buf, sizeof(buf) , 0) < 0 )
             {
                 perror("Send:Unable to send clientID");
             }
@@ -256,8 +257,8 @@ void *accept_thread(void *accept_sock)
 
             bzero(buf,sizeof(buf));
             //encode the clientID
-            sprintf(buf,"%ld" , fileid );
-            if (send(acptsock, buf, 64 , 0) < 0 )
+            sprintf(buf,"REQCREATE,%ld,%ld" , fileid , msg->MSGID );
+            if (send(acptsock, buf, sizeof(buf) , 0) < 0 )
             {
                perror("Send:Unable to send clientID");
             }
@@ -276,8 +277,8 @@ void *accept_thread(void *accept_sock)
 
             bzero(buf,sizeof(buf));
             //encode the clientID
-            sprintf(buf,"%ld" , fileid );
-            if (send(acptsock, buf, 64 , 0) < 0 )
+            sprintf(buf,"REQFILEID,%ld,%ld" , fileid , msg->MSGID );
+            if (send(acptsock, buf, sizeof(buf) , 0) < 0 )
             {
                 perror("Send:Unable to send clientID");
             }
@@ -290,7 +291,6 @@ void *accept_thread(void *accept_sock)
         printf("\nSend:%s\n", buf);
 
     }//While
-
 }
 
 long registerClient(char *username)

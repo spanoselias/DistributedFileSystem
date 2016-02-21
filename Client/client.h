@@ -23,9 +23,10 @@ struct message
     int  msg_id;
     struct TAG tag;
     GSList* replicaSet;
-    int  fileID;
+    long  fileID;
     char *filename;
     char *filetype;
+    long clientID;
     unsigned int fileSize;
     char *checksum;
     char *permission;
