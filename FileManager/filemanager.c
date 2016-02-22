@@ -245,23 +245,30 @@ void *accept_thread(void *accept_sock)
         }
         else if( strcmp(msg->type , "REQCREATE" )== 0 )
         {
-            printf("Received Create: %s , owner:%ld\n" , msg->filename ,msg->owner);
+            printf("Received Create: %s , owner:%ld\n", msg->filename, msg->owner);
 
-            //Store the new file in the metadata
-            //Also , retrieve the fileID for the file
-            unsigned long fileid = registerFile(msg->filename , msg->owner );
+            //Store fileid
+            unsigned long fileid = lookUpFileID(msg->filename , msg->owner );
 
-            printf("REQCREATE Function return: %ld \n" , fileid);
-
-            bzero(buf,sizeof(buf));
-            //encode the clientID
-            sprintf(buf,"REQCREATE,%ld,%ld" , fileid , msg->MSGID );
-            if (send(acptsock, buf, sizeof(buf) , 0) < 0 )
+            if(fileid == -1)
             {
-               perror("Send:Unable to send clientID");
+                //Store the new file in the metadata
+                //Also , retrieve the fileID for the file
+                fileid = registerFile(msg->filename, msg->owner);
+            }
+
+            printf("REQCREATE Function return: %ld \n", fileid);
+
+            bzero(buf, sizeof(buf));
+            //encode the clientID
+            sprintf(buf, "REQCREATE,%ld,%ld", fileid, msg->MSGID);
+            if (send(acptsock, buf, sizeof(buf), 0) < 0)
+            {
+                perror("Send:Unable to send clientID");
             }
             //Deallocations
             free(msg->filename);
+
         }
         else if( strcmp(msg->type , "REQFILEID" )== 0 )
         {

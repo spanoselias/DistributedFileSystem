@@ -1600,10 +1600,111 @@ void inisialization()
 }//Function inisialization
 
 
+void unitTest(char *filename , char *filetype , char *username)
+{
+
+    //Check the system if is working correct
+    struct cmd *cmdmsg;
+
+    cmdmsg=(struct cmd*)malloc(sizeof(struct cmd));
+    cmdmsg->filename=strdup(filename);
+    cmdmsg->fileType=strdup(filetype);
+
+    //Unitest for the function reqClientID
+    long clientID = reqClientID(username);
+
+    //Counter to calculate the times that the unitest run
+    int i=0;
+
+        //newline
+        printf("\n");
+        if (clientID != FAILURE)
+        {
+            printf("**********************************\n");
+            printf("TEST1 reqClientID function PASSED!!\n");
+            printf("Received clientID: %ld\n", clientID);
+            printf("**********************************\n");
+
+        }
+        else
+        {
+            printf("**********************************\n");
+            printf("TEST1 reqClientID function FAILED!!\n");
+            printf("Received clientID: %ld\n", clientID);
+            printf("**********************************\n");
+        }
+        printf("\n--------------------------------------------------------------------\n");
+
+    for(i=0; i<3; i++)
+    {
+        //Unit test for the function reqCreate
+        //Store the filename with the corresponding type
+        char newfilename[256];
+        bzero(newfilename, sizeof(newfilename));
+
+        sprintf(newfilename, "%s.%s", filename, filetype);
+
+        //Call reqCreate function
+        long fileid = reqCreate(newfilename);
+
+        //newline
+        if (fileid != FAILURE)
+        {
+            //Store the file id that received
+            cmdmsg->fileid = fileid;
+
+            printf("\n**********************************\n");
+            printf("TEST2 reqCreate function PASSED!!\n");
+            printf("Received fileID: %ld\n", fileid);
+            printf("**********************************\n");
+
+        }
+        else
+        {
+            printf("**********************************\n");
+            printf("TEST2 reqCreate function FAILED!!\n");
+            printf("Received fileID: %ld\n", fileid);
+            printf("**********************************\n");
+        }
+        printf("\n--------------------------------------------------------------------\n");
+
+
+        //message id
+        long messageid=0;
+
+        //Call reqCreate function
+        int isSuccess =  writer_oper(messageid,cmdmsg);
+
+        //newline
+        if (isSuccess != FAILURE)
+        {
+            printf("\n**********************************\n");
+            printf("TEST3 WRITER_OPER FUNCTION PASSED!!\n");
+            printf("**********************************\n");
+        }
+        else
+        {
+            printf("**********************************\n");
+            printf("TEST3 WRITER_OPER FUNCTION FAILED!!\n");
+            printf("**********************************\n");
+        }
+        printf("\n--------------------------------------------------------------------\n");
+
+
+    }//For statment
+
+
+
+    //deallocate
+    free(cmdmsg->filename);
+    free(cmdmsg->fileType);
+
+}
+
 /***********************************************************************************/
 /*                                  MAIN                                           */
 /***********************************************************************************/
-int main(int agrc , char *argc[])
+int main(int argc , char *argv[])
 {
     //Tha name of the file that holds all the information for the servers
     char *filename="config.txt";
@@ -1620,41 +1721,56 @@ int main(int agrc , char *argc[])
     //Establish connection with the filemanager
     conn2filemanager();
 
-    /*Declaration of buffers in order to store the sending&receiving
-     *data* */
-    char buf[BUF_SIZE]; //Buffer to store the send msg.
 
-    //Store the command that received from client
-    char command[256];
-    struct cmd *input_cmd;
-    input_cmd=(struct cmd*)malloc(sizeof(struct cmd));
-
-    /*Initialize the message id*/
-    message_id=0;
-
-    printf("Client is running...\n");
-
-    printf("Logging...\n");
-
-    //Insert the client username inorder to receive
-    //a clientID
-    printf("\nInsert username: ");
-    //Read from stdin/
-    fgets(command,sizeof(command),stdin);
-    //Read command input
-    read_cmd(command,input_cmd);
-
-    do
+    if(argc != 1)
     {
-        //Command prompt//
-        printf("\nInsert operation:");
+        //Call unitest function
+        unitTest(argv[1] , argv[2] , argv[3]);
+    }
+    else
+    {
 
+        //Declaration of buffers in order to store the sending&receiving
+        //data//
+        char buf[BUF_SIZE]; //Buffer to store the send msg.
+
+        //Store the command that received from client
+        char command[256];
+        struct cmd *input_cmd;
+        input_cmd=(struct cmd*)malloc(sizeof(struct cmd));
+
+        /*Initialize the message id*/
+        message_id=0;
+
+        printf("Client is running...\n");
+
+        printf("Logging...\n");
+
+        //Insert the client username inorder to receive
+        //a clientID
+        printf("\nInsert username: ");
         //Read from stdin/
         fgets(command,sizeof(command),stdin);
         //Read command input
         read_cmd(command,input_cmd);
 
-    }while(strcmp(command,"exit\n") != 0);
+        do
+        {
+            //Command prompt//
+            printf("\nInsert operation:");
+
+            //Read from stdin/
+            fgets(command,sizeof(command),stdin);
+            //Read command input
+            read_cmd(command,input_cmd);
+
+        }while(strcmp(command,"exit\n") != 0);
+
+
+    }
+
+
+
 
     return 0;
 }
