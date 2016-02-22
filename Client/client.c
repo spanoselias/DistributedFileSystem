@@ -884,12 +884,12 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
     cmd = strtok(cmd_str, " ");
     strcpy(cmdmsg->oper,cmd);
 
-    if(strcmp(cmd,"exit\n") !=0 && strcmp(cmd,"loggin") !=0 && strcmp(cmd,"create") !=0 )
+    if(strcmp(cmd,"exit") !=0 && strcmp(cmd,"loggin") !=0 && strcmp(cmd,"create") !=0 )
     {
         temp=strtok(NULL," ");
         cmdmsg->filename=strdup(strtok(temp,"."));
         cmdmsg->fileType=strdup(strtok(NULL," "));
-        cmdmsg->fileType[strlen(cmdmsg->fileType)-1]= '\0';
+      //  cmdmsg->fileType[strlen(cmdmsg->fileType)-1]= '\0';
     }
 
     if(strcmp(cmd , "read" ) == 0 )
@@ -1599,7 +1599,6 @@ void inisialization()
 
 }//Function inisialization
 
-
 void unitTest(char *filename , char *filetype , char *username)
 {
 
@@ -1751,6 +1750,9 @@ int main(int argc , char *argv[])
         printf("\nInsert username: ");
         //Read from stdin/
         fgets(command,sizeof(command),stdin);
+        //remove new line character
+        command[strlen(command)-1]='\0';
+
         //Read command input
         read_cmd(command,input_cmd);
 
