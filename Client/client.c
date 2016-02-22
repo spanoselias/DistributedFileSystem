@@ -61,14 +61,35 @@ struct serinfo *filemanagerNodes;            //Store IP and port for each filema
 int    MAX_DIRECTORIES=0;                    //Store the number of directories that exist in the system
 int    MAX_REPLICAS=0;                       //Store the number of replicas that exist in the system
 int    MAX_FILEMANAGERS;                     //Store the number of filemanagers that exist in the system
+int    *repliVals;
+
 
 long   clientID=0;                           //Store clientID
 
-int    failrate=0.10;                        //store the rate for the fail
+double    failrate=0.10;                        //store the rate for the fail
 
 
 GHashTable * hashFiletags;                   //Metadata table that holds all tag for the data
 
+
+/* Arrange the N elements of ARRAY in random order.
+   Only effective if N is much smaller than RAND_MAX;
+   if this may not be the case, use a better random
+   number generator. */
+void shuffle(int *array, size_t n)
+{
+    if (n > 1)
+    {
+        size_t i;
+        for (i = 0; i < n - 1; i++)
+        {
+            size_t j = i + rand() / (RAND_MAX / (n - i) + 1);
+            int t = array[j];
+            array[j] = array[i];
+            array[i] = t;
+        }
+    }
+}
 
 int isMaxTag(struct TAG *tag1 , struct TAG tag2 )
 {
@@ -472,7 +493,7 @@ GSList* recvrepliquorum(struct message *msg , GSList *replicaSet)
                }//For
         }//For
         //Check if you receive quorum of replicas
-        if(IsComplete >=  ( floor((MAX_REPLICAS /2 )) +1))
+        if(IsComplete >=  ( ceil((MAX_REPLICAS *failrate) ) ))
         {
             break;
         }
@@ -480,7 +501,7 @@ GSList* recvrepliquorum(struct message *msg , GSList *replicaSet)
         usleep(500000);
     }
 
-    if(IsComplete >= (floor(MAX_REPLICAS/2)+1))
+    if( IsComplete >= (ceil( ( MAX_REPLICAS * failrate ) ) ) )
     {
         printf("Received Replica Quorum\n");
         return replicaSet;
@@ -755,15 +776,15 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
 
         //Replace the old one version of the file with the new one
         unsigned int length=sprintf(tmpfilename,"%s.%s", msg->filename , msg->filetype);
-        tmpfilename[length-1]='\0';
+        //tmpfilename[length-1]='\0';
 
         //Remove the old file
-       // remove(tmpfilename);
+        //remove(tmpfilename);
 
         //Read the new version of the file
         read_Inform(cmdmsgIn , tag , msg , setOfReplica);
 
-      //  reader_oper(msg_id , cmdmsgIn);
+       //reader_oper(msg_id , cmdmsgIn);
 
         return FAILURE;
     }
@@ -773,11 +794,16 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     tag->num +=1;
     tag->clientID = clientID;
 
+
+    shuffle(repliVals,MAX_REPLICAS);
+
     //Broadcast to all replicas the object and wait from f(fail number) replicas to response
     //with an acknowledgment
-    for(i=0; i < MAX_REPLICAS; i++)
+    for(i=0; i < ceil(( MAX_REPLICAS * failrate )); i++)
     {
-        if( send2ftp(cmdmsgIn,replicaSocks[i] , tag ,(message_id) ) == FAILURE)
+        int repl= repliVals[i];
+
+        if( send2ftp(cmdmsgIn,replicaSocks[repl] , tag ,(message_id) ) == FAILURE)
         {
             printf("Error:Send2ftp\n");
             return  FAILURE;
@@ -884,13 +910,48 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
     cmd = strtok(cmd_str, " ");
     strcpy(cmdmsg->oper,cmd);
 
-    if(strcmp(cmd,"exit") !=0 && strcmp(cmd,"loggin") !=0 && strcmp(cmd,"create") !=0 )
+
+    //Check the command if it exist
+    if(strcmp(cmd,"exit") ==0)
     {
-        temp=strtok(NULL," ");
-        cmdmsg->filename=strdup(strtok(temp,"."));
-        cmdmsg->fileType=strdup(strtok(NULL," "));
-      //  cmdmsg->fileType[strlen(cmdmsg->fileType)-1]= '\0';
+        return 1;
     }
+    else if(strcmp(cmd , "loggin" ) == 0)
+    {
+        //Store the username of the client
+        char *username;
+
+        username = strdup(strtok(NULL," "));
+
+        //Request clientID
+        reqClientID(username);
+
+        //Deallocate
+        free(username);
+
+        return 1;
+    }
+    else if(strcmp(cmd , "create" ) == 0)
+    {
+        //Store the filename
+        char *filename;
+
+        filename = strdup(strdup(strtok(NULL," ")));
+
+        long fileid = reqCreate(filename);
+
+        printf("Create executed! FileID: %ld" , fileid);
+
+        //Deallocate
+        free(filename);
+
+        return 1;
+    }
+
+    //Retieve information of the file
+    temp=strtok(NULL," ");
+    cmdmsg->filename=strdup(strtok(temp,"."));
+    cmdmsg->fileType=strdup(strtok(NULL," "));
 
     if(strcmp(cmd , "read" ) == 0 )
     {
@@ -905,6 +966,7 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
                 printf("Unable to read the data object\n");
             }
         }
+
         else
         {
             printf("Unable to receive the fileid correct\n");
@@ -927,36 +989,6 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
         {
             printf("Unable to receive the fileID correct\n");
         }
-    }
-
-    else if(strcmp(cmd , "loggin" ) == 0)
-    {
-        //Store the username of the client
-        char *username;
-
-        username = strdup(strtok(NULL," "));
-        username[strlen(username)-1]='\0';
-
-        //Request clientID
-        reqClientID(username);
-
-        //Deallocate
-         free(username);
-    }
-    else if(strcmp(cmd , "create" ) == 0)
-    {
-        //Store the filename
-        char *filename;
-
-        filename = strdup(strdup(strtok(NULL," ")));
-        filename[strlen(filename)-1]='\0';
-
-        long fileid = reqCreate(filename);
-
-        printf("Create executed! FileID: %ld" , fileid);
-
-        //Deallocate
-        free(filename);
     }
 
     //deallocate
@@ -1500,6 +1532,9 @@ void inisialization()
 {
     int i;
 
+    //Allocate the array to store all the replica nodes
+    repliVals = (int *)malloc(sizeof(int) * MAX_REPLICAS);
+
     //Allocate the array to store all the sockaddr_in for directories
     direc_sockaddr=(struct sockaddr_in *)malloc(sizeof(struct sockaddr_in ) * MAX_DIRECTORIES );
 
@@ -1545,17 +1580,15 @@ void inisialization()
         filemanager_sockaddr[i].sin_port = htons(40001);
     }//For statement
 
-
     //initialize hash table that stores the tags for the files
     hashFiletags = g_hash_table_new( g_str_hash, g_str_equal);
-
 
     //Inisialization  of the set of sockets descriptors
     FD_ZERO(&direcs_fds);
     FD_ZERO(&replicas_fd);
     FD_ZERO(&crash_direc_fds);
 
-    /*Go through all the available directories to establish a connection.*/
+    //Go through all the available directories to establish a connection.*/
     for (i = 0; i < MAX_DIRECTORIES; i++)
     {
         //Create a socket and check if is created correct
@@ -1564,12 +1597,14 @@ void inisialization()
             perror("Socket() failed");
             exit(1);
         }
-
     }//For statement
 
     //Fill the replicaSocks for directories server which is type sockaddr_in
     for (i = 0; i < MAX_REPLICAS; i++)
     {
+        //Fill with all the replica
+        repliVals[i]=i;
+
         //Create a socket and check if is created correct
         if ((replicaSocks[i] = socket(PF_INET, SOCK_STREAM, 0)) < 0)
         {
@@ -1593,7 +1628,6 @@ void inisialization()
             perror("Socket() failed");
             exit(1);
         }
-
     }//For statement
 
 
@@ -1601,7 +1635,6 @@ void inisialization()
 
 void unitTest(char *filename , char *filetype , char *username)
 {
-
     //Check the system if is working correct
     struct cmd *cmdmsg;
 
@@ -1720,7 +1753,6 @@ int main(int argc , char *argv[])
     //Establish connection with the filemanager
     conn2filemanager();
 
-
     if(argc != 1)
     {
         //Call unitest function
@@ -1728,7 +1760,6 @@ int main(int argc , char *argv[])
     }
     else
     {
-
         //Declaration of buffers in order to store the sending&receiving
         //data//
         char buf[BUF_SIZE]; //Buffer to store the send msg.
@@ -1764,14 +1795,14 @@ int main(int argc , char *argv[])
             //Read from stdin/
             fgets(command,sizeof(command),stdin);
             //Read command input
+            //remove new line character
+            command[strlen(command)-1]='\0';
+
             read_cmd(command,input_cmd);
 
-        }while(strcmp(command,"exit\n") != 0);
-
+        }while(strcmp(command,"exit") != 0);
 
     }
-
-
 
 
     return 0;

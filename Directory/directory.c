@@ -96,7 +96,7 @@ GSList * insertList(GSList *metadata , GSList *curList )
     {
         if (g_slist_find(metadata, iter->data ) == NULL)
         {
-            g_slist_prepend(metadata, iter->data );
+            metadata = g_slist_prepend(metadata, iter->data );
         }
     }
 

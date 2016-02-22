@@ -411,14 +411,14 @@ int ftp_recv(int sock, struct replicaHeader *msg )
     {
         return FAILURE;
     }
-  /*  else if(strcmp(filechecksum , msg->checksum) != 0)
+    else if(strcmp(filechecksum , msg->checksum) != 0)
     {
         printf("Invalid checksum\n");
 
         //Remove the file
         remove(filename);
         return FAILURE;
-    }*/
+    }
 
     printf("Received file: %s successful\n" , filename);
 
@@ -496,7 +496,8 @@ GHashTable *  insertMetadata(GHashTable * funmetatable ,  TAG* filetag , char *f
 TAG* findMaxTag(GHashTable * funmetatable , TAG* filetag , char *filename  , int *hasError)
 {
 
-     printf("Enter findMAxTag  function \n");
+     printf("---------------------------\n");
+     printf("ENTER FINDMAXTAG FUNCTION \n");
 
 
     //Initialize variable hasError
@@ -553,7 +554,9 @@ TAG* findMaxTag(GHashTable * funmetatable , TAG* filetag , char *filename  , int
             }
     }
 
-    printf("Exit findMAxTag  function \n");
+    printf("EXIT FINDMAXTAG FUNCTION \n");
+    printf("---------------------------\n");
+
     //Check if you found the tag , otherwise you must return the max secure tag
     if(existTag != NULL)
     {
@@ -784,9 +787,8 @@ GHashTable *   addSecure(GHashTable * funmetatable ,TAG* secureTag , struct repl
          }
 
 
-
-
     printf("Exit Add secure function insertMetadata\n");
+    printf("------------------------------------------\n");
 
     return funmetatable;
 
@@ -1272,8 +1274,7 @@ void signal_handler()
     printf("Signal Handled here\n");
 
     //Retrieve all the key values from the hashtable
-    GList *hashPoint = g_hash_table_get_keys (metadatatable);
-
+    GList *hashPoint =  g_hash_table_get_keys (metadatatable);
 
     GSList* iter=NULL , *iter2=NULL , *pointlist=NULL;
 

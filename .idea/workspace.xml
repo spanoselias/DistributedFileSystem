@@ -15,9 +15,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="074f1195-62a4-43e6-a1db-a48c9186e3a6" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/cli" afterPath="$PROJECT_DIR$/Client/cli" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Directory/dir" afterPath="$PROJECT_DIR$/Directory/dir" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Replica/repli" afterPath="$PROJECT_DIR$/Replica/repli" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/client.c" afterPath="$PROJECT_DIR$/Client/client.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FileManager/filemanager.c" afterPath="$PROJECT_DIR$/FileManager/filemanager.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/client.h" afterPath="$PROJECT_DIR$/Client/client.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Directory/directory.c" afterPath="$PROJECT_DIR$/Directory/directory.c" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Replica/replica.c" afterPath="$PROJECT_DIR$/Replica/replica.c" />
     </list>
     <ignored path="DistributedSystems.iws" />
@@ -38,7 +42,7 @@
     <favorites_list name="DistributedSystems" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.6314481">
+    <splitter split-orientation="horizontal" split-proportion="0.6494717">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="filemanager.c" pinned="false" current-in-tab="false">
@@ -66,7 +70,7 @@
             <entry file="file://$PROJECT_DIR$/Replica/replica.c">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="426" column="0" selection-start-line="426" selection-start-column="0" selection-end-line="426" selection-end-column="0" />
+                  <caret line="427" column="12" selection-start-line="427" selection-start-column="12" selection-end-line="427" selection-end-column="12" />
                   <folding>
                     <element signature="e#938#956#0" expanded="true" />
                     <element signature="e#2893#4722#0" expanded="false" />
@@ -75,18 +79,18 @@
                     <element signature="e#6519#7245#0" expanded="false" />
                     <element signature="e#7247#9143#0" expanded="false" />
                     <element signature="e#9145#11280#0" expanded="false" />
-                    <element signature="e#11282#13112#0" expanded="false" />
-                    <element signature="e#13114#15225#0" expanded="false" />
-                    <element signature="e#15227#17314#0" expanded="false" />
-                    <element signature="e#17316#21639#0" expanded="false" />
-                    <element signature="e#21641#24707#0" expanded="false" />
-                    <element signature="e#24709#26953#0" expanded="false" />
-                    <element signature="e#26955#28744#0" expanded="false" />
-                    <element signature="e#28746#30904#0" expanded="false" />
-                    <element signature="e#30906#35502#0" expanded="false" />
-                    <element signature="e#35504#38506#0" expanded="false" />
-                    <element signature="e#38508#39849#0" expanded="false" />
-                    <element signature="e#40109#41535#0" expanded="false" />
+                    <element signature="e#11282#13108#0" expanded="false" />
+                    <element signature="e#13110#15221#0" expanded="false" />
+                    <element signature="e#15223#17400#0" expanded="false" />
+                    <element signature="e#17402#21725#0" expanded="false" />
+                    <element signature="e#21727#24851#0" expanded="false" />
+                    <element signature="e#24853#27097#0" expanded="false" />
+                    <element signature="e#27099#28888#0" expanded="false" />
+                    <element signature="e#28890#31048#0" expanded="false" />
+                    <element signature="e#31050#35646#0" expanded="false" />
+                    <element signature="e#35648#38650#0" expanded="false" />
+                    <element signature="e#38652#39993#0" expanded="false" />
+                    <element signature="e#40253#41679#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -95,19 +99,19 @@
           <file leaf-file-name="directory.c" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Directory/directory.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-10.290322">
-                  <caret line="669" column="0" selection-start-line="669" selection-start-column="0" selection-end-line="671" selection-end-column="85" />
+                <state vertical-scroll-proportion="-5.580645">
+                  <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
                   <folding>
                     <element signature="e#852#870#0" expanded="true" />
                     <element signature="e#2419#3007#0" expanded="false" />
-                    <element signature="e#3009#3391#0" expanded="false" />
-                    <element signature="e#3393#5120#0" expanded="false" />
-                    <element signature="e#5294#5848#0" expanded="false" />
-                    <element signature="e#6022#8377#0" expanded="false" />
-                    <element signature="e#8569#18255#0" expanded="false" />
-                    <element signature="e#18429#20527#0" expanded="false" />
-                    <element signature="e#20726#20941#0" expanded="false" />
-                    <element signature="e#21220#22474#0" expanded="false" />
+                    <element signature="e#3009#3402#0" expanded="false" />
+                    <element signature="e#3404#5131#0" expanded="false" />
+                    <element signature="e#5305#5859#0" expanded="false" />
+                    <element signature="e#6033#8388#0" expanded="false" />
+                    <element signature="e#8580#18266#0" expanded="false" />
+                    <element signature="e#18440#20538#0" expanded="false" />
+                    <element signature="e#20737#20952#0" expanded="false" />
+                    <element signature="e#21231#22485#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -126,34 +130,37 @@
           <file leaf-file-name="client.c" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Client/client.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.63049096">
-                  <caret line="1618" column="21" selection-start-line="1618" selection-start-column="21" selection-end-line="1618" selection-end-column="21" />
+                <state vertical-scroll-proportion="0.55332303">
+                  <caret line="1543" column="30" selection-start-line="1543" selection-start-column="30" selection-end-line="1543" selection-end-column="30" />
                   <folding>
                     <element signature="e#852#870#0" expanded="true" />
-                    <element signature="e#4024#4220#0" expanded="false" />
-                    <element signature="e#4222#4779#0" expanded="false" />
-                    <element signature="e#4953#7982#0" expanded="false" />
-                    <element signature="e#8181#11199#0" expanded="false" />
-                    <element signature="e#11483#15600#0" expanded="false" />
-                    <element signature="e#15626#17787#0" expanded="false" />
-                    <element signature="e#17789#18566#0" expanded="false" />
-                    <element signature="e#18740#20207#0" expanded="false" />
-                    <element signature="e#19982#20112#0" expanded="true" />
-                    <element signature="e#20381#22461#0" expanded="false" />
-                    <element signature="e#22635#23384#0" expanded="false" />
-                    <element signature="e#23576#29432#0" expanded="false" />
-                    <element signature="e#29623#29862#0" expanded="false" />
-                    <element signature="e#32485#35065#0" expanded="false" />
-                    <element signature="e#35067#36342#0" expanded="false" />
-                    <element signature="e#36344#37656#0" expanded="false" />
-                    <element signature="e#37658#38981#0" expanded="false" />
-                    <element signature="e#39155#39928#0" expanded="false" />
-                    <element signature="e#39930#40899#0" expanded="false" />
-                    <element signature="e#40539#40670#0" expanded="true" />
-                    <element signature="e#40933#41713#0" expanded="false" />
-                    <element signature="e#41715#44209#0" expanded="false" />
-                    <element signature="e#44211#46398#0" expanded="false" />
-                    <element signature="e#46400#50122#0" expanded="false" />
+                    <element signature="e#4047#4519#0" expanded="false" />
+                    <element signature="e#4521#4717#0" expanded="false" />
+                    <element signature="e#4719#5276#0" expanded="false" />
+                    <element signature="e#5450#8479#0" expanded="false" />
+                    <element signature="e#8678#11696#0" expanded="false" />
+                    <element signature="e#11980#16097#0" expanded="false" />
+                    <element signature="e#16123#18303#0" expanded="false" />
+                    <element signature="e#18305#19082#0" expanded="false" />
+                    <element signature="e#19256#20723#0" expanded="false" />
+                    <element signature="e#20498#20628#0" expanded="true" />
+                    <element signature="e#20897#22977#0" expanded="false" />
+                    <element signature="e#23151#23900#0" expanded="false" />
+                    <element signature="e#24092#30045#0" expanded="false" />
+                    <element signature="e#30236#30475#0" expanded="false" />
+                    <element signature="e#30668#32838#0" expanded="false" />
+                    <element signature="e#33012#35592#0" expanded="false" />
+                    <element signature="e#35594#36869#0" expanded="false" />
+                    <element signature="e#36871#38183#0" expanded="false" />
+                    <element signature="e#38185#39508#0" expanded="false" />
+                    <element signature="e#39682#40455#0" expanded="false" />
+                    <element signature="e#40457#41426#0" expanded="false" />
+                    <element signature="e#41066#41197#0" expanded="true" />
+                    <element signature="e#41460#42240#0" expanded="false" />
+                    <element signature="e#42242#44736#0" expanded="false" />
+                    <element signature="e#44738#46925#0" expanded="false" />
+                    <element signature="e#50849#53877#0" expanded="false" />
+                    <element signature="e#54051#55894#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -163,7 +170,7 @@
             <entry file="file://$PROJECT_DIR$/Client/unitest.sh">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="1" column="16" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
+                  <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -173,9 +180,12 @@
             <entry file="file://$PROJECT_DIR$/Client/client.h">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+                  <caret line="52" column="82" selection-start-line="52" selection-start-column="82" selection-end-line="52" selection-end-column="82" />
                   <folding>
+                    <element signature="e#253#300#1" expanded="false" />
+                    <element signature="e#303#545#1" expanded="false" />
                     <element signature="e#548#637#1" expanded="false" />
+                    <element signature="e#640#694#1" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -200,34 +210,34 @@
           <file leaf-file-name="client.c" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Client/client.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.57751936">
-                  <caret line="647" column="0" selection-start-line="647" selection-start-column="0" selection-end-line="647" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.690881">
+                  <caret line="668" column="0" selection-start-line="668" selection-start-column="0" selection-end-line="668" selection-end-column="0" />
                   <folding>
                     <element signature="e#852#870#0" expanded="true" />
-                    <element signature="e#4024#4220#0" expanded="false" />
-                    <element signature="e#4222#4779#0" expanded="false" />
-                    <element signature="e#8181#11199#0" expanded="false" />
-                    <element signature="e#11483#15600#0" expanded="false" />
-                    <element signature="e#15626#17787#0" expanded="false" />
-                    <element signature="e#17789#18566#0" expanded="false" />
-                    <element signature="e#18740#20207#0" expanded="false" />
-                    <element signature="e#19982#20112#0" expanded="true" />
-                    <element signature="e#20381#22461#0" expanded="false" />
-                    <element signature="e#22635#23384#0" expanded="false" />
-                    <element signature="e#23576#29432#0" expanded="false" />
-                    <element signature="e#29623#29862#0" expanded="false" />
-                    <element signature="e#30055#32311#0" expanded="false" />
-                    <element signature="e#32485#35065#0" expanded="false" />
-                    <element signature="e#35067#36342#0" expanded="false" />
-                    <element signature="e#36344#37656#0" expanded="false" />
-                    <element signature="e#37658#38981#0" expanded="false" />
-                    <element signature="e#39155#39928#0" expanded="false" />
-                    <element signature="e#39930#40899#0" expanded="false" />
-                    <element signature="e#40539#40670#0" expanded="true" />
-                    <element signature="e#40933#41713#0" expanded="false" />
-                    <element signature="e#41715#44209#0" expanded="false" />
-                    <element signature="e#44211#46398#0" expanded="false" />
-                    <element signature="e#46400#50122#0" expanded="false" />
+                    <element signature="e#4521#4717#0" expanded="false" />
+                    <element signature="e#4719#5276#0" expanded="false" />
+                    <element signature="e#8678#11696#0" expanded="false" />
+                    <element signature="e#11980#16097#0" expanded="false" />
+                    <element signature="e#16123#18303#0" expanded="false" />
+                    <element signature="e#18305#19082#0" expanded="false" />
+                    <element signature="e#19256#20723#0" expanded="false" />
+                    <element signature="e#20498#20628#0" expanded="true" />
+                    <element signature="e#20897#22977#0" expanded="false" />
+                    <element signature="e#23151#23900#0" expanded="false" />
+                    <element signature="e#24092#30045#0" expanded="false" />
+                    <element signature="e#30236#30475#0" expanded="false" />
+                    <element signature="e#30668#32838#0" expanded="false" />
+                    <element signature="e#33012#35592#0" expanded="false" />
+                    <element signature="e#35594#36869#0" expanded="false" />
+                    <element signature="e#36871#38183#0" expanded="false" />
+                    <element signature="e#38185#39508#0" expanded="false" />
+                    <element signature="e#39682#40455#0" expanded="false" />
+                    <element signature="e#40457#41426#0" expanded="false" />
+                    <element signature="e#41066#41197#0" expanded="true" />
+                    <element signature="e#41460#42240#0" expanded="false" />
+                    <element signature="e#42242#44736#0" expanded="false" />
+                    <element signature="e#44738#46925#0" expanded="false" />
+                    <element signature="e#46927#50822#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -246,10 +256,10 @@
         <option value="$PROJECT_DIR$/Client/permission.txt" />
         <option value="$PROJECT_DIR$/FileManager/filemanager.h" />
         <option value="$PROJECT_DIR$/Directory/directory.h" />
-        <option value="$PROJECT_DIR$/Client/client.h" />
-        <option value="$PROJECT_DIR$/Directory/directory.c" />
         <option value="$PROJECT_DIR$/Client/unitest.sh" />
         <option value="$PROJECT_DIR$/FileManager/filemanager.c" />
+        <option value="$PROJECT_DIR$/Client/client.h" />
+        <option value="$PROJECT_DIR$/Directory/directory.c" />
         <option value="$PROJECT_DIR$/Replica/replica.c" />
         <option value="$PROJECT_DIR$/Client/client.c" />
       </list>
@@ -342,7 +352,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ldr/Replica/replica.c" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ExpiramentalTime" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="205" />
@@ -389,7 +399,7 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="client" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="s1 mp3 spanos" WORKING_DIR="file://$PROJECT_DIR$/Client" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="DistributedAlgorithms" TARGET_NAME="client" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DistributedAlgorithms" RUN_TARGET_NAME="client">
+    <configuration default="false" name="client_modify" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="s1 mp3 spanos" WORKING_DIR="file://$PROJECT_DIR$/Client" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="DistributedAlgorithms" TARGET_NAME="client" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DistributedAlgorithms" RUN_TARGET_NAME="client">
       <envs />
       <method />
     </configuration>
@@ -405,11 +415,16 @@
       <envs />
       <method />
     </configuration>
-    <list size="4">
-      <item index="0" class="java.lang.String" itemvalue="Application.client" />
+    <configuration default="false" name="client" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="file://$PROJECT_DIR$/Client" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="DistributedAlgorithms" TARGET_NAME="client" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DistributedAlgorithms" RUN_TARGET_NAME="client">
+      <envs />
+      <method />
+    </configuration>
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="Application.client_modify" />
       <item index="1" class="java.lang.String" itemvalue="Application.directory" />
       <item index="2" class="java.lang.String" itemvalue="Application.replica" />
       <item index="3" class="java.lang.String" itemvalue="Application.filemanager" />
+      <item index="4" class="java.lang.String" itemvalue="Application.client" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -651,24 +666,30 @@
       <option name="project" value="LOCAL" />
       <updated>1456159032289</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="#optimizingCode">
+      <created>1456160229434</created>
+      <option name="number" value="00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1456160229434</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12172489" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11135371" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2346194" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2544317" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295099" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295099" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20542231" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40771636" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12930135" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26173097" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30865484" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44421273" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -715,7 +736,8 @@
     <MESSAGE value="#Fixed_filename_errors" />
     <MESSAGE value="#added_Unitest_function" />
     <MESSAGE value="#fixedGarbageCollector" />
-    <option name="LAST_COMMIT_MESSAGE" value="#fixedGarbageCollector" />
+    <MESSAGE value="#optimizingCode" />
+    <option name="LAST_COMMIT_MESSAGE" value="#optimizingCode" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.742268" />
   </component>
   <component name="XDebuggerManager">
@@ -738,74 +760,69 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Client/client.c</url>
-          <line>779</line>
-          <option name="timeStamp" value="56" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Client/client.c</url>
-          <line>673</line>
+          <line>694</line>
           <option name="timeStamp" value="58" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Client/client.c</url>
-          <line>632</line>
+          <line>653</line>
           <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Replica/replica.c</url>
-          <line>1138</line>
+          <line>1140</line>
           <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Replica/replica.c</url>
-          <line>1099</line>
+          <line>1101</line>
           <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Client/client.c</url>
-          <line>1723</line>
+          <line>1755</line>
           <option name="timeStamp" value="62" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Client/client.c</url>
-          <line>1726</line>
+          <line>1758</line>
           <option name="timeStamp" value="63" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Client/client.c</url>
-          <line>1601</line>
-          <option name="timeStamp" value="64" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Replica/replica.c</url>
-          <line>573</line>
-          <option name="timeStamp" value="65" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Replica/replica.c</url>
-          <line>1150</line>
+          <line>1152</line>
           <option name="timeStamp" value="67" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Replica/replica.c</url>
-          <line>612</line>
+          <line>615</line>
           <option name="timeStamp" value="71" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Client/client.c</url>
-          <line>878</line>
-          <option name="timeStamp" value="72" />
+          <line>979</line>
+          <option name="timeStamp" value="75" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Client/client.c</url>
-          <line>886</line>
-          <option name="timeStamp" value="74" />
+          <line>982</line>
+          <option name="timeStamp" value="76" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Client/client.c</url>
+          <line>801</line>
+          <option name="timeStamp" value="77" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Client/client.c</url>
+          <line>812</line>
+          <option name="timeStamp" value="78" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="75" />
+      <option name="time" value="79" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="CMakeRunConfiguration">
@@ -826,18 +843,18 @@
             <element signature="e#6519#7245#0" expanded="false" />
             <element signature="e#7247#9143#0" expanded="false" />
             <element signature="e#9145#11280#0" expanded="false" />
-            <element signature="e#11282#13112#0" expanded="false" />
-            <element signature="e#13114#15225#0" expanded="false" />
-            <element signature="e#15227#17314#0" expanded="false" />
-            <element signature="e#17316#21639#0" expanded="false" />
-            <element signature="e#21641#24707#0" expanded="false" />
-            <element signature="e#24709#26953#0" expanded="false" />
-            <element signature="e#26955#28744#0" expanded="false" />
-            <element signature="e#28746#30904#0" expanded="false" />
-            <element signature="e#30906#35502#0" expanded="false" />
-            <element signature="e#35504#38506#0" expanded="false" />
-            <element signature="e#38508#39849#0" expanded="false" />
-            <element signature="e#40109#41535#0" expanded="false" />
+            <element signature="e#11282#13108#0" expanded="false" />
+            <element signature="e#13110#15221#0" expanded="false" />
+            <element signature="e#15223#17400#0" expanded="false" />
+            <element signature="e#17402#21725#0" expanded="false" />
+            <element signature="e#21727#24851#0" expanded="false" />
+            <element signature="e#24853#27097#0" expanded="false" />
+            <element signature="e#27099#28888#0" expanded="false" />
+            <element signature="e#28890#31048#0" expanded="false" />
+            <element signature="e#31050#35646#0" expanded="false" />
+            <element signature="e#35648#38650#0" expanded="false" />
+            <element signature="e#38652#39993#0" expanded="false" />
+            <element signature="e#40253#41679#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -849,14 +866,14 @@
           <folding>
             <element signature="e#852#870#0" expanded="true" />
             <element signature="e#2419#3007#0" expanded="false" />
-            <element signature="e#3009#3391#0" expanded="false" />
-            <element signature="e#3393#5120#0" expanded="false" />
-            <element signature="e#5294#5848#0" expanded="false" />
-            <element signature="e#6022#8377#0" expanded="false" />
-            <element signature="e#8569#18255#0" expanded="false" />
-            <element signature="e#18429#20527#0" expanded="false" />
-            <element signature="e#20726#20941#0" expanded="false" />
-            <element signature="e#21220#22474#0" expanded="false" />
+            <element signature="e#3009#3402#0" expanded="false" />
+            <element signature="e#3404#5131#0" expanded="false" />
+            <element signature="e#5305#5859#0" expanded="false" />
+            <element signature="e#6033#8388#0" expanded="false" />
+            <element signature="e#8580#18266#0" expanded="false" />
+            <element signature="e#18440#20538#0" expanded="false" />
+            <element signature="e#20737#20952#0" expanded="false" />
+            <element signature="e#21231#22485#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -892,24 +909,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/client.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-          <folding>
-            <element signature="e#548#637#1" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/unitest.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1" column="16" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Directory/directory.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -918,21 +917,62 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Client/client.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="52" column="82" selection-start-line="52" selection-start-column="82" selection-end-line="52" selection-end-column="82" />
+          <folding>
+            <element signature="e#253#300#1" expanded="false" />
+            <element signature="e#303#545#1" expanded="false" />
+            <element signature="e#548#637#1" expanded="false" />
+            <element signature="e#640#694#1" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Directory/directory.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.290322">
-          <caret line="669" column="0" selection-start-line="669" selection-start-column="0" selection-end-line="671" selection-end-column="85" />
+        <state vertical-scroll-proportion="-5.580645">
+          <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding>
             <element signature="e#852#870#0" expanded="true" />
             <element signature="e#2419#3007#0" expanded="false" />
-            <element signature="e#3009#3391#0" expanded="false" />
-            <element signature="e#3393#5120#0" expanded="false" />
-            <element signature="e#5294#5848#0" expanded="false" />
-            <element signature="e#6022#8377#0" expanded="false" />
-            <element signature="e#8569#18255#0" expanded="false" />
-            <element signature="e#18429#20527#0" expanded="false" />
-            <element signature="e#20726#20941#0" expanded="false" />
-            <element signature="e#21220#22474#0" expanded="false" />
+            <element signature="e#3009#3402#0" expanded="false" />
+            <element signature="e#3404#5131#0" expanded="false" />
+            <element signature="e#5305#5859#0" expanded="false" />
+            <element signature="e#6033#8388#0" expanded="false" />
+            <element signature="e#8580#18266#0" expanded="false" />
+            <element signature="e#18440#20538#0" expanded="false" />
+            <element signature="e#20737#20952#0" expanded="false" />
+            <element signature="e#21231#22485#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Replica/replica.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="427" column="12" selection-start-line="427" selection-start-column="12" selection-end-line="427" selection-end-column="12" />
+          <folding>
+            <element signature="e#938#956#0" expanded="true" />
+            <element signature="e#2893#4722#0" expanded="false" />
+            <element signature="e#4896#5539#0" expanded="false" />
+            <element signature="e#5713#6485#0" expanded="false" />
+            <element signature="e#6519#7245#0" expanded="false" />
+            <element signature="e#7247#9143#0" expanded="false" />
+            <element signature="e#9145#11280#0" expanded="false" />
+            <element signature="e#11282#13108#0" expanded="false" />
+            <element signature="e#13110#15221#0" expanded="false" />
+            <element signature="e#15223#17400#0" expanded="false" />
+            <element signature="e#17402#21725#0" expanded="false" />
+            <element signature="e#21727#24851#0" expanded="false" />
+            <element signature="e#24853#27097#0" expanded="false" />
+            <element signature="e#27099#28888#0" expanded="false" />
+            <element signature="e#28890#31048#0" expanded="false" />
+            <element signature="e#31050#35646#0" expanded="false" />
+            <element signature="e#35648#38650#0" expanded="false" />
+            <element signature="e#38652#39993#0" expanded="false" />
+            <element signature="e#40253#41679#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -956,64 +996,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Replica/replica.c">
+    <entry file="file://$PROJECT_DIR$/Client/unitest.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="426" column="0" selection-start-line="426" selection-start-column="0" selection-end-line="426" selection-end-column="0" />
-          <folding>
-            <element signature="e#938#956#0" expanded="true" />
-            <element signature="e#2893#4722#0" expanded="false" />
-            <element signature="e#4896#5539#0" expanded="false" />
-            <element signature="e#5713#6485#0" expanded="false" />
-            <element signature="e#6519#7245#0" expanded="false" />
-            <element signature="e#7247#9143#0" expanded="false" />
-            <element signature="e#9145#11280#0" expanded="false" />
-            <element signature="e#11282#13112#0" expanded="false" />
-            <element signature="e#13114#15225#0" expanded="false" />
-            <element signature="e#15227#17314#0" expanded="false" />
-            <element signature="e#17316#21639#0" expanded="false" />
-            <element signature="e#21641#24707#0" expanded="false" />
-            <element signature="e#24709#26953#0" expanded="false" />
-            <element signature="e#26955#28744#0" expanded="false" />
-            <element signature="e#28746#30904#0" expanded="false" />
-            <element signature="e#30906#35502#0" expanded="false" />
-            <element signature="e#35504#38506#0" expanded="false" />
-            <element signature="e#38508#39849#0" expanded="false" />
-            <element signature="e#40109#41535#0" expanded="false" />
-          </folding>
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/client.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.63049096">
-          <caret line="1618" column="21" selection-start-line="1618" selection-start-column="21" selection-end-line="1618" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.55332303">
+          <caret line="1543" column="30" selection-start-line="1543" selection-start-column="30" selection-end-line="1543" selection-end-column="30" />
           <folding>
             <element signature="e#852#870#0" expanded="true" />
-            <element signature="e#4024#4220#0" expanded="false" />
-            <element signature="e#4222#4779#0" expanded="false" />
-            <element signature="e#4953#7982#0" expanded="false" />
-            <element signature="e#8181#11199#0" expanded="false" />
-            <element signature="e#11483#15600#0" expanded="false" />
-            <element signature="e#15626#17787#0" expanded="false" />
-            <element signature="e#17789#18566#0" expanded="false" />
-            <element signature="e#18740#20207#0" expanded="false" />
-            <element signature="e#19982#20112#0" expanded="true" />
-            <element signature="e#20381#22461#0" expanded="false" />
-            <element signature="e#22635#23384#0" expanded="false" />
-            <element signature="e#23576#29432#0" expanded="false" />
-            <element signature="e#29623#29862#0" expanded="false" />
-            <element signature="e#32485#35065#0" expanded="false" />
-            <element signature="e#35067#36342#0" expanded="false" />
-            <element signature="e#36344#37656#0" expanded="false" />
-            <element signature="e#37658#38981#0" expanded="false" />
-            <element signature="e#39155#39928#0" expanded="false" />
-            <element signature="e#39930#40899#0" expanded="false" />
-            <element signature="e#40539#40670#0" expanded="true" />
-            <element signature="e#40933#41713#0" expanded="false" />
-            <element signature="e#41715#44209#0" expanded="false" />
-            <element signature="e#44211#46398#0" expanded="false" />
-            <element signature="e#46400#50122#0" expanded="false" />
+            <element signature="e#4047#4519#0" expanded="false" />
+            <element signature="e#4521#4717#0" expanded="false" />
+            <element signature="e#4719#5276#0" expanded="false" />
+            <element signature="e#5450#8479#0" expanded="false" />
+            <element signature="e#8678#11696#0" expanded="false" />
+            <element signature="e#11980#16097#0" expanded="false" />
+            <element signature="e#16123#18303#0" expanded="false" />
+            <element signature="e#18305#19082#0" expanded="false" />
+            <element signature="e#19256#20723#0" expanded="false" />
+            <element signature="e#20498#20628#0" expanded="true" />
+            <element signature="e#20897#22977#0" expanded="false" />
+            <element signature="e#23151#23900#0" expanded="false" />
+            <element signature="e#24092#30045#0" expanded="false" />
+            <element signature="e#30236#30475#0" expanded="false" />
+            <element signature="e#30668#32838#0" expanded="false" />
+            <element signature="e#33012#35592#0" expanded="false" />
+            <element signature="e#35594#36869#0" expanded="false" />
+            <element signature="e#36871#38183#0" expanded="false" />
+            <element signature="e#38185#39508#0" expanded="false" />
+            <element signature="e#39682#40455#0" expanded="false" />
+            <element signature="e#40457#41426#0" expanded="false" />
+            <element signature="e#41066#41197#0" expanded="true" />
+            <element signature="e#41460#42240#0" expanded="false" />
+            <element signature="e#42242#44736#0" expanded="false" />
+            <element signature="e#44738#46925#0" expanded="false" />
+            <element signature="e#50849#53877#0" expanded="false" />
+            <element signature="e#54051#55894#0" expanded="false" />
           </folding>
         </state>
       </provider>
