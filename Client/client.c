@@ -1531,6 +1531,7 @@ int send2ftp(struct cmd *msgCmd, int newsock , struct TAG *tagIn , long msgIDIn 
 void inisialization() 
 {
     int i;
+
     //Allocate the array to store all the replica nodes
     repliVals = (int *)malloc(sizeof(int) * MAX_REPLICAS);
 
