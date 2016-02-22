@@ -20,6 +20,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include "client.h"
+#include <time.h>
 
 
 /***********************************************************************************/
@@ -68,9 +69,7 @@ long   clientID=0;                           //Store clientID
 
 double    failrate=0.10;                        //store the rate for the fail
 
-
 GHashTable * hashFiletags;                   //Metadata table that holds all tag for the data
-
 
 /* Arrange the N elements of ARRAY in random order.
    Only effective if N is much smaller than RAND_MAX;
@@ -78,6 +77,9 @@ GHashTable * hashFiletags;                   //Metadata table that holds all tag
    number generator. */
 void shuffle(int *array, size_t n)
 {
+
+    srand(time(NULL));
+
     if (n > 1)
     {
         size_t i;
@@ -648,6 +650,16 @@ int read_Inform( struct cmd *cmdmsgIn  ,  struct TAG *tag , struct message *msg 
     //request the data from the next available replica
     GSList   *iter=NULL;
 
+
+    printf("-------------------------------------------\n");
+    printf("Replica Set\n");
+    for (iter = setOfReplica; iter; iter = iter->next)
+    {
+        printf("%d," , GPOINTER_TO_INT(iter->data));
+    }
+    printf("\n-------------------------------------------\n");
+
+
     //Go through available replicas
     for (iter = setOfReplica; iter; iter = iter->next)
     {
@@ -690,6 +702,8 @@ int reader_oper(int msg_id , struct cmd *cmdmsgIn )
    {
        return FAILURE;
    }
+
+
 
    //Retrive the file from the replica
    isSuccess = read_Inform(cmdmsgIn, tag , msg , setOfReplica);
@@ -746,12 +760,14 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     //Wait until to receive a quorum with the last tag
     setOfReplica = receive_quorum(tag,setOfReplica,1 , &isReceiveMajor);
 
+
     //Check if you received the latest tag
     if( isReceiveMajor != 1)
     {
         printf("Tag failure:Writer_oper\n");
         return FAILURE;
     }
+
 
     printf("***********************************************************************************************\n");
     printf("READ TAG FROM DIRECTORIES OPERATION COMPLETED , TAG_NUM:%ld , TAG_CLIENTID:%ld\n",tag->num , tag->clientID );
@@ -821,11 +837,6 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     printf("WRITE TO REPLICAS OPERATION COMPLETED , TAG_NUM:%ld , TAG_CLIENTID:%ld\n",tag->num , tag->clientID );
     printf("*********************************************************************************************\n");
 
-    GSList* iter=NULL;
-    for (iter = setOfReplica; iter; iter = iter->next)
-    {
-         printf("set:%d\n" ,GPOINTER_TO_INT(iter->data));
-    }
 
     //Announce to all directories that f replicas
     //had store the object
@@ -865,6 +876,9 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     sleep(2);
     bzero(buf, sizeof(buf));
     encode(msg , buf , "SECURE" );
+
+    GSList *iter=NULL;
+
     for (iter = setOfReplica; iter; iter = iter->next)
     {
         if (send(replicaSocks[(GPOINTER_TO_INT(iter->data))], buf, strlen(buf), 0) < 0)
@@ -1738,6 +1752,7 @@ void unitTest(char *filename , char *filetype , char *username)
 /***********************************************************************************/
 int main(int argc , char *argv[])
 {
+
     //Tha name of the file that holds all the information for the servers
     char *filename="config.txt";
 
