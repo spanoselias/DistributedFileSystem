@@ -21,6 +21,7 @@
 #include <fcntl.h>
 #include <pthread.h>
 
+
 #include "replica.h"
 
 #define BUFSIZE 4098
@@ -44,7 +45,6 @@ int    NODEID;                        //Store which ID is the replica based on p
 
 //Metadata table that holds all tag for the data
 GHashTable * metadatatable;
-
 
 //Lock metadata table
 pthread_mutex_t lockermetadata;
@@ -582,7 +582,6 @@ GHashTable *   deleteUnsecureTags(GHashTable * funmetatable ,TAG* secureTag , st
         //Retrieve all the tags which are associated with the specific filename
         pointlist = (GSList *) g_hash_table_lookup(funmetatable, header->filename);
 
-
         if(pointlist != NULL)
         {
 
@@ -628,7 +627,6 @@ GHashTable *   deleteUnsecureTags(GHashTable * funmetatable ,TAG* secureTag , st
                 }
 
 
-
     /*    for (iter = delSet; iter; iter=iter->next)
         {
             //Point to each tag in list
@@ -637,7 +635,6 @@ GHashTable *   deleteUnsecureTags(GHashTable * funmetatable ,TAG* secureTag , st
             pointlist = g_slist_remove(pointlist , curTag);
            // free(curTag);
         }*/
-
 
         //Reuse temporary tag
         curTag = NULL;
@@ -655,7 +652,7 @@ GHashTable *   deleteUnsecureTags(GHashTable * funmetatable ,TAG* secureTag , st
             char delfile[256];
             bzero(delfile,sizeof(delfile));
             length=sprintf(delfile,"%s_%d_%d_%d.%s",header->filename,curTag->num ,curTag->clientID,curTag->isSecure,header->filetype );
-            delfile[length-1]='\0';
+            //delfile[length-1]='\0';
 
             //remove the file with the specific tag
             status=remove(delfile);
@@ -713,7 +710,6 @@ GHashTable *   addSecure(GHashTable * funmetatable ,TAG* secureTag , struct repl
         //Store all the tags file that you must
         //delete
         GSList *delSet = NULL;
-
 
 
          //Retrieve all the tags which are associated with the specific filename
@@ -1148,7 +1144,6 @@ void *accept_thread(void *accept_sock)
             {
                 perror2("Failed to lock()",err);
             }
-
         }
 
         //clear buffer
@@ -1160,8 +1155,7 @@ void *accept_thread(void *accept_sock)
         free(msg->tag);
         free(msg);
 
-    }//While 1
-
+    }//While
 }
 
 void initialization()

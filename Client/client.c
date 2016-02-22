@@ -836,7 +836,7 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     printf("***********************************************************************************************\n");
 
     //delete
-    sleep(1);
+    sleep(2);
     bzero(buf, sizeof(buf));
     encode(msg , buf , "SECURE" );
     for (iter = setOfReplica; iter; iter = iter->next)
@@ -1635,7 +1635,7 @@ void unitTest(char *filename , char *filetype , char *username)
         }
         printf("\n--------------------------------------------------------------------\n");
 
-    for(i=0; i<3; i++)
+    for(i=0; i<1; i++)
     {
         //Unit test for the function reqCreate
         //Store the filename with the corresponding type
