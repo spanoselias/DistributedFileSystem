@@ -1044,7 +1044,7 @@ void *accept_thread(void *accept_sock)
         //Initialize buffer with zeros //
         bzero(buf,sizeof(buf));
         //Waiting...to receive data from the client//
-        if (recv(acptsock, buf, 256, 0) < 0)
+        if (recv(acptsock, buf, 512, 0) < 0)
         {
             perror("send() failed");
             close(acptsock);
@@ -1094,7 +1094,7 @@ void *accept_thread(void *accept_sock)
                   printf("%s\n",buf);
                   sendSize=strlen(msg->filename) + sizeof(int) + 13;
                   //sent the acknowledgment that received the file
-                  if (send(acptsock, buf, sendSize, 0) < 0)
+                  if (send(acptsock, buf, 512, 0) < 0)
                   {
                       perror("WRITE-send() failed\n");
                   }

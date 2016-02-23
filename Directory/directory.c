@@ -271,7 +271,7 @@ void *accept_thread(void *accept_sock)
     //socket descriptor for each client
     int acpt_sock;
     //Buffer to send&receive data//
-    char buf[256];
+    char buf[512];
     //Received bytes
     int bytes;
 
@@ -386,7 +386,7 @@ void *accept_thread(void *accept_sock)
              // sprintf(buf,"RREAD-OK,%d,%d,%d,%d,%d",metatable[index].tag.num,metatable[index].tag.id,metatable[index].replicaSet,msg.msg_id , msg.fileID );
 
              //Send response to the client
-             if (bytes = send(acpt_sock, buf, strlen(buf), 0) < 0)
+             if (bytes = send(acpt_sock, buf, sizeof(buf), 0) < 0)
              {
                  perror("Send() failed");
                  pthread_exit((void *) 0);
@@ -404,7 +404,7 @@ void *accept_thread(void *accept_sock)
 
          bzero(buf, sizeof(buf));
          sprintf(buf, "RWRITE-OK,%ld\n", msg->msg_id);
-         if (bytes = send(acpt_sock, buf, strlen(buf), 0) < 0)
+         if (bytes = send(acpt_sock, buf, sizeof(buf), 0) < 0)
          {
              perror("Send() failed");
              pthread_exit((void *) 0);
@@ -510,7 +510,7 @@ void *accept_thread(void *accept_sock)
          }
 
 
-         if (bytes = send(acpt_sock, buf, strlen(buf), 0) < 0)
+         if (bytes = send(acpt_sock, buf, sizeof(buf), 0) < 0)
          {
              perror("Send() failed");
              pthread_exit((void *) 0);
@@ -527,7 +527,7 @@ void *accept_thread(void *accept_sock)
 
          bzero(buf, sizeof(buf));
          sprintf(buf, "WWRITE-OK,%ld\n", msg->msg_id);
-         if (bytes = send(acpt_sock, buf, strlen(buf), 0) < 0)
+         if (bytes = send(acpt_sock, buf, sizeof(buf), 0) < 0)
          {
              perror("Send() failed");
              pthread_exit((void *) 0);

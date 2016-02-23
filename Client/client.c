@@ -67,7 +67,7 @@ int    *repliVals;
 
 long   clientID=0;                           //Store clientID
 
-double    failrate=0.10;                        //store the rate for the fail
+double    failrate=0.50;                        //store the rate for the fail
 
 GHashTable * hashFiletags;                   //Metadata table that holds all tag for the data
 
@@ -336,7 +336,7 @@ GSList* receive_quorum(struct TAG *maxTag, GSList *replicaSet,int ischeck , int 
     int bytes=0;            //To validate the size of the received msg.
     struct timeval tv;      //To set a time out for the select
     int i;                  //For loop statment
-    char buffer[256];
+    char buffer[512];
     int readsocks=0;
     int majority=0;         //Count the acks from the directories.
     int IsComplete=0;
@@ -367,20 +367,20 @@ GSList* receive_quorum(struct TAG *maxTag, GSList *replicaSet,int ischeck , int 
         // if(result < 0){exit(-1);}
         for(i=0; i <MAX_DIRECTORIES; i++)
         {
-                bzero(buffer, sizeof(buffer));
-                if ((bytes = recv(direcSocks[i], buffer, sizeof(buffer) , MSG_DONTWAIT)) < 0)
-                {
-                    //perror("Failed client received the message");
-                    continue;
-                }
+            bzero(buffer, sizeof(buffer));
+            if ((bytes = recv(direcSocks[i], buffer, sizeof(buffer) , MSG_DONTWAIT)) < 0)
+            {
+                //perror("Failed client received the message");
+                continue;
+            }
             if(strlen(buffer) != 0 )
             {
-              //  printf("MessageDirecMajor: %s\n", buffer);
+                //printf("MessageDirecMajor: %s\n", buffer);
 
-                /*Decode the message that you received from server*/
+                //Decode the message that you received from server//
                 msg->replicaSet=decode(msg, buffer);
 
-                /*Check if you received the message that you wait..otherwise drop the msg*/
+                //Check if you received the message that you wait..otherwise drop the msg//
                 if (msg->msg_id == message_id)
                 {
                     ++IsComplete;
@@ -450,7 +450,7 @@ GSList* recvrepliquorum(struct message *msg , GSList *replicaSet)
     int bytes=0;            //To validate the size of the received msg.
     struct timeval tv;      //To set a time out for the select
     int i;                  //For loop statment
-    char buffer[256];
+    char buffer[512];
     int readsocks=0;
     int majority=0;         //Count the acks from the directories.
     int IsComplete=0;
@@ -544,7 +544,7 @@ GSList  *read_Query(struct cmd *cmdmsgIn  ,  struct TAG *tag , struct message *m
 {
     int IsSuccess=1;
 
-    char buf[60];
+    char buf[512];
     int i;
 
     int isReceiveMajor;
@@ -569,7 +569,7 @@ GSList  *read_Query(struct cmd *cmdmsgIn  ,  struct TAG *tag , struct message *m
     //specific ID
     for(i=0; i < MAX_DIRECTORIES; i++)
     {
-        if (send(direcSocks[i], buf, strlen(buf), 0) < 0)
+        if (send(direcSocks[i], buf, sizeof(buf), 0) < 0)
         {
             perror("send() failed\n");
             //exit(EXIT_FAILURE);
@@ -602,7 +602,7 @@ int read_Inform( struct cmd *cmdmsgIn  ,  struct TAG *tag , struct message *msg 
 {
 
     //Buffer to store the message that it will sent
-    char buf[60];
+    char buf[512];
 
     //index for the for
     int i;
@@ -625,7 +625,7 @@ int read_Inform( struct cmd *cmdmsgIn  ,  struct TAG *tag , struct message *msg 
     encode(msg , buf , "RWRITE" );
     for(i=0; i < MAX_DIRECTORIES; i++)
     {
-        if (send(direcSocks[i], buf, strlen(buf), 0) < 0)
+        if (send(direcSocks[i], buf, sizeof(buf), 0) < 0)
         {
             perror("send() failed\n");
         }
@@ -703,8 +703,6 @@ int reader_oper(int msg_id , struct cmd *cmdmsgIn )
        return FAILURE;
    }
 
-
-
    //Retrive the file from the replica
    isSuccess = read_Inform(cmdmsgIn, tag , msg , setOfReplica);
 
@@ -720,7 +718,7 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     int IsSuccess=1;
     int isReceiveMajor;
 
-    char buf[30];
+    char buf[512];
     int i;
     //The replicas that hold the file
     struct message *msg;
@@ -750,7 +748,7 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     //specific file ID
     for(i=0; i < MAX_DIRECTORIES; i++)
     {
-        if (send(direcSocks[i], buf, strlen(buf), 0) < 0)
+        if (send(direcSocks[i], buf, sizeof(buf), 0) < 0)
         {
             perror("send() failed\n");
             //exit(EXIT_FAILURE);
@@ -811,6 +809,10 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     tag->clientID = clientID;
 
 
+    //Delete the Set of replica
+    g_slist_free(setOfReplica);
+    setOfReplica= NULL;
+
     shuffle(repliVals,MAX_REPLICAS);
 
     //Broadcast to all replicas the object and wait from f(fail number) replicas to response
@@ -852,7 +854,7 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     //Inform all directories which replicas hold the data
     for(i=0; i < MAX_DIRECTORIES; i++)
     {
-        if (send(direcSocks[i], buf, strlen(buf), 0) < 0)
+        if (send(direcSocks[i], buf, sizeof(buf), 0) < 0)
         {
             perror("send() failed\n");
         }
@@ -881,7 +883,7 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
 
     for (iter = setOfReplica; iter; iter = iter->next)
     {
-        if (send(replicaSocks[(GPOINTER_TO_INT(iter->data))], buf, strlen(buf), 0) < 0)
+        if (send(replicaSocks[(GPOINTER_TO_INT(iter->data))], buf , sizeof(buf) , 0) < 0)
         {
             perror("send() secure failed\n");
         }
@@ -1375,7 +1377,7 @@ int get_file(int sock, struct message *msg )
     sprintf(buf ,"READ,%ld,%ld,%ld,%s,%s" , msg->tag.num , msg->tag.clientID , (++msg->msg_id) , msg->filename , msg->filetype );
 
     //printf("Filename in get_file: %s , length: %d\n",buf, file_size);
-    if ((bytes=send(sock, buf, 256 , 0)) < 0)
+    if ((bytes=send(sock, buf, 512 , 0)) < 0)
     {
         perror("send() getfile failed\n");
         return FAILURE;
@@ -1470,7 +1472,7 @@ int send2ftp(struct cmd *msgCmd, int newsock , struct TAG *tagIn , long msgIDIn 
     struct      stat file_stat; /*to retrieve information for the file*/
     int         len;
     int         file_size;
-    char        buf[256];
+    char        buf[512];
     char        filename[256];
 
     bzero(filename,sizeof(filename));
@@ -1503,7 +1505,7 @@ int send2ftp(struct cmd *msgCmd, int newsock , struct TAG *tagIn , long msgIDIn 
     sprintf(buf,"WRITE,%s,%s,%ld,%ld,%ld,%d,%s" , msgCmd->filename,msgCmd->fileType,tagIn->num,tagIn->clientID , msgIDIn , file_size, filechecksum );
 
     // If connection is established then start communicating //
-    len = send(newsock, buf, 256 , 0);
+    len = send(newsock, buf, 512 , 0);
     if (len < 0)
     {
         perror("send");
