@@ -21,6 +21,7 @@
 #include <unistd.h>
 #include "client.h"
 #include <time.h>
+#include <error.h>
 
 
 /***********************************************************************************/
@@ -435,7 +436,7 @@ GSList* receive_quorum(struct TAG *maxTag, GSList *replicaSet,int ischeck , int 
 
     if(IsComplete >= (floor(MAX_DIRECTORIES/2)+1))
     {
-        printf("Received Directory Quorum\n");
+      //  printf("Received Directory Quorum\n");
         (*ismajor) = 1;
         return replicaSet;
     }
@@ -503,7 +504,7 @@ GSList* recvrepliquorum(struct message *msg , GSList *replicaSet)
 
     if( IsComplete >= (ceil( ( MAX_REPLICAS * failrate ) ) ) )
     {
-        printf("Received Replica Quorum\n");
+      //printf("Received Replica Quorum\n");
         return replicaSet;
     }
 
@@ -579,7 +580,9 @@ GSList  *read_Query(struct cmd *cmdmsgIn  ,  struct TAG *tag , struct message *m
     setOfReplica=receive_quorum(tag , setOfReplica , 1 , &isReceiveMajor );
     if( isReceiveMajor != 1 )
     {
-        printf("\nUnable to received a Quorum\n");
+        printf("--------------------------------------\n");
+        printf("\nUNABLE TO RECEIVE DIRECTORY QUORUM\n");
+        printf("--------------------------------------\n");
         return NULL;
     }
 
@@ -632,7 +635,9 @@ int read_Inform( struct cmd *cmdmsgIn  ,  struct TAG *tag , struct message *msg 
     receive_quorum(tag,setOfReplica,0 , &isReceiveMajor);
     if( (isReceiveMajor) != 1)
     {
-        printf("Unable to read  majiority in the second phase of reader\n");
+        printf("-------------------------------------------------------\n");
+        printf("UNABLE TO READ QUORUM IN THE SECOND PHASE OF READER\n");
+        printf("-------------------------------------------------------\n");
     }
 
     //Store file tag in the hashtable
@@ -649,7 +654,7 @@ int read_Inform( struct cmd *cmdmsgIn  ,  struct TAG *tag , struct message *msg 
     GSList   *iter=NULL;
 
 
-    printf("-------------------------------------------\n");
+    printf("\n-------------------------------------------------\n");
     printf("Replica Set\n");
     printf("{ ");
     for (iter = setOfReplica; iter; iter = iter->next)
@@ -769,7 +774,9 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     //Check if you received the latest tag
     if( isReceiveMajor != 1)
     {
-        printf("Tag failure:Writer_oper\n");
+        printf("----------------------------------\n");
+        printf("UNABLE TO RECEIVE QUORUM OF DIRECTORY IN WRITER\n");
+        printf("----------------------------------\n");
         return FAILURE;
     }
 
@@ -789,7 +796,9 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
 
     if(filetag->num < tag->num || (filetag->num == tag->num && filetag->clientID < tag->clientID))
     {
+        printf("---------------------\n");
         printf("FOUND CONFLICT ON TAG\n");
+        printf("---------------------\n");
 
         char tmpfilename[256];
         bzero(tmpfilename,sizeof(tmpfilename));
@@ -836,13 +845,15 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     setOfReplica = recvrepliquorum(msg,setOfReplica);
     if(setOfReplica  == NULL)
     {
-        printf("Unable to receive acknowldgement from f replicas\n");
+        printf("--------------------------------------\n");
+        printf("UNABLE TO RECEIVE RATEFAIL OF REPLICAS\n");
+        printf("--------------------------------------\n");
         return FAILURE;
     }
 
-    printf("-----------------------------------------------------------------------------------------------------\n");
+    printf("------------------------------------------------------------------------------------------------\n");
     printf("WRITE TO REPLICAS OPERATION COMPLETED , TAG_NUM:%ld , TAG_CLIENTID:%ld\n",tag->num , tag->clientID );
-    printf("-----------------------------------------------------------------------------------------------------\n");
+    printf("------------------------------------------------------------------------------------------------\n");
 
     //Debug Purpose
     GSList *iter=NULL;
@@ -862,7 +873,7 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
         }
 
     }
-    printf("-------------------------------------------\n");
+    printf("\n-------------------------------------------\n");
 
 
     //Announce to all directories that f replicas
@@ -900,7 +911,7 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     printf("-----------------------------------------------------------------------------------------------------\n");
 
     //delete
-    sleep(2);
+    //sleep(2);
 
     //Initialize buffer
     bzero(buf, sizeof(buf));
@@ -1130,8 +1141,6 @@ void readConfig(char *filename)
     fclose(fp);
     if (line)
         free(line);
-
-
 }
 
 int reqClientID(char *username)
@@ -1416,7 +1425,7 @@ int get_file(int sock, struct message *msg )
     //Wait until to receive an acknowldge with the
     //same messageID
     bzero(buf,sizeof(buf));
-    if(recv(sock, buf, 256 , 0) < 0)
+    if(recv(sock, buf, 512 , 0) < 0)
     {
         perror("Received");
         exit(sock);
@@ -1574,6 +1583,7 @@ int send2ftp(struct cmd *msgCmd, int newsock , struct TAG *tagIn , long msgIDIn 
 
 void inisialization() 
 {
+
     int i;
 
     //Allocate the array to store all the replica nodes
@@ -1674,6 +1684,28 @@ void inisialization()
         }
     }//For statement
 
+
+    /*Is an option to set a timeout value for input operations.
+      It accepts a struct timeval parameter with the number of seconds
+      and microseconds used to limit waits for input operations to complete.*/
+
+    //Configure sockets
+    struct timeval timeout;
+    timeout.tv_sec = 3;
+    timeout.tv_usec = 0;
+
+    //Set the socket to block only for some second
+    for (i = 0; i < MAX_REPLICAS; i++)
+    {
+          setsockopt(replicaSocks[i], SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout , sizeof(timeout)) ;
+
+    }
+
+    //Set the socket to block only for some second
+    for (i = 0; i < MAX_FILEMANAGERS; i++)
+    {
+        setsockopt(filemanagerSocks[i], SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout , sizeof(timeout));
+    }
 
 }//Function inisialization
 

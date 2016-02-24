@@ -641,13 +641,13 @@ void signal_handler()
     //Pointer to the metadata
     struct metadata *point2metadata = NULL;
 
+    printf("[ Filename , TagNo , ClientID , FILEID , Permission ] \n");
     for(i=0; i < metatable->len; i++)
     {
         //Retrieve  the data from the specific index
         point2metadata = (struct metadata *) g_ptr_array_index(metatable , i );
 
         //deallocations
-        printf("[ Filename , TagNo , ClientID , FILEID , Permission ] \n");
         printf("[ %s       ,   %ld  ,    %ld    ,   %ld   ,     %s    ] \n" , point2metadata->filename->str , point2metadata->tag.num ,point2metadata->tag.id , point2metadata->file_id, point2metadata->permission->str);
 
         //deallocate list

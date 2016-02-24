@@ -11,17 +11,22 @@ ssh espano01@clusterCG1.in.cs.ucy.ac.cy
 ssh espano01@b103ws15.in.cs.ucy.ac.cy
 
 
-ssh espano01@b103ws2.in.cs.ucy.ac.cy
-/home/students/cs/2013/espano01/Desktop/git/server1/ldr/Directory
-
 ssh espano01@b103ws4.in.cs.ucy.ac.cy
-/home/students/cs/2013/espano01/Desktop/git/server2/ldr/Directory
+/home/students/cs/2013/espano01/Desktop/git/server2/Replica
 
 ssh espano01@b103ws5.in.cs.ucy.ac.cy
-/home/students/cs/2013/espano01/Desktop/git/server3/ldr/Replica
+/home/students/cs/2013/espano01/Desktop/git/server3/Replica
+
 
 ssh espano01@b103ws6.in.cs.ucy.ac.cy
-/home/students/cs/2013/espano01/Desktop/git/server4/ldr/Replica
+/home/students/cs/2013/espano01/Desktop/git/server1/Replica
+
+ssh espano01@b103ws7.in.cs.ucy.ac.cy
+/home/students/cs/2013/espano01/Desktop/git/server2/Replica
+
+
+ssh espano01@b103ws8.in.cs.ucy.ac.cy
+/home/students/cs/2013/espano01/Desktop/git/server3/Replica
 
 
 Clusters:
@@ -30,3 +35,22 @@ Clusters:
 10.16.12.116
 10.16.12.118
 
+unset SSH_ASKPASS
+
+
+ssh espano01@b103ws4.in.cs.ucy.ac.cy
+/home/students/cs/2013/espano01/Desktop/git/ldr/Directory
+
+ssh espano01@b103ws5.in.cs.ucy.ac.cy
+/home/students/cs/2013/espano01/Desktop/git/ldr/Directory
+
+
+ssh espano01@b103ws6.in.cs.ucy.ac.cy
+/home/students/cs/2013/espano01/Desktop/git/server1/Replica
+
+ssh espano01@b103ws7.in.cs.ucy.ac.cy
+/home/students/cs/2013/espano01/Desktop/git/server2/Replica
+
+
+ssh espano01@b103ws8.in.cs.ucy.ac.cy
+/home/students/cs/2013/espano01/Desktop/git/ldr/FileManager

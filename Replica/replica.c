@@ -281,7 +281,7 @@ int send2ftp(int newsock , struct replicaHeader *msg )
     struct      stat file_stat;
     int         len;
     int         file_size;
-    char        sendheader[256];
+    char        sendheader[512];
     char        filename[255];
     unsigned    int length;
 
@@ -319,12 +319,13 @@ int send2ftp(int newsock , struct replicaHeader *msg )
     sprintf(sendheader,"READ-OK,%d,%d,%d,%d,%s", msg->tag->num , msg->tag->clientID ,msg->msgID , file_size , filechecksum );
 
     /* If connection is established then start communicating */
-    len = send(newsock, sendheader, 256, 0);
+    len = send(newsock, sendheader, sizeof(sendheader), 0);
     if (len < 0)
     {
         perror("send");
         return FAILURE;
     }
+
 
     printf("Server sent %d bytes for the size\n" , len);
 
@@ -383,6 +384,7 @@ int ftp_recv(int sock, struct replicaHeader *msg )
         return FAILURE;
     }
     remain_data = msg->fileSize;
+
 
     bzero(buffer, sizeof(buffer));
     while (((bytes = recv(sock, buffer, sizeof(buffer), 0)) > 0) && (remain_data > 0))
