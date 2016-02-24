@@ -1053,7 +1053,7 @@ void readConfig(char *filename)
     size_t len = 0;
     ssize_t read;
 
-    int i=0,j=0;
+    int i=0,j=0,d=0;
     fp = fopen(filename, "r");
     if (fp == NULL)
     {
@@ -1079,7 +1079,7 @@ void readConfig(char *filename)
                 }
                 else
                 {
-                    strcpy(direcNodes[i].ip_addr,strdup(strtok(line, " ")));
+                    strcpy(direcNodes[i].ip_addr, strtok(line, " ") );
                     direcNodes[i].port = atoi(strtok(NULL, " "));
                     i +=1;
                 }
@@ -1101,7 +1101,7 @@ void readConfig(char *filename)
                 }
                 else
                 {
-                    strcpy(replicaNodes[j].ip_addr, strdup(strtok(line, " ")));
+                    strcpy(replicaNodes[j].ip_addr, strtok(line, " "));
                     replicaNodes[j].port = atoi(strtok(NULL, ","));
                     j += 1;
                 }
@@ -1118,9 +1118,9 @@ void readConfig(char *filename)
                 }
                 else
                 {
-                    strcpy(filemanagerNodes[j].ip_addr, strdup(strtok(line, " ")));
-                    filemanagerNodes[j].port = atoi(strtok(NULL, ","));
-                    j += 1;
+                    strcpy(filemanagerNodes[d].ip_addr , strtok(line, " ") );
+                    filemanagerNodes[d].port = atoi(strtok(NULL, " "));
+                    d += 1;
                 }
             }//While
         }
@@ -1351,9 +1351,9 @@ void conn2direc()
         }
         else
         {
-            #ifdef DEVLP
+
             printf("Connection established to IP: %s ,  PORT: %d\n", inet_ntoa(direc_sockaddr[i].sin_addr),ntohs(direc_sockaddr[i].sin_port) );
-            #endif
+
         }
         //Add socket to set
         FD_SET(direcSocks[i] , &direcs_fds);
@@ -1618,10 +1618,10 @@ void inisialization()
     for (i = 0; i < MAX_FILEMANAGERS; i++)
     {
         filemanager_sockaddr[i].sin_family = AF_INET; /*Internet domain*/
-      //filemanager_sockaddr[i].sin_addr.s_addr = inet_addr(filemanagerNodes[i].ip_addr);
-       // filemanager_sockaddr[i].sin_port = htons(filemanagerNodes[i].port);
-        filemanager_sockaddr[i].sin_addr.s_addr = inet_addr("127.0.0.1");
-        filemanager_sockaddr[i].sin_port = htons(40001);
+        filemanager_sockaddr[i].sin_addr.s_addr = inet_addr(filemanagerNodes[i].ip_addr);
+        filemanager_sockaddr[i].sin_port = htons(filemanagerNodes[i].port);
+       // filemanager_sockaddr[i].sin_addr.s_addr = inet_addr("127.0.0.1");
+        //filemanager_sockaddr[i].sin_port = htons(40001);
     }//For statement
 
     //initialize hash table that stores the tags for the files
@@ -1696,18 +1696,18 @@ void unitTest(char *filename , char *filetype , char *username)
         printf("\n");
         if (clientID != FAILURE)
         {
-            printf("**********************************\n");
+            printf("-----------------------------------\n");
             printf("TEST1 reqClientID function PASSED!!\n");
             printf("Received clientID: %ld\n", clientID);
-            printf("**********************************\n");
+            printf("-----------------------------------\n");
 
         }
         else
         {
-            printf("**********************************\n");
+            printf("-----------------------------------\n");
             printf("TEST1 reqClientID function FAILED!!\n");
             printf("Received clientID: %ld\n", clientID);
-            printf("**********************************\n");
+            printf("-----------------------------------\n");
         }
         printf("\n--------------------------------------------------------------------\n");
 
@@ -1729,18 +1729,18 @@ void unitTest(char *filename , char *filetype , char *username)
             //Store the file id that received
             cmdmsg->fileid = fileid;
 
-            printf("\n**********************************\n");
+            printf("-----------------------------------\n");
             printf("TEST2 reqCreate function PASSED!!\n");
             printf("Received fileID: %ld\n", fileid);
-            printf("**********************************\n");
+            printf("-----------------------------------\n");
 
         }
         else
         {
-            printf("**********************************\n");
+            printf("-----------------------------------\n");
             printf("TEST2 reqCreate function FAILED!!\n");
             printf("Received fileID: %ld\n", fileid);
-            printf("**********************************\n");
+            printf("-----------------------------------\n");
         }
         printf("\n--------------------------------------------------------------------\n");
 
