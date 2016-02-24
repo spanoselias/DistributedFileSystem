@@ -64,7 +64,6 @@ int    MAX_REPLICAS=0;                       //Store the number of replicas that
 int    MAX_FILEMANAGERS;                     //Store the number of filemanagers that exist in the system
 int    *repliVals;
 
-
 long   clientID=0;                           //Store clientID
 
 double    failrate=0.50;                        //store the rate for the fail
@@ -77,7 +76,6 @@ GHashTable * hashFiletags;                   //Metadata table that holds all tag
    number generator. */
 void shuffle(int *array, size_t n)
 {
-
     srand(time(NULL));
 
     if (n > 1)
@@ -640,9 +638,9 @@ int read_Inform( struct cmd *cmdmsgIn  ,  struct TAG *tag , struct message *msg 
     //Store file tag in the hashtable
     storefiletag(msg->filename , tag);
 
-    printf("*************************************************************************\n");
+    printf("----------------------------------------------------------------------------------\n");
     printf("Read operation completed: Value: , tagNum:%ld , tagID:%ld\n",tag->num,tag->clientID );
-    printf("*************************************************************************\n");
+    printf("----------------------------------------------------------------------------------\n");
 
 
     //Go through the list that holds the data.
@@ -653,11 +651,20 @@ int read_Inform( struct cmd *cmdmsgIn  ,  struct TAG *tag , struct message *msg 
 
     printf("-------------------------------------------\n");
     printf("Replica Set\n");
+    printf("{ ");
     for (iter = setOfReplica; iter; iter = iter->next)
     {
-        printf("%d," , GPOINTER_TO_INT(iter->data));
+        if(iter->next !=NULL)
+        {
+            printf("%d," , GPOINTER_TO_INT(iter->data));
+        }
+        else
+        {
+            printf("%d }" , GPOINTER_TO_INT(iter->data));
+        }
+
     }
-    printf("\n-------------------------------------------\n");
+    printf("\n-------------------------------------------------\n");
 
 
     //Go through available replicas
@@ -766,10 +773,9 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
         return FAILURE;
     }
 
-
-    printf("***********************************************************************************************\n");
+    printf("--------------------------------------------------------------------------------------------------------\n");
     printf("READ TAG FROM DIRECTORIES OPERATION COMPLETED , TAG_NUM:%ld , TAG_CLIENTID:%ld\n",tag->num , tag->clientID );
-    printf("***********************************************************************************************\n");
+    printf("--------------------------------------------------------------------------------------------------------\n");
 
     //Retrieve the tag for the file
     struct TAG *filetag = NULL;
@@ -808,8 +814,7 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     tag->num +=1;
     tag->clientID = clientID;
 
-
-    //Delete the Set of replica
+    //Clear the old replica set
     g_slist_free(setOfReplica);
     setOfReplica= NULL;
 
@@ -835,9 +840,29 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
         return FAILURE;
     }
 
-    printf("**********************************************************************************************\n");
+    printf("-----------------------------------------------------------------------------------------------------\n");
     printf("WRITE TO REPLICAS OPERATION COMPLETED , TAG_NUM:%ld , TAG_CLIENTID:%ld\n",tag->num , tag->clientID );
-    printf("*********************************************************************************************\n");
+    printf("-----------------------------------------------------------------------------------------------------\n");
+
+    //Debug Purpose
+    GSList *iter=NULL;
+
+    printf("-------------------------------------------\n");
+    printf("Replica Set\n");
+    printf("{ ");
+    for (iter = setOfReplica; iter; iter = iter->next)
+    {
+        if(iter->next !=NULL)
+        {
+            printf("%d," , GPOINTER_TO_INT(iter->data));
+        }
+        else
+        {
+            printf("%d }" , GPOINTER_TO_INT(iter->data));
+        }
+
+    }
+    printf("-------------------------------------------\n");
 
 
     //Announce to all directories that f replicas
@@ -870,16 +895,20 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     //Update the hashtable with the new tag for the file
     storefiletag(msg->filename , tag );
 
-    printf("***********************************************************************************************\n");
-    printf("WRITE TO DIRECTORIES OPERATION COMPLETED , LAST_TAG_NUM:%ld , LAST_TAG_IS:%ld\n",tag->num , tag->clientID );
-    printf("***********************************************************************************************\n");
+    printf("-----------------------------------------------------------------------------------------------------\n");
+    printf("WRITE TO DIRECTORIES OPERATION COMPLETED , LAST_TAG_NUM:%ld , LAST_TAG_IS:%ld\n",tag->num , tag->clientID);
+    printf("-----------------------------------------------------------------------------------------------------\n");
 
     //delete
     sleep(2);
+
+    //Initialize buffer
     bzero(buf, sizeof(buf));
+
+    //Encode the message that it will send
     encode(msg , buf , "SECURE" );
 
-    GSList *iter=NULL;
+    //GSList *iter=NULL;
 
     for (iter = setOfReplica; iter; iter = iter->next)
     {
@@ -890,9 +919,9 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     }
 
 
-    printf("***********************************************************************************************\n");
+    printf("----------------------------------------------------------------------------------------------\n");
     printf("SEND SECURE MESSAGE TO REPLICAS , LAST_TAG_NUM:%ld , LAST_TAG_IS:%ld\n",tag->num , tag->clientID );
-    printf("***********************************************************************************************\n");
+    printf("----------------------------------------------------------------------------------------------\n");
 
 
     //deallocate
@@ -925,7 +954,6 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
     /* get the first token */
     cmd = strtok(cmd_str, " ");
     strcpy(cmdmsg->oper,cmd);
-
 
     //Check the command if it exist
     if(strcmp(cmd,"exit") ==0)
