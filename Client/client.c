@@ -67,7 +67,7 @@ int    *repliVals;
 
 long   clientID=0;                           //Store clientID
 
-double    failrate=0.50;                        //store the rate for the fail
+double    failrate=1;                        //store the rate for the fail
 
 GHashTable * hashFiletags;                   //Metadata table that holds all tag for the data
 
