@@ -39,18 +39,18 @@ unset SSH_ASKPASS
 
 
 ssh espano01@b103ws4.in.cs.ucy.ac.cy
-/home/students/cs/2013/espano01/Desktop/git/ldr/Directory
+cd /home/students/cs/2013/espano01/Desktop/git/ldr/Directory
 
 ssh espano01@b103ws5.in.cs.ucy.ac.cy
-/home/students/cs/2013/espano01/Desktop/git/ldr/Directory
+cd /home/students/cs/2013/espano01/Desktop/git/ldr/Directory
 
 
 ssh espano01@b103ws6.in.cs.ucy.ac.cy
-/home/students/cs/2013/espano01/Desktop/git/server1/Replica
+cd /home/students/cs/2013/espano01/Desktop/git/server1/Replica
 
 ssh espano01@b103ws7.in.cs.ucy.ac.cy
-/home/students/cs/2013/espano01/Desktop/git/server2/Replica
+cd /home/students/cs/2013/espano01/Desktop/git/server2/Replica
 
 
 ssh espano01@b103ws8.in.cs.ucy.ac.cy
-/home/students/cs/2013/espano01/Desktop/git/ldr/FileManager
+cd /home/students/cs/2013/espano01/Desktop/git/ldr/FileManager
