@@ -16,10 +16,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="074f1195-62a4-43e6-a1db-a48c9186e3a6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/DistributedSystems.iml" afterPath="$PROJECT_DIR$/.idea/DistributedSystems.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Interface/gui7.c" afterPath="$PROJECT_DIR$/Interface/gui7.c" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Interface/gui8.c" afterPath="$PROJECT_DIR$/Interface/gui8.c" />
     </list>
     <ignored path="DistributedSystems.iws" />
@@ -44,14 +41,14 @@
       <file leaf-file-name="gui5.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Interface/gui5.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-22.064516">
-              <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+            <state vertical-scroll-proportion="-15.096774">
+              <caret line="209" column="3" selection-start-line="209" selection-start-column="3" selection-end-line="213" selection-end-column="54" />
               <folding>
-                <element signature="e#388#1108#0" expanded="false" />
                 <element signature="e#1340#1497#0" expanded="false" />
                 <element signature="e#1499#2143#0" expanded="false" />
                 <element signature="e#2145#2257#0" expanded="false" />
                 <element signature="e#2259#2428#0" expanded="false" />
+                <element signature="e#2430#2675#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -60,8 +57,22 @@
       <file leaf-file-name="gui8.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Interface/gui8.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.43401015">
-              <caret line="70" column="40" selection-start-line="70" selection-start-column="40" selection-end-line="70" selection-end-column="40" />
+            <state vertical-scroll-proportion="0.66578597">
+              <caret line="91" column="1" selection-start-line="91" selection-start-column="1" selection-end-line="91" selection-end-column="1" />
+              <folding>
+                <element signature="e#231#1335#0" expanded="false" />
+                <element signature="e#1337#2612#0" expanded="false" />
+                <element signature="e#2615#2915#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gui.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Interface/gui.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="160" column="1" selection-start-line="160" selection-start-column="1" selection-end-line="160" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -227,9 +238,9 @@
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/Interface/gui9.c" />
         <option value="$PROJECT_DIR$/Interface/gui7.c" />
+        <option value="$PROJECT_DIR$/Interface/makefile" />
         <option value="$PROJECT_DIR$/Interface/gui5.c" />
         <option value="$PROJECT_DIR$/Interface/gui8.c" />
-        <option value="$PROJECT_DIR$/Interface/makefile" />
       </list>
     </option>
   </component>
@@ -396,12 +407,6 @@
       <created>1455704124857</created>
       <option name="number" value="Default" />
       <updated>1455704124857</updated>
-    </task>
-    <task id="LOCAL-00002" summary="#BuldingFileManager">
-      <created>1455704985003</created>
-      <option name="number" value="00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1455704985003</updated>
     </task>
     <task id="LOCAL-00003" summary="#update makelist">
       <created>1455705336080</created>
@@ -691,7 +696,13 @@
       <option name="project" value="LOCAL" />
       <updated>1456837362607</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="#implementingGUI5">
+      <created>1457691939840</created>
+      <option name="number" value="00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1457691939841</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TodoView">
@@ -896,14 +907,14 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Interface/gui5.c</url>
-          <line>120</line>
+          <line>118</line>
           <option name="timeStamp" value="107" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="108" />
+      <option name="time" value="109" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="CMakeRunConfiguration">
@@ -1086,14 +1097,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Interface/gui.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.2594187">
-          <caret line="160" column="1" selection-start-line="160" selection-start-column="1" selection-end-line="160" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Interface/gui3.c">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-9.290322">
@@ -1255,20 +1258,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Interface/gui5.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-22.064516">
-          <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-          <folding>
-            <element signature="e#388#1108#0" expanded="false" />
-            <element signature="e#1340#1497#0" expanded="false" />
-            <element signature="e#1499#2143#0" expanded="false" />
-            <element signature="e#2145#2257#0" expanded="false" />
-            <element signature="e#2259#2428#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Interface/makefile">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1277,11 +1266,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Interface/gui5.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.096774">
+          <caret line="209" column="3" selection-start-line="209" selection-start-column="3" selection-end-line="213" selection-end-column="54" />
+          <folding>
+            <element signature="e#1340#1497#0" expanded="false" />
+            <element signature="e#1499#2143#0" expanded="false" />
+            <element signature="e#2145#2257#0" expanded="false" />
+            <element signature="e#2259#2428#0" expanded="false" />
+            <element signature="e#2430#2675#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Interface/gui.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="160" column="1" selection-start-line="160" selection-start-column="1" selection-end-line="160" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Interface/gui8.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.43401015">
-          <caret line="70" column="40" selection-start-line="70" selection-start-column="40" selection-end-line="70" selection-end-column="40" />
-          <folding />
+        <state vertical-scroll-proportion="0.66578597">
+          <caret line="91" column="1" selection-start-line="91" selection-start-column="1" selection-end-line="91" selection-end-column="1" />
+          <folding>
+            <element signature="e#231#1335#0" expanded="false" />
+            <element signature="e#1337#2612#0" expanded="false" />
+            <element signature="e#2615#2915#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
