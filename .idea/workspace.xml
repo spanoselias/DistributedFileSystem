@@ -16,12 +16,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="074f1195-62a4-43e6-a1db-a48c9186e3a6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Interface/Client/client.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Interface/client.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/DistributedSystems.iml" afterPath="$PROJECT_DIR$/.idea/DistributedSystems.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Interface/gui8.c" afterPath="$PROJECT_DIR$/Interface/gui8.c" />
     </list>
     <ignored path="DistributedSystems.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -82,17 +77,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="client1.c" pinned="false" current-in-tab="true">
+      <file leaf-file-name="client1.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Interface/Client/client1.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4381055">
-              <caret line="2111" column="60" selection-start-line="2111" selection-start-column="60" selection-end-line="2111" selection-end-column="60" />
+            <state vertical-scroll-proportion="-9.645162">
+              <caret line="1909" column="0" selection-start-line="1909" selection-start-column="0" selection-end-line="1912" selection-end-column="1" />
               <folding>
                 <element signature="e#852#870#0" expanded="true" />
                 <element signature="e#4098#4279#0" expanded="false" />
                 <element signature="e#4098#4594#0" expanded="false" />
                 <element signature="e#4596#4792#0" expanded="false" />
-                <element signature="e#4794#5351#0" expanded="false" />
                 <element signature="e#5525#8554#0" expanded="false" />
                 <element signature="e#8753#11771#0" expanded="false" />
                 <element signature="e#12055#16150#0" expanded="false" />
@@ -119,23 +113,21 @@
                 <element signature="e#53258#56292#0" expanded="false" />
                 <element signature="e#56556#57285#0" expanded="false" />
                 <element signature="e#57666#58792#0" expanded="false" />
-                <element signature="e#58794#58905#0" expanded="false" />
                 <element signature="e#58907#59076#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="client.c" pinned="false" current-in-tab="false">
+      <file leaf-file-name="client.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Interface/Client/client.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="2011" column="54" selection-start-line="2011" selection-start-column="54" selection-end-line="2011" selection-end-column="54" />
+            <state vertical-scroll-proportion="0.37750557">
+              <caret line="1935" column="23" selection-start-line="1935" selection-start-column="23" selection-end-line="1935" selection-end-column="23" />
               <folding>
                 <element signature="e#4098#4279#0" expanded="false" />
                 <element signature="e#4098#4594#0" expanded="false" />
                 <element signature="e#4596#4792#0" expanded="false" />
-                <element signature="e#4794#5351#0" expanded="false" />
                 <element signature="e#5525#8562#0" expanded="false" />
                 <element signature="e#8761#11679#0" expanded="false" />
                 <element signature="e#11963#16062#0" expanded="false" />
@@ -158,6 +150,9 @@
                 <element signature="e#46269#48460#0" expanded="false" />
                 <element signature="e#48462#53091#0" expanded="false" />
                 <element signature="e#53118#56084#0" expanded="false" />
+                <element signature="e#57615#58890#0" expanded="false" />
+                <element signature="e#59965#61090#0" expanded="false" />
+                <element signature="e#61093#61307#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -409,12 +404,6 @@
       <created>1455704124857</created>
       <option name="number" value="Default" />
       <updated>1455704124857</updated>
-    </task>
-    <task id="LOCAL-00004" summary="#update makelist">
-      <created>1455705375013</created>
-      <option name="number" value="00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1455705375013</updated>
     </task>
     <task id="LOCAL-00005" summary="#array insert copy filename with g_strdup()&#10;#implemented clientFunction">
       <created>1455708042556</created>
@@ -704,7 +693,13 @@
       <option name="project" value="LOCAL" />
       <updated>1457703283539</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="#implementing_Interface">
+      <created>1457705101639</created>
+      <option name="number" value="00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1457705101639</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TodoView">
@@ -778,10 +773,10 @@
     <MESSAGE value="#FixedConfigFile" />
     <MESSAGE value="#FixedFileLayer" />
     <MESSAGE value="#Stablev1.0" />
-    <MESSAGE value="#implementing_Interface" />
     <MESSAGE value="#implementingGUI5" />
     <MESSAGE value="#implementingGUI8(WorkingVersion)" />
-    <option name="LAST_COMMIT_MESSAGE" value="#implementingGUI8(WorkingVersion)" />
+    <MESSAGE value="#implementing_Interface" />
+    <option name="LAST_COMMIT_MESSAGE" value="#implementing_Interface" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.742268" />
   </component>
   <component name="XDebuggerManager">
@@ -1310,51 +1305,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Interface/Client/client.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2011" column="54" selection-start-line="2011" selection-start-column="54" selection-end-line="2011" selection-end-column="54" />
-          <folding>
-            <element signature="e#4098#4279#0" expanded="false" />
-            <element signature="e#4098#4594#0" expanded="false" />
-            <element signature="e#4596#4792#0" expanded="false" />
-            <element signature="e#4794#5351#0" expanded="false" />
-            <element signature="e#5525#8562#0" expanded="false" />
-            <element signature="e#8761#11679#0" expanded="false" />
-            <element signature="e#11963#16062#0" expanded="false" />
-            <element signature="e#16088#18199#0" expanded="false" />
-            <element signature="e#18201#18978#0" expanded="false" />
-            <element signature="e#19152#20735#0" expanded="false" />
-            <element signature="e#20909#23612#0" expanded="false" />
-            <element signature="e#23786#24552#0" expanded="false" />
-            <element signature="e#24744#31586#0" expanded="false" />
-            <element signature="e#31777#32016#0" expanded="false" />
-            <element signature="e#32209#34382#0" expanded="false" />
-            <element signature="e#34556#37118#0" expanded="false" />
-            <element signature="e#37120#38437#0" expanded="false" />
-            <element signature="e#38439#39751#0" expanded="false" />
-            <element signature="e#39753#41076#0" expanded="false" />
-            <element signature="e#41250#42023#0" expanded="false" />
-            <element signature="e#42025#42952#0" expanded="false" />
-            <element signature="e#42986#43766#0" expanded="false" />
-            <element signature="e#43768#46267#0" expanded="false" />
-            <element signature="e#46269#48460#0" expanded="false" />
-            <element signature="e#48462#53091#0" expanded="false" />
-            <element signature="e#53118#56084#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Interface/Client/client1.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4381055">
-          <caret line="2111" column="60" selection-start-line="2111" selection-start-column="60" selection-end-line="2111" selection-end-column="60" />
+        <state vertical-scroll-proportion="-9.645162">
+          <caret line="1909" column="0" selection-start-line="1909" selection-start-column="0" selection-end-line="1912" selection-end-column="1" />
           <folding>
             <element signature="e#852#870#0" expanded="true" />
             <element signature="e#4098#4279#0" expanded="false" />
             <element signature="e#4098#4594#0" expanded="false" />
             <element signature="e#4596#4792#0" expanded="false" />
-            <element signature="e#4794#5351#0" expanded="false" />
             <element signature="e#5525#8554#0" expanded="false" />
             <element signature="e#8753#11771#0" expanded="false" />
             <element signature="e#12055#16150#0" expanded="false" />
@@ -1381,8 +1340,44 @@
             <element signature="e#53258#56292#0" expanded="false" />
             <element signature="e#56556#57285#0" expanded="false" />
             <element signature="e#57666#58792#0" expanded="false" />
-            <element signature="e#58794#58905#0" expanded="false" />
             <element signature="e#58907#59076#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Interface/Client/client.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.37750557">
+          <caret line="1935" column="23" selection-start-line="1935" selection-start-column="23" selection-end-line="1935" selection-end-column="23" />
+          <folding>
+            <element signature="e#4098#4279#0" expanded="false" />
+            <element signature="e#4098#4594#0" expanded="false" />
+            <element signature="e#4596#4792#0" expanded="false" />
+            <element signature="e#5525#8562#0" expanded="false" />
+            <element signature="e#8761#11679#0" expanded="false" />
+            <element signature="e#11963#16062#0" expanded="false" />
+            <element signature="e#16088#18199#0" expanded="false" />
+            <element signature="e#18201#18978#0" expanded="false" />
+            <element signature="e#19152#20735#0" expanded="false" />
+            <element signature="e#20909#23612#0" expanded="false" />
+            <element signature="e#23786#24552#0" expanded="false" />
+            <element signature="e#24744#31586#0" expanded="false" />
+            <element signature="e#31777#32016#0" expanded="false" />
+            <element signature="e#32209#34382#0" expanded="false" />
+            <element signature="e#34556#37118#0" expanded="false" />
+            <element signature="e#37120#38437#0" expanded="false" />
+            <element signature="e#38439#39751#0" expanded="false" />
+            <element signature="e#39753#41076#0" expanded="false" />
+            <element signature="e#41250#42023#0" expanded="false" />
+            <element signature="e#42025#42952#0" expanded="false" />
+            <element signature="e#42986#43766#0" expanded="false" />
+            <element signature="e#43768#46267#0" expanded="false" />
+            <element signature="e#46269#48460#0" expanded="false" />
+            <element signature="e#48462#53091#0" expanded="false" />
+            <element signature="e#53118#56084#0" expanded="false" />
+            <element signature="e#57615#58890#0" expanded="false" />
+            <element signature="e#59965#61090#0" expanded="false" />
+            <element signature="e#61093#61307#0" expanded="false" />
           </folding>
         </state>
       </provider>
