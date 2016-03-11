@@ -14,7 +14,7 @@ set(DIRECTORY "Directory/directory.c")
 set(CLIENT "Client/client.c")
 set(REPLICA "Replica/replica.c")
 set(FILEMANAGER "FileManager/filemanager.c")
-set(GUI "Interface/Client/client.c")
+set(GUI "Interface/Client/client1.c")
 
 
 add_executable(replica ${REPLICA})

@@ -5,8 +5,8 @@
       <sourceFolder url="file://$MODULE_DIR$/Directory/directory.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Directory/directory.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Interface/Client/client.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Interface/Client/client.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Interface/Client/client1.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Interface/Client/client1.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/FileManager/filemanager.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/FileManager/filemanager.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Replica/replica.c" isTestSource="false" />
