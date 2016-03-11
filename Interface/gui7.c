@@ -1,146 +1,122 @@
-#include <stdio.h>
+/* example-start buttonbox buttonbox.c */
+
 #include <gtk/gtk.h>
 
-/*
- * callback event function for the gtk delete event. invoked
- * when the application is closed using the window manager.
- */
-int
-delete_event(GtkWidget *widget, GdkEvent *event, gpointer data)
+/* Create a Button Box with the specified parameters */
+GtkWidget *create_bbox (gint  horizontal,
+                        char* title,
+                        gint  spacing,
+                        gint  child_w,
+                        gint  child_h,
+                        gint  layout)
 {
-    /* If you return FALSE in the "delete_event" signal handler,
-     * GTK will emit the "destroy" signal. Returning TRUE means
-     * you don't want the window to be destroyed.
-     * This is useful for popping up 'are you sure you want to quit?'
-     * type dialogs.
-     */
+    GtkWidget *frame;
+    GtkWidget *bbox;
+    GtkWidget *button;
 
-    return(FALSE);
+    frame = gtk_frame_new (title);
+
+    if (horizontal)
+        bbox = gtk_hbutton_box_new ();
+    else
+        bbox = gtk_vbutton_box_new ();
+
+    gtk_container_set_border_width (GTK_CONTAINER (bbox), 5);
+    gtk_container_add (GTK_CONTAINER (frame), bbox);
+
+    /* Set the appearance of the Button Box */
+    gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), layout);
+    gtk_button_box_set_spacing (GTK_BUTTON_BOX (bbox), spacing);
+    gtk_button_box_set_child_size (GTK_BUTTON_BOX (bbox), child_w, child_h);
+
+    button = gtk_button_new_with_label ("OK");
+    gtk_container_add (GTK_CONTAINER (bbox), button);
+
+    button = gtk_button_new_with_label ("Cancel");
+    gtk_container_add (GTK_CONTAINER (bbox), button);
+
+    button = gtk_button_new_with_label ("Help");
+    gtk_container_add (GTK_CONTAINER (bbox), button);
+
+    return(frame);
 }
 
-
-/* exit the application. */
-void
-exit_cb(GtkWidget *widget, gpointer data)
+int main( int   argc,
+          char *argv[] )
 {
-    gtk_main_quit();
+    static GtkWidget* window = NULL;
+    GtkWidget *main_vbox;
+    GtkWidget *vbox;
+    GtkWidget *hbox;
+    GtkWidget *frame_horz;
+    GtkWidget *frame_vert;
+
+    /* Initialize GTK */
+    gtk_init( &argc, &argv );
+
+    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_title (GTK_WINDOW (window), "Button Boxes");
+
+    gtk_signal_connect (GTK_OBJECT (window), "destroy",
+                        GTK_SIGNAL_FUNC(gtk_main_quit),
+                        NULL);
+
+    gtk_container_set_border_width (GTK_CONTAINER (window), 10);
+
+    main_vbox = gtk_vbox_new (FALSE, 0);
+    gtk_container_add (GTK_CONTAINER (window), main_vbox);
+
+    frame_horz = gtk_frame_new ("Horizontal Button Boxes");
+    gtk_box_pack_start (GTK_BOX (main_vbox), frame_horz, TRUE, TRUE, 10);
+
+    vbox = gtk_vbox_new (FALSE, 0);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
+    gtk_container_add (GTK_CONTAINER (frame_horz), vbox);
+
+    gtk_box_pack_start (GTK_BOX (vbox),
+                        create_bbox (TRUE, "Spread (spacing 40)", 40, 85, 20, GTK_BUTTONBOX_SPREAD),
+                        TRUE, TRUE, 0);
+
+    gtk_box_pack_start (GTK_BOX (vbox),
+                        create_bbox (TRUE, "Edge (spacing 30)", 30, 85, 20, GTK_BUTTONBOX_EDGE),
+                        TRUE, TRUE, 5);
+
+    gtk_box_pack_start (GTK_BOX (vbox),
+                        create_bbox (TRUE, "Start (spacing 20)", 20, 85, 20, GTK_BUTTONBOX_START),
+                        TRUE, TRUE, 5);
+
+    gtk_box_pack_start (GTK_BOX (vbox),
+                        create_bbox (TRUE, "End (spacing 10)", 10, 85, 20, GTK_BUTTONBOX_END),
+                        TRUE, TRUE, 5);
+
+    frame_vert = gtk_frame_new ("Vertical Button Boxes");
+    gtk_box_pack_start (GTK_BOX (main_vbox), frame_vert, TRUE, TRUE, 10);
+
+    hbox = gtk_hbox_new (FALSE, 0);
+    gtk_container_set_border_width (GTK_CONTAINER (hbox), 10);
+    gtk_container_add (GTK_CONTAINER (frame_vert), hbox);
+
+    gtk_box_pack_start (GTK_BOX (hbox),
+                        create_bbox (FALSE, "Spread (spacing 5)", 5, 85, 20, GTK_BUTTONBOX_SPREAD),
+                        TRUE, TRUE, 0);
+
+    gtk_box_pack_start (GTK_BOX (hbox),
+                        create_bbox (FALSE, "Edge (spacing 30)", 30, 85, 20, GTK_BUTTONBOX_EDGE),
+                        TRUE, TRUE, 5);
+
+    gtk_box_pack_start (GTK_BOX (hbox),
+                        create_bbox (FALSE, "Start (spacing 20)", 20, 85, 20, GTK_BUTTONBOX_START),
+                        TRUE, TRUE, 5);
+
+    gtk_box_pack_start (GTK_BOX (hbox),
+                        create_bbox (FALSE, "End (spacing 20)", 20, 85, 20, GTK_BUTTONBOX_END),
+                        TRUE, TRUE, 5);
+
+    gtk_widget_show_all (window);
+
+    /* Enter the event loop */
+    gtk_main ();
+
+    return(0);
 }
-
-/* "print text" button "clicked" callback function. */
-void
-on_button1_clicked(GtkButton* button, gpointer data)
-{
-    /* cast the data back to a GtkEntry*  */
-    GtkEntry* entry = (GtkEntry*)data;
-
-    printf("on_button_clicked - entry = '%s'\n", gtk_entry_get_text(entry));
-    fflush(stdout);
-}
-
-/* "toggle editability" button "clicked" callback function. */
-void
-on_button2_clicked(GtkButton* button, gpointer data)
-{
-    static gboolean is_editable = TRUE;
-    /* cast the data back to a GtkEntry*  */
-    GtkEntry* entry = (GtkEntry*)data;
-
-    if (is_editable) {
-        gtk_entry_set_editable(entry, FALSE);
-        is_editable = FALSE;
-    }
-    else {
-        gtk_entry_set_editable(entry, TRUE);
-        is_editable = TRUE;
-    }
-}
-
-int
-main(int argc, char* argv[])
-{
-    /* this variable will store a pointer to the window object. */
-    GtkWidget* main_window;
-    /* this will store a horizontal box. */
-    GtkWidget* hbox;
-    /* these will store push buttons. */
-    GtkWidget* button1;
-    GtkWidget* button2;
-    /* this will store a text entry. */
-    GtkWidget* entry;
-
-    /* This is called in all GTK applications. Arguments */
-    /* are parsed from the command line and are returned */
-    /* to the application.                               */
-    gtk_init(&argc, &argv);
-
-    /* create a new top-level window. */
-    main_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-
-    /* define some of the window's attributes. */
-    gtk_window_set_title(GTK_WINDOW (main_window),
-                         "A Top Window For The Rest Of Us...");
-    gtk_container_set_border_width(GTK_CONTAINER (main_window), 5);
-
-    /* make the window visible. */
-    gtk_widget_show(main_window);
-
-    /* When the window is given the "delete_event" signal (this is given
-     * by the window manager, usually by the "close" option, or on the
-     * titlebar), we ask it to call the delete_event() function
-     * as defined above. The data passed to the callback
-     * function is NULL and is ignored in the callback function.
-     */
-    gtk_signal_connect(GTK_OBJECT (main_window), "delete_event",
-                       GTK_SIGNAL_FUNC (delete_event), NULL);
-
-    /* Here we connect the "destroy" event to a signal handler.
-     * This event occurs when we call gtk_widget_destroy() on the window,
-     * or if we return FALSE in the "delete_event" callback.
-     */
-    gtk_signal_connect(GTK_OBJECT (main_window), "destroy",
-                       GTK_SIGNAL_FUNC (exit_cb), NULL);
-
-    /* create a new horizontal box, and add to top-level window. */
-    hbox = gtk_hbox_new(TRUE, 20);
-    gtk_container_add(GTK_CONTAINER(main_window), hbox);
-    gtk_widget_show(hbox);
-
-    /* create a text entry. */
-    entry = gtk_entry_new_with_max_length(20);
-
-    /* insert the following text into the text entry, as its initial value. */
-    gtk_entry_set_text(GTK_ENTRY(entry), "hello there");
-
-    /* make the text entry visible. */
-    gtk_widget_show(entry);
-
-    /* add the text entry to the hbox. */
-    gtk_box_pack_start(GTK_BOX(hbox), entry, FALSE, TRUE, 1);
-
-    /* create a button, place in hbox, attach callback.   */
-    /* note: button is created second, cause it needs the */
-    /* entry's pointer as a parameter to its callback.    */
-    button1 = gtk_button_new_with_label("Print Text");
-    gtk_widget_show(button1);
-    gtk_box_pack_start(GTK_BOX(hbox), button1, FALSE, TRUE, 1);
-    gtk_signal_connect(GTK_OBJECT(button1), "clicked",
-                       GTK_SIGNAL_FUNC(on_button1_clicked),
-                       (gpointer)entry);
-
-    /* create a 2nd button, place in hbox, attach callback. */
-    button2 = gtk_button_new_with_label("Toggle Editablibity");
-    gtk_widget_show(button2);
-    gtk_box_pack_start(GTK_BOX(hbox), button2, FALSE, TRUE, 1);
-    gtk_signal_connect(GTK_OBJECT(button2), "clicked",
-                       GTK_SIGNAL_FUNC(on_button2_clicked),
-                       (gpointer)entry);
-
-
-    /* All GTK applications must have a gtk_main(). Control
-     * ends here and waits for an event to occur (like a
-     * key press or mouse event).
-     */
-    gtk_main();
-
-    exit(0);
-}
+/* example-end */

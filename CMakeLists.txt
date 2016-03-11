@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.2)
 project(DistributedAlgorithms)
 
 include(FindPkgConfig)
-pkg_check_modules(GLIB glib-2.0 REQUIRED)
+pkg_check_modules(GLIB gtk+-2.0 glib-2.0 REQUIRED)
 include_directories(${GLIB_INCLUDE_DIRS})
 
 
@@ -14,6 +14,7 @@ set(DIRECTORY "Directory/directory.c")
 set(CLIENT "Client/client.c")
 set(REPLICA "Replica/replica.c")
 set(FILEMANAGER "FileManager/filemanager.c")
+set(GUI "Interface/Client/client.c")
 
 
 add_executable(replica ${REPLICA})
@@ -27,3 +28,7 @@ target_link_libraries(client ${GCC_COVERAGE_COMPILE_FLAGS} ${GLIB_LIBRARIES})
 
 add_executable(filemanager ${FILEMANAGER})
 target_link_libraries(filemanager ${GCC_COVERAGE_COMPILE_FLAGS} ${GLIB_LIBRARIES})
+
+add_executable(gui ${GUI})
+target_link_libraries(gui ${GCC_COVERAGE_COMPILE_FLAGS} ${GLIB_LIBRARIES})
+

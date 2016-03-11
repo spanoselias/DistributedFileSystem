@@ -6,95 +6,89 @@
 static gint button_press (GtkWidget *, GdkEvent *);
 static void menuitem_response (gchar *);
 
+
+/* Create a Button Box with the specified parameters */
+GtkWidget *create_bbox (gint  horizontal,
+                        char* title,
+                        gint  spacing,
+                        gint  child_w,
+                        gint  child_h,
+                        gint  layout)
+{
+
+    GtkWidget *frame;
+    GtkWidget *bbox;
+    GtkWidget *button;
+
+    frame = gtk_frame_new (title);
+
+    if (horizontal)
+        bbox = gtk_hbutton_box_new ();
+    else
+        bbox = gtk_vbutton_box_new ();
+
+    gtk_container_set_border_width (GTK_CONTAINER (bbox), 5);
+    gtk_container_add (GTK_CONTAINER (frame), bbox);
+
+    /* Set the appearance of the Button Box */
+    gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), layout);
+    gtk_button_box_set_spacing (GTK_BUTTON_BOX (bbox), spacing);
+    gtk_button_box_set_child_size (GTK_BUTTON_BOX (bbox), child_w, child_h);
+
+    button = gtk_button_new_with_label ("OK");
+    gtk_container_add (GTK_CONTAINER (bbox), button);
+
+    button = gtk_button_new_with_label ("Cancel");
+    gtk_container_add (GTK_CONTAINER (bbox), button);
+
+
+    return(frame);
+}
+
 int main( int   argc,
           char *argv[] )
 {
 
-    GtkWidget *window;
-    GtkWidget *menu;
-    GtkWidget *menu_bar;
-    GtkWidget *root_menu;
-    GtkWidget *menu_items;
+    static GtkWidget* window = NULL;
+
+    GtkWidget *main_vbox;
+
+    GtkWidget *frame_horz;
+
     GtkWidget *vbox;
-    GtkWidget *button;
-    char buf[128];
-    int i;
 
-    gtk_init (&argc, &argv);
 
-    /* create a new window */
+    /* Initialize GTK */
+    gtk_init( &argc, &argv );
+
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-    gtk_widget_set_usize (GTK_WIDGET (window), 200, 100);
-    gtk_window_set_title (GTK_WINDOW (window), "GTK Menu Test");
-    gtk_signal_connect (GTK_OBJECT (window), "delete_event",
-                        (GtkSignalFunc) gtk_main_quit, NULL);
+    gtk_window_set_title (GTK_WINDOW (window), "Button Boxes");
 
-    /* Init the menu-widget, and remember -- never
-     * gtk_show_widget() the menu widget!!
-     * This is the menu that holds the menu items, the one that
-     * will pop up when you click on the "Root Menu" in the app */
-    menu = gtk_menu_new ();
 
-    /* Next we make a little loop that makes three menu-entries for "test-menu".
-     * Notice the call to gtk_menu_append.  Here we are adding a list of
-     * menu items to our menu.  Normally, we'd also catch the "clicked"
-     * signal on each of the menu items and setup a callback for it,
-     * but it's omitted here to save space. */
+    gtk_container_set_border_width (GTK_CONTAINER (window), 10);
 
-    for (i = 0; i < 3; i++)
-    {
-        /* Copy the names to the buf. */
-        sprintf (buf, "Test-undermenu - %d", i);
 
-        /* Create a new menu-item with a name... */
-        menu_items = gtk_menu_item_new_with_label (buf);
+    main_vbox = gtk_vbox_new (FALSE, 0);
+    gtk_container_add (GTK_CONTAINER (window), main_vbox);
 
-        /* ...and add it to the menu. */
-        gtk_menu_append (GTK_MENU (menu), menu_items);
 
-        /* Do something interesting when the menuitem is selected */
-        gtk_signal_connect_object (GTK_OBJECT (menu_items), "activate",
-                                   GTK_SIGNAL_FUNC (menuitem_response), (gpointer) g_strdup (buf));
+    frame_horz = gtk_frame_new ("Horizontal Button Boxes");
+    gtk_box_pack_start (GTK_BOX (main_vbox), frame_horz, TRUE, TRUE, 10);
 
-        /* Show the widget */
-        gtk_widget_show (menu_items);
-    }
 
-    /* This is the root menu, and will be the label
-     * displayed on the menu bar.  There won't be a signal handler attached,
-     * as it only pops up the rest of the menu when pressed. */
-    root_menu = gtk_menu_item_new_with_label ("Root Menu");
-
-    gtk_widget_show (root_menu);
-
-    /* Now we specify that we want our newly created "menu" to be the menu
-     * for the "root menu" */
-    gtk_menu_item_set_submenu (GTK_MENU_ITEM (root_menu), menu);
-
-    /* A vbox to put a menu and a button in: */
     vbox = gtk_vbox_new (FALSE, 0);
-    gtk_container_add (GTK_CONTAINER (window), vbox);
-    gtk_widget_show (vbox);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
+    gtk_container_add (GTK_CONTAINER (frame_horz), vbox);
 
-    /* Create a menu-bar to hold the menus and add it to our main window */
-    menu_bar = gtk_menu_bar_new ();
-    gtk_box_pack_start (GTK_BOX (vbox), menu_bar, FALSE, FALSE, 2);
-    gtk_widget_show (menu_bar);
+    gtk_box_pack_start (GTK_BOX (vbox),
+                        create_bbox (TRUE, "Spread (spacing 40)", 40, 85, 20, GTK_BUTTONBOX_SPREAD),
+                        TRUE, TRUE, 0);
 
-    /* Create a button to which to attach menu as a popup */
-    button = gtk_button_new_with_label ("press me");
-    gtk_signal_connect_object (GTK_OBJECT (button), "event",
-                               GTK_SIGNAL_FUNC (button_press), GTK_OBJECT (menu));
-    gtk_box_pack_end (GTK_BOX (vbox), button, TRUE, TRUE, 2);
-    gtk_widget_show (button);
 
-    /* And finally we append the menu-item to the menu-bar -- this is the
-     * "root" menu-item I have been raving about =) */
-    gtk_menu_bar_append (GTK_MENU_BAR (menu_bar), root_menu);
 
     /* always display the window as the last step so it all splashes on
      * the screen at once. */
-    gtk_widget_show (window);
+    gtk_widget_show_all (window);
 
     gtk_main ();
 
@@ -107,29 +101,3 @@ int main( int   argc,
  * the button that was pressed.
  */
 
-static gint button_press( GtkWidget *widget,
-                          GdkEvent *event )
-{
-
-    if (event->type == GDK_BUTTON_PRESS)
-    {
-        GdkEventButton *bevent = (GdkEventButton *) event;
-        gtk_menu_popup (GTK_MENU (widget), NULL, NULL, NULL, NULL,
-                        bevent->button, bevent->time);
-        /* Tell calling code that we have handled this event; the buck
-         * stops here. */
-        return TRUE;
-    }
-
-    /* Tell calling code that we have not handled this event; pass it on. */
-    return FALSE;
-}
-
-
-/* Print a string when a menu item is selected */
-
-static void menuitem_response( gchar *string )
-{
-    printf ("%s\n", string);
-}
-/* example-end */
