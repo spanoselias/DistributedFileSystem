@@ -1002,6 +1002,13 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
 
         return 1;
     }
+        //xxx
+    else if(strcmp(cmd , "list" ) == 0)
+    {
+
+        get_filelist();
+
+    }
 
     //Retieve information of the file
     temp=strtok(NULL," ");
@@ -1581,6 +1588,48 @@ int send2ftp(struct cmd *msgCmd, int newsock , struct TAG *tagIn , long msgIDIn 
     return SUCCESS;
 }
 
+int get_filelist()
+{
+
+    //Buffer message
+    char buf[99999];
+
+    char tempbuf[256];
+
+
+    bzero(tempbuf,sizeof(tempbuf));
+    bzero(buf,sizeof(buf));
+
+    int msg_id = ++message_id;
+
+    //Request from the filemanager to set up a client ID
+    sprintf(tempbuf,"REQFILESLIST,%ld" , msg_id  );
+
+    if (send(filemanagerSocks[0] , buf, strlen(buf) , 0) < 0)
+    {
+        perror("Send:Unable to request clientID");
+    }
+
+    bzero(buf,sizeof(buf));
+    if (recv(filemanagerSocks[0], buf, sizeof(buf) , 0) < 0)
+    {
+        perror("Received() Unable to receive clientID");
+    }
+
+    int i=0;
+
+    int size = atoi(strtok(buf, ","));
+
+    for(i=0; i<size; i++)
+    {
+        printf("%s ,", strtok(NULL, ",") );
+        printf("%s , ",strtok(NULL, ",") );
+        printf("%s",   strtok(NULL, ",") );
+        printf("\n");
+    }
+
+}
+
 void inisialization() 
 {
 
@@ -1880,7 +1929,6 @@ int main(int argc , char *argv[])
         }while(strcmp(command,"exit") != 0);
 
     }
-
 
     return 0;
 }

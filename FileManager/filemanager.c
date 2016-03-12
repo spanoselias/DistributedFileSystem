@@ -94,6 +94,10 @@ int decode(char *buf , FILEHEADER *header )
             header->owner = atol( strtok(NULL,","));
             header->MSGID = atol( strtok(NULL,","));
         }
+        else if( strcmp(header->type , "REQFILESLIST" )== 0)
+        {
+            header->MSGID = atol( strtok(NULL,","));
+        }
 
     //Unloack Mutex//
     if(err=pthread_mutex_unlock(&locker))
@@ -102,6 +106,45 @@ int decode(char *buf , FILEHEADER *header )
     }
 
 }
+
+
+/***********************************************************************************/
+/*                                REQUEST FILE LIST                                */
+/***********************************************************************************/
+GString *req_filelist(GString* strset)
+{
+    int i;
+
+    strset = g_string_new(NULL);
+
+    //Point to metadata array
+    METADATA *point2meta = NULL;
+
+    char strtemp[4096];
+
+    //Initialize the set
+    bzero(strtemp,sizeof(strtemp));
+
+    //Set the total size of the set
+    sprintf(strtemp,"%d",metadata->len);
+    g_string_append(strset , strtemp);
+
+    //Deallocate all the memory
+    for(i=0; i < metadata->len; i++)
+    {
+        //Retrieve  the data from the specific index
+        point2meta = (METADATA *) g_ptr_array_index(metadata , i );
+
+        //Create file list
+        sprintf(strtemp,",%s,%lu,%ld",point2meta->filename->str , point2meta->fileid , point2meta->owner);
+
+        g_string_append(strset , strtemp);
+    }
+
+    return strset;
+
+}
+
 
 /***********************************************************************************/
 /*                                 BIND_THREAD                                     */
@@ -212,6 +255,7 @@ void *accept_thread(void *accept_sock)
     //the filemanager to communicate with the client and vice versa
     FILEHEADER *msg = (FILEHEADER *)malloc(sizeof(FILEHEADER));
 
+
     //While the client is connect to the system you have to keep the connection
     while(1)
     {
@@ -257,6 +301,8 @@ void *accept_thread(void *accept_sock)
             //Deallocations
             free(msg->username);
         }
+
+
         else if( strcmp(msg->type , "REQCREATE" )== 0 )
         {
             printf("Received Create: %s , owner:%ld\n", msg->filename, msg->owner);
@@ -305,12 +351,34 @@ void *accept_thread(void *accept_sock)
             //Deallocations
             free(msg->filename);
         }
+        else if( strcmp(msg->type , "REQFILESLIST" )== 0 )
+        {
+            //Buffer message
+            char buflist[99999];
 
-        //print the message that directory sent
-        printf("\nSend:%s\n", buf);
+            bzero(buf,sizeof(buf));
+
+            GString *list=NULL;
+
+            list=req_filelist(list);
+            printf("List\n");
+
+            sprintf(buflist,"%s",list->str);
+
+            if (send(acptsock, buflist, strlen(buflist) , 0) < 0 )
+            {
+                perror("Send:Unable to send clientID");
+            }
+
+            //Deallocate memory
+            g_string_free(list,TRUE);
+
+        }
+
 
     }//While
 }
+
 
 /***********************************************************************************/
 /*                                 REGISTER CLIENT                                 */
@@ -439,6 +507,7 @@ long registerFile(char *filename , long owner)
     //Return the new fileID for the file
     return  entry->fileid;
 }
+
 
 /***********************************************************************************/
 /*                                 LOOKUPFILEID                                    */
