@@ -1616,26 +1616,24 @@ int get_filelist()
         perror("Received() Unable to receive clientID");
     }
 
-
     int i=0;
 
     //Retrieve the size of the list
     int size = atoi(strtok(buf, ","));
 
     //Display format
-    printf("---------------------------------------\n");
-    printf("Filename  ,    Fileid     ,   owner  \n");
-    printf("---------------------------------------\n");
+    printf("%-20s%-20s%-20s\n", "Filename","Fileid","owner");
+    printf("-------------------------------------------------\n");
 
     for(i=0; i<size; i++)
     {
-        printf("%s , ", strtok(NULL, ",") );
-        printf("%s , ",strtok(NULL, ",") );
-        printf("%s",   strtok(NULL, ",") );
+        printf("%-20s", strtok(NULL, ",") );
+        printf("%-20s", strtok(NULL, ",") );
+        printf("%-20s", strtok(NULL, ",") );
         printf("\n");
     }
 
-    printf("---------------------------------------\n");
+    printf("-------------------------------------------------\n");
 
 }
 
