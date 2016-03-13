@@ -62,7 +62,7 @@ pthread_mutex_t lockercliCoun;
 GPtrArray *metatable=NULL;
 
 //Find the index of metadata for specific fileID
-int findByFileID(char *filename , int *freePos)
+int findByFileID(char *filename , char fileid , int *freePos)
 {
 
    int index=-1;
@@ -75,12 +75,20 @@ int findByFileID(char *filename , int *freePos)
        //Retrieve  the data from the specific index
        point2metadata = (struct metadata *) g_ptr_array_index(metatable ,i );
 
-       //Check if the filename of the position is what is looking for
+      /* //Check if the filename of the position is what is looking for
        if(strcmp(filename , point2metadata->filename->str)==0)
        {
            index=i;
            break;
+       }*/
+
+       //Looking up if the file exist using fileid
+       if(point2metadata->file_id == fileid)
+       {
+           index=i;
+           break;
        }
+
    }
 
    return index;
@@ -120,7 +128,7 @@ int IsMaxTag(struct message *tag2)
     }
 
             //Find the position for the specific filename
-            int index=findByFileID( tag2->filename , &funfreepos);
+            int index=findByFileID( tag2->filename , tag2->fileID , &funfreepos);
 
             //Retrieve  the data from the specific index
             point2metadata = (struct metadata *) g_ptr_array_index(metatable , index );
@@ -330,7 +338,7 @@ void *accept_thread(void *accept_sock)
          {
              perror2("Failed to lock()",err);
          }
-            int index = findByFileID(msg->filename, &freepos);
+            int index = findByFileID(msg->filename, msg->fileID,&freepos);
 
          if (index < 0)
          {
@@ -423,7 +431,7 @@ void *accept_thread(void *accept_sock)
                  }
 
                  //Find the index of the filename
-                 int index = findByFileID(msg->filename, &freepos);
+                 int index = findByFileID(msg->filename, msg->fileID, &freepos);
 
                  if(index != -1)
                  {
@@ -486,7 +494,7 @@ void *accept_thread(void *accept_sock)
                      g_ptr_array_add(metatable, (gpointer) entry );
 
                      //Find the index of the new entry
-                     index = findByFileID(msg->filename, &freepos);
+                     index = findByFileID(msg->filename,msg->fileID, &freepos);
 
                      //Store permission for the file
                      g_string_assign( entry->permission ,  g_strdup( msg->permission ) );
