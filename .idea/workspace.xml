@@ -16,11 +16,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="074f1195-62a4-43e6-a1db-a48c9186e3a6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/cli" afterPath="$PROJECT_DIR$/Client/cli" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FileManager/fil" afterPath="$PROJECT_DIR$/FileManager/fil" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/client.c" afterPath="$PROJECT_DIR$/Client/client.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FileManager/filemanager.c" afterPath="$PROJECT_DIR$/FileManager/filemanager.c" />
     </list>
     <ignored path="DistributedSystems.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -46,8 +42,8 @@
           <file leaf-file-name="filemanager.c" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/FileManager/filemanager.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.5902579">
-                  <caret line="370" column="13" selection-start-line="370" selection-start-column="13" selection-end-line="370" selection-end-column="13" />
+                <state vertical-scroll-proportion="0.6418338">
+                  <caret line="372" column="31" selection-start-line="372" selection-start-column="31" selection-end-line="372" selection-end-column="31" />
                   <folding>
                     <element signature="e#852#872#0" expanded="true" />
                     <element signature="e#12627#14409#0" expanded="false" />
@@ -383,12 +379,6 @@
       <option name="number" value="Default" />
       <updated>1455704124857</updated>
     </task>
-    <task id="LOCAL-00007" summary="#extendingClient">
-      <created>1455721343127</created>
-      <option name="number" value="00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1455721343127</updated>
-    </task>
     <task id="LOCAL-00008" summary="#ClientGeneration,BugFixed">
       <created>1455729257047</created>
       <option name="number" value="00008" />
@@ -677,7 +667,13 @@
       <option name="project" value="LOCAL" />
       <updated>1457711193371</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="#implementing_getList_Function">
+      <created>1457817883384</created>
+      <option name="number" value="00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1457817883390</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TodoView">
@@ -729,7 +725,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="#ClientGeneration,BugFixed" />
     <MESSAGE value="#implementingCreateFileManager" />
     <MESSAGE value="#fixingCreatePhaseOfClient" />
     <MESSAGE value="#fixingRegisterFileFunction" />
@@ -754,7 +749,8 @@
     <MESSAGE value="#implementingGUI5" />
     <MESSAGE value="#implementingGUI8(WorkingVersion)" />
     <MESSAGE value="#implementing_Interface" />
-    <option name="LAST_COMMIT_MESSAGE" value="#implementing_Interface" />
+    <MESSAGE value="#implementing_getList_Function" />
+    <option name="LAST_COMMIT_MESSAGE" value="#implementing_getList_Function" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.742268" />
   </component>
   <component name="XDebuggerManager">
@@ -1375,8 +1371,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FileManager/filemanager.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5902579">
-          <caret line="370" column="13" selection-start-line="370" selection-start-column="13" selection-end-line="370" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.6418338">
+          <caret line="372" column="31" selection-start-line="372" selection-start-column="31" selection-end-line="372" selection-end-column="31" />
           <folding>
             <element signature="e#852#872#0" expanded="true" />
             <element signature="e#12627#14409#0" expanded="false" />
