@@ -58,5 +58,6 @@ int send2ftp(struct cmd *msgCmd, int newsock , struct TAG *tagIn , long msgIDIn 
 
 long reqCreate(char *filename);
 long reqFileID(struct cmd *cmdmsg , long clientID);
+int get_filelist();
 
 #endif //DISTRIBUTEDALGORITHM_CLIENT_H

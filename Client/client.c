@@ -1008,6 +1008,8 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
 
         get_filelist();
 
+        return 1;
+
     }
 
     //Retieve information of the file
@@ -1590,22 +1592,20 @@ int send2ftp(struct cmd *msgCmd, int newsock , struct TAG *tagIn , long msgIDIn 
 
 int get_filelist()
 {
-
     //Buffer message
     char buf[99999];
 
     char tempbuf[256];
 
-
     bzero(tempbuf,sizeof(tempbuf));
     bzero(buf,sizeof(buf));
 
-    int msg_id = ++message_id;
+    long msg_id = ++message_id;
 
     //Request from the filemanager to set up a client ID
     sprintf(tempbuf,"REQFILESLIST,%ld" , msg_id  );
 
-    if (send(filemanagerSocks[0] , buf, strlen(buf) , 0) < 0)
+    if (send(filemanagerSocks[0] , tempbuf, strlen(tempbuf) , 0) < 0)
     {
         perror("Send:Unable to request clientID");
     }
@@ -1616,17 +1616,26 @@ int get_filelist()
         perror("Received() Unable to receive clientID");
     }
 
+
     int i=0;
 
+    //Retrieve the size of the list
     int size = atoi(strtok(buf, ","));
+
+    //Display format
+    printf("---------------------------------------\n");
+    printf("Filename  ,    Fileid     ,   owner  \n");
+    printf("---------------------------------------\n");
 
     for(i=0; i<size; i++)
     {
-        printf("%s ,", strtok(NULL, ",") );
+        printf("%s , ", strtok(NULL, ",") );
         printf("%s , ",strtok(NULL, ",") );
         printf("%s",   strtok(NULL, ",") );
         printf("\n");
     }
+
+    printf("---------------------------------------\n");
 
 }
 

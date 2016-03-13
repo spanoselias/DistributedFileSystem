@@ -338,6 +338,13 @@ void *accept_thread(void *accept_sock)
             //Also , retrieve the fileID for the file
             unsigned long fileid = lookUpFileID(msg->filename , msg->owner );
 
+            if(fileid == -1)
+            {
+                //Store the new file in the metadata
+                //Also , retrieve the fileID for the file
+                fileid = registerFile(msg->filename, msg->owner);
+            }
+
             printf("REQFILEID Function return: %ld \n" , fileid);
 
             bzero(buf,sizeof(buf));
