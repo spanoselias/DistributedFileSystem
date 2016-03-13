@@ -62,7 +62,7 @@ pthread_mutex_t lockercliCoun;
 GPtrArray *metatable=NULL;
 
 //Find the index of metadata for specific fileID
-int findByFileID(char *filename , char fileid , int *freePos)
+int findByFileID(char *filename , long fileid , int *freePos)
 {
 
    int index=-1;

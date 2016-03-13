@@ -238,6 +238,7 @@ struct replicaHeader* decode(char *buf )
             msg->filetype = strdup(strtok(NULL,","));
             msg->tag->num = atoi(strtok(NULL,","));
             msg->tag->clientID = atoi(strtok(NULL,","));
+            msg->fileid = atol(strtok(NULL,","));
             msg->tag->isSecure = 0 ;
             msg->msgID = atoi(strtok(NULL,","));
             msg->fileSize = atoi(strtok(NULL,","));
@@ -248,6 +249,7 @@ struct replicaHeader* decode(char *buf )
             msg->tag->num = atoi(strtok(NULL,","));
             msg->tag->clientID = atoi(strtok(NULL,","));
             msg->msgID = atoi(strtok(NULL,","));
+            msg->fileid = atol(strtok(NULL,","));
             msg->filename = strdup(strtok(NULL,","));
             msg->filetype = strdup(strtok(NULL,","));
         }
@@ -257,6 +259,7 @@ struct replicaHeader* decode(char *buf )
             msg->tag->clientID = atoi(strtok(NULL,","));
             msg->tag->isSecure=1;
             msg->msgID = atoi(strtok(NULL,","));
+            msg->fileid = atol(strtok(NULL,","));
             msg->filename = strdup(strtok(NULL,","));
             msg->filetype = strdup(strtok(NULL,","));
         }
@@ -288,7 +291,7 @@ int send2ftp(int newsock , struct replicaHeader *msg )
     bzero(sendheader,sizeof(sendheader));
 
     //
-    length=sprintf(filename,"%s_%d_%d_%d.%s",msg->filename,msg->tag->num , msg->tag->clientID,msg->tag->isSecure,msg->filetype);
+    length=sprintf(filename,"%s_%ld_%d_%d_%d.%s",msg->filename,msg->fileid,msg->tag->num , msg->tag->clientID,msg->tag->isSecure,msg->filetype);
     //filename[length-1]='\0';
 
     printf("FileNAmeIn:%s" , filename);
@@ -374,7 +377,7 @@ int ftp_recv(int sock, struct replicaHeader *msg )
 
     bzero(filename,sizeof(filename));
 
-    length= sprintf(filename , "%s_%d_%d_0.%s" , msg->filename , msg->tag->num , msg->tag->clientID , msg->filetype);
+    length= sprintf(filename , "%s_%ld_%d_%d_0.%s" , msg->filename , msg->fileid , msg->tag->num , msg->tag->clientID , msg->filetype);
     //filename[length-1]='\0';
 
     received_file = fopen(filename, "w");
@@ -596,8 +599,15 @@ GHashTable *   deleteUnsecureTags(GHashTable * funmetatable ,TAG* secureTag , st
         GSList *delSet = NULL;
 
 
+        char filename[256];
+
+        bzero(filename,sizeof(filename));
+
+        sprintf(filename,"%s_%ld",header->filename,header->fileid);
+
+
         //Retrieve all the tags which are associated with the specific filename
-        pointlist = (GSList *) g_hash_table_lookup(funmetatable, header->filename);
+        pointlist = (GSList *) g_hash_table_lookup(funmetatable,filename);
 
         if(pointlist != NULL)
         {
@@ -668,7 +678,7 @@ GHashTable *   deleteUnsecureTags(GHashTable * funmetatable ,TAG* secureTag , st
 
             char delfile[256];
             bzero(delfile,sizeof(delfile));
-            length=sprintf(delfile,"%s_%d_%d_%d.%s",header->filename,curTag->num ,curTag->clientID,curTag->isSecure,header->filetype );
+            length=sprintf(delfile,"%s_%ld_%d_%d_%d.%s",header->filename,header->fileid,curTag->num ,curTag->clientID,curTag->isSecure,header->filetype );
             //delfile[length-1]='\0';
 
             //remove the file with the specific tag
@@ -729,8 +739,15 @@ GHashTable *   addSecure(GHashTable * funmetatable ,TAG* secureTag , struct repl
         GSList *delSet = NULL;
 
 
+        char filename[256];
+
+        bzero(filename,sizeof(filename));
+
+        sprintf(filename,"%s_%ld",header->filename,header->fileid);
+
+
          //Retrieve all the tags which are associated with the specific filename
-         pointlist = (GSList *) g_hash_table_lookup(funmetatable, header->filename);
+         pointlist = (GSList *) g_hash_table_lookup(funmetatable, filename);
 
          if(pointlist != NULL)
          {
@@ -752,10 +769,10 @@ GHashTable *   addSecure(GHashTable * funmetatable ,TAG* secureTag , struct repl
                 bzero(oldname,sizeof(oldname));
                 bzero(newname,sizeof(newname));
 
-                length=sprintf(oldname,"%s_%d_%d_0.%s",header->filename,header->tag->num,header->tag->clientID,header->filetype);
+                length=sprintf(oldname,"%s_%ld_%d_%d_0.%s",header->filename,header->fileid,header->tag->num,header->tag->clientID,header->filetype);
                 //oldname[length-1]='\0';
 
-                length = sprintf(newname,"%s_%d_%d_1.%s" ,header->filename,header->tag->num,header->tag->clientID,header->filetype);
+                length = sprintf(newname,"%s_%ld_%d_%d_1.%s" ,header->filename,header->fileid,header->tag->num,header->tag->clientID,header->filetype);
                 //newname[length-1]='\0';
 
                 //Go through all the list to find which tag are smaller from
@@ -1080,13 +1097,20 @@ void *accept_thread(void *accept_sock)
               int isSuccess=-1;
               int sendSize=0;
 
+
+              char filename[256];
+
+              bzero(filename,sizeof(filename));
+
+              sprintf(filename,"%s_%ld",msg->filename,msg->fileid);
+
               //Receive the file
               isSuccess=ftp_recv(acptsock,msg);
 
               if(isSuccess == SUCCESS)
               {
                   //Store the metadata of new the file in the hashtable
-                  metadatatable =  insertMetadata(metadatatable,msg->tag,msg->filename);
+                  metadatatable =  insertMetadata(metadatatable , msg->tag , filename);
 
                   //Send an acknowledge to the client that received the object
                   bzero(buf,sizeof(buf));
@@ -1107,6 +1131,12 @@ void *accept_thread(void *accept_sock)
             int error=0;
             int err=0;
 
+            char filename[256];
+
+            bzero(filename,sizeof(filename));
+
+            sprintf(filename,"%s_%ld",msg->filename,msg->fileid);
+
             //Retrieve curTag
             TAG *curTag=NULL;
 
@@ -1118,7 +1148,7 @@ void *accept_thread(void *accept_sock)
                 perror2("Failed to lock()",err);
             }
 
-               curTag = findMaxTag( metadatatable , msg->tag , msg->filename , &error);
+               curTag = findMaxTag( metadatatable , msg->tag , filename , &error);
 
             //Unloack Mutex//
             if(err=pthread_mutex_unlock(&lockermetadata))

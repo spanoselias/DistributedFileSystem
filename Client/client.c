@@ -243,7 +243,7 @@ void encode(struct message *msg , char *buf , char *type)
     //Check if the message is secure
     if((strcmp(type , "SECURE" )== 0) )
     {
-        sprintf(buf,"%s,%ld,%ld,%ld,%s,%s" ,type , msg->tag.num , msg->tag.clientID, message_id , msg->filename , msg->filetype );
+        sprintf(buf,"%s,%ld,%ld,%ld,%ld,%s,%s" ,type , msg->tag.num , msg->tag.clientID, message_id, msg->fileID , msg->filename , msg->filetype );
     }
 
     //Check if the type of the message is RREAD
@@ -1420,7 +1420,7 @@ int get_file(int sock, struct message *msg )
     //Allocation memory
     recvmsg=(struct message *)malloc(sizeof(struct message));
 
-    sprintf(buf ,"READ,%ld,%ld,%ld,%s,%s" , msg->tag.num , msg->tag.clientID , (++msg->msg_id) , msg->filename , msg->filetype );
+    sprintf(buf ,"READ,%ld,%ld,%ld,%ld,%s,%s" , msg->tag.num , msg->tag.clientID , (++msg->msg_id) , msg->fileID, msg->filename , msg->filetype );
 
     //printf("Filename in get_file: %s , length: %d\n",buf, file_size);
     if ((bytes=send(sock, buf, 512 , 0)) < 0)
@@ -1548,7 +1548,7 @@ int send2ftp(struct cmd *msgCmd, int newsock , struct TAG *tagIn , long msgIDIn 
     char *filechecksum = checksum_get(filename);
 
     bzero(buf,sizeof(buf));
-    sprintf(buf,"WRITE,%s,%s,%ld,%ld,%ld,%d,%s" , msgCmd->filename,msgCmd->fileType,tagIn->num,tagIn->clientID , msgIDIn , file_size, filechecksum );
+    sprintf(buf,"WRITE,%s,%s,%ld,%ld,%ld,%ld,%d,%s" , msgCmd->filename,msgCmd->fileType,tagIn->num,tagIn->clientID , msgCmd->fileid , msgIDIn , file_size, filechecksum );
 
     // If connection is established then start communicating //
     len = send(newsock, buf, 512 , 0);

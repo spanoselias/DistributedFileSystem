@@ -25,11 +25,21 @@ typedef struct
 
 }TAG;
 
+typedef struct
+{
+    char *filename;
+    int fileid;
+    TAG *tag;
+
+}METADATA;
+
+
 struct replicaHeader
 {
     char *type;
     char  *filename;
     char *filetype;
+    long fileid;
     TAG *tag;
     int msgID;
     int fileSize;
