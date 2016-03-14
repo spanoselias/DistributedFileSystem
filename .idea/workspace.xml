@@ -381,12 +381,6 @@
       <option name="number" value="Default" />
       <updated>1455704124857</updated>
     </task>
-    <task id="LOCAL-00015" summary="#fixingRegisterFileFunction">
-      <created>1455808425324</created>
-      <option name="number" value="00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1455808425324</updated>
-    </task>
     <task id="LOCAL-00016" summary="#fixingRegisterFileFunction">
       <created>1455809936071</created>
       <option name="number" value="00016" />
@@ -675,7 +669,13 @@
       <option name="project" value="LOCAL" />
       <updated>1457964887526</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="#Align_Output">
+      <created>1457964959529</created>
+      <option name="number" value="00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1457964959529</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TodoView">

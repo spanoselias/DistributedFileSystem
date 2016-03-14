@@ -1,0 +1,166 @@
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <gtk/gtk.h>
+
+
+/* The Text Buffer as a global variabel*/
+GtkTextBuffer *buffer;
+/* File descriptors for pipe. */
+int fds[2];
+
+/* This is a callback function to watch data in standard output and write to a view text widget. */
+void input_callback( gpointer          data,
+                     gint              source,
+                     GdkInputCondition condition )
+{
+    gchar buf[1024];
+    gint chars_read;
+    GtkTextIter iter;
+    chars_read = 1024;
+    gtk_text_buffer_get_end_iter(buffer, &iter);
+    while (chars_read == 1024)
+	{
+      chars_read = read(fds[0], buf, 1024);
+      // fprintf(stderr, "%i chars: %s\n", chars_read, buf);
+      gtk_text_buffer_insert (buffer, &iter, buf, chars_read);
+    }
+}
+
+/* This is a callback function. The data arguments are ignored
+ * in this example. More on callbacks below. */
+static void hello( GtkWidget *widget,
+                   gpointer   data )
+{
+    g_print ("\ntesting\n");
+}
+
+static gboolean delete_event( GtkWidget *widget,
+                              GdkEvent  *event,
+                              gpointer   data )
+{
+    /* If you return FALSE in the "delete_event" signal handler,
+     * GTK will emit the "destroy" signal. Returning TRUE means
+     * you don't want the window to be destroyed.
+     * This is useful for popping up 'are you sure you want to quit?'
+     * type dialogs. */
+
+    g_print ("\ndelete event occurred\n");
+    g_print ("to destroy this window go to started terminal and them press CTRL+C\n");
+
+    /* Change TRUE to FALSE and the main window will be destroyed with
+     * a "delete_event". */
+
+    return TRUE;
+}
+
+/* Another callback */
+static void destroy( GtkWidget *widget,
+                     gpointer   data )
+{
+    g_print ("destroy event occurred\n");
+    gtk_main_quit ();
+}
+
+int main( int   argc,
+          char *argv[] )
+{
+    /* GtkWidget is the storage type for widgets */
+    GtkWidget     *window;
+    GtkWidget     *vbox;
+    GtkWidget     *button;
+    GtkWidget     *view;
+
+    // Create a pipe. File descriptors for the two ends of the pipe are placed in fds.
+    pipe (fds);
+    // Redirect fds[1] to be writed with the standard output.
+    dup2 (fds[1], STDOUT_FILENO);
+
+    /* This is called in all GTK applications. Arguments are parsed
+     * from the command line and are returned to the application. */
+    gtk_init (&argc, &argv);
+   
+      // Create a new window //
+    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+
+    //Set the position the main window in the Center
+    gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+
+    //Set the size the main window
+    gtk_window_set_default_size(GTK_WINDOW(window), 800, 800);
+
+    //Set the name of the window application
+    gtk_window_set_title(GTK_WINDOW(window), "Distributed File System");
+
+
+
+    /* When the window is given the "delete_event" signal (this is given
+     * by the window manager, usually by the "close" option, or on the
+     * titlebar), we ask it to call the delete_event () function
+     * as defined above. The data passed to the callback
+     * function is NULL and is ignored in the callback function. */
+    g_signal_connect (G_OBJECT (window), "delete_event",
+		      G_CALLBACK (delete_event), NULL);
+
+    /* Here we connect the "destroy" event to a signal handler.
+     * This event occurs when we call gtk_widget_destroy() on the window,
+     * or if we return FALSE in the "delete_event" callback. */
+    g_signal_connect (G_OBJECT (window), "destroy",
+		      G_CALLBACK (destroy), NULL);
+
+    /* Sets the border width of the window. */
+    gtk_container_set_border_width (GTK_CONTAINER (window), 10);
+
+    /* Creates a new button with the label "Hello World". */
+    button = gtk_button_new_with_label ("Upload");
+
+    /* When the button receives the "clicked" signal, it will call the
+     * function hello() passing it NULL as its argument.  The hello()
+     * function is defined above. */
+    g_signal_connect (G_OBJECT (button), "clicked",
+		      G_CALLBACK (hello), NULL);
+
+    /* This will cause the window to be destroyed by calling
+     * gtk_widget_destroy(window) when "clicked".  Again, the destroy
+     * signal could come from here, or the window manager. */
+/*
+    g_signal_connect_swapped (G_OBJECT (button), "clicked",
+			      G_CALLBACK (gtk_widget_destroy),
+                              G_OBJECT (window));
+
+    /* Creates a new text view with a text buffer "Hello, this is some text". */
+    view = gtk_text_view_new ();
+    buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
+    gtk_text_buffer_set_text (buffer, "Hello, this is some text", -1);
+
+    /* Creates a new vertical box. */
+    vbox = gtk_vbox_new (FALSE, 10);
+
+    /* This packs the vbox into the window (a gtk container). */
+    gtk_container_add (GTK_CONTAINER (window), vbox);
+
+    /* This packs the text view into the vbox. */
+    gtk_box_pack_start (GTK_BOX (vbox), view, TRUE, TRUE, 0);
+
+    /* This packs the button into the vbox. */
+    gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
+
+    /* This is the singnal connection to call input_callback when we have data in standard output read end pipe. */
+    gdk_input_add(fds[0], GDK_INPUT_READ, input_callback, NULL);
+
+    /* The final step is to display this newly created widget. */
+    gtk_widget_show (button);
+    gtk_widget_show (view);
+    gtk_widget_show (vbox);
+
+    /* and the window */
+    gtk_widget_show (window);
+
+    /* All GTK applications must have a gtk_main(). Control ends here
+     * and waits for an event to occur (like a key press or
+     * mouse event). */
+    gtk_main ();
+
+    return 0;
+}

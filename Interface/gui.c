@@ -1,0 +1,161 @@
+#include <stdlib.h>
+#include <gtk/gtk.h>
+
+/* Create a new hbox with an image and a label packed into it
+ * and return the box. */
+
+    static GtkWidget *xpm_label_box( gchar     *xpm_filename,
+                                     gchar     *label_text )
+    {
+        GtkWidget *box;
+        GtkWidget *label;
+        GtkWidget *image;
+
+        /* Create box for image and label */
+        box = gtk_hbox_new (FALSE, 0);
+        gtk_container_set_border_width (GTK_CONTAINER (box), 2);
+
+        /* Now on to the image stuff */
+        image = gtk_image_new_from_file (xpm_filename);
+
+        /* Create a label for the button */
+        label = gtk_label_new (label_text);
+
+        /* Pack the image and label into the box */
+        gtk_box_pack_start (GTK_BOX (box), image, FALSE, FALSE, 3);
+        gtk_box_pack_start (GTK_BOX (box), label, FALSE, FALSE, 3);
+
+        gtk_widget_show (image);
+        gtk_widget_show (label);
+
+        return box;
+    }
+
+	/* The file selection widget and the string to store the chosen filename */
+	GtkWidget *file_selector;
+	gchar *selected_filename;
+
+
+	/* Our usual callback function */
+	static void callback( GtkWidget *widget,
+		                    gpointer   data )
+	{
+		 
+		 // Display that dialog//
+		 gtk_widget_show (file_selector);
+	}
+
+	void store_filename(GtkFileSelection *selector, gpointer user_data) 
+	{
+
+	   	selected_filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(file_selector));
+
+        g_print ("%s\n" , g_path_get_basename(selected_filename));
+	 	g_print ("%s\n" , g_path_get_basename(selected_filename));
+
+        gtk_widget_hide(file_selector);
+	}
+
+    void hide_file_selector(GtkFileSelection *selector, gpointer user_data)
+    {
+
+       gtk_widget_hide(file_selector);
+    }
+
+    // Another callback //
+    static void destroy( GtkWidget *widget,
+                         gpointer   data )
+    {
+        gtk_widget_hide(file_selector);
+        g_print ("destroy event occurred\n");
+    }
+
+
+int main( int   argc,
+          char *argv[] )
+{
+    /* GtkWidget is the storage type for widgets */
+    GtkWidget *window;
+    GtkWidget *button;
+    GtkWidget *box;
+
+    gtk_init (&argc, &argv);
+
+    /* Create a new window */
+    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+
+	//Set the name of the window application
+    gtk_window_set_title (GTK_WINDOW (window), "Distributed File System");
+
+    //Set the position the main window in the Center
+    gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+
+    //Set the size the main window
+    gtk_window_set_default_size(GTK_WINDOW(window), 800, 800);
+
+    /* It's a good idea to do this for all windows. */
+    g_signal_connect (window, "destroy",
+	              G_CALLBACK (gtk_main_quit), NULL);
+
+    g_signal_connect (window, "delete-event",
+	 	      G_CALLBACK (gtk_main_quit), NULL);
+
+
+    /* Sets the border width of the window. */
+   // gtk_container_set_border_width (GTK_CONTAINER (window), 300);
+
+    /* Create a new button */
+    button = gtk_button_new ();
+
+    /* Connect the "clicked" signal of the button to our callback */
+    g_signal_connect (button, "clicked",
+		      G_CALLBACK (callback), (gpointer) "read");
+
+    /* This calls our box creating function */
+    box = xpm_label_box ("info.xpm", "Read");
+
+    /* Pack and show all our widgets */
+    gtk_widget_show (box);
+
+    gtk_container_add (GTK_CONTAINER (button), box);
+
+    gtk_widget_show (button);
+
+    gtk_container_add (GTK_CONTAINER (window), button);
+
+
+/* Create the selector */
+   
+   file_selector = gtk_file_selection_new("Please select a file for editing.");
+   
+   gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION(file_selector)->ok_button),
+   			   "clicked", GTK_SIGNAL_FUNC (store_filename), NULL);
+
+    gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION(file_selector)->cancel_button),
+                        "clicked", GTK_SIGNAL_FUNC (hide_file_selector), NULL);
+
+
+   /* Ensure that the dialog box is destroyed when the user clicks a button. */
+
+    // It's a good idea to do this for all windows. //
+    g_signal_connect (file_selector, "destroy",
+                      G_CALLBACK (destroy), NULL);
+
+
+  /* gtk_signal_connect_object (GTK_OBJECT (GTK_FILE_SELECTION(file_selector)->ok_button),
+   					  "clicked", GTK_SIGNAL_FUNC (gtk_widget_destroy),
+   					  (gpointer) file_selector);
+/*
+   gtk_signal_connect_object (GTK_OBJECT (GTK_FILE_SELECTION(file_selector)->cancel_button),
+   					  "clicked", GTK_SIGNAL_FUNC (gtk_widget_destroy),
+   					  (gpointer) file_selector);  */
+
+
+   gtk_widget_show_all (window);
+
+
+    /* Rest in gtk_main and wait for the fun to begin! */
+    gtk_main ();
+
+    return 0;
+}

@@ -1,0 +1,2 @@
+gcc my.c -o base `pkg-config --cflags --libs gtk+-2.0`
+
