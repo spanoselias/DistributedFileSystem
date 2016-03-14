@@ -30,6 +30,7 @@ typedef struct
     GString *filename;
     long fileid;
     long owner;
+    GString *username;
 }METADATA;
 
 

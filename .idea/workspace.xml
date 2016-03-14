@@ -17,12 +17,11 @@
   <component name="ChangeListManager">
     <list default="true" id="074f1195-62a4-43e6-a1db-a48c9186e3a6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/cli" afterPath="$PROJECT_DIR$/Client/cli" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FileManager/fil" afterPath="$PROJECT_DIR$/FileManager/fil" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Replica/repli" afterPath="$PROJECT_DIR$/Replica/repli" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Directory/directory.c" afterPath="$PROJECT_DIR$/Directory/directory.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FileManager/filemanager.c" afterPath="$PROJECT_DIR$/FileManager/filemanager.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Replica/replica.c" afterPath="$PROJECT_DIR$/Replica/replica.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/client.c" afterPath="$PROJECT_DIR$/Client/client.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/config.txt" afterPath="$PROJECT_DIR$/Client/config.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FileManager/filemanager.h" afterPath="$PROJECT_DIR$/FileManager/filemanager.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Scripts/config2.txt" afterPath="$PROJECT_DIR$/Scripts/config2.txt" />
     </list>
     <ignored path="DistributedSystems.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -42,208 +41,150 @@
     <favorites_list name="DistributedSystems" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.6596665">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="directory.h" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Directory/directory.h">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="41" column="29" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="client.c" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Client/client.c">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-17.419355">
-                  <caret line="30" column="41" selection-start-line="30" selection-start-column="41" selection-end-line="30" selection-end-column="41" />
-                  <folding>
-                    <element signature="e#852#870#0" expanded="true" />
-                    <element signature="e#4125#4621#0" expanded="false" />
-                    <element signature="e#4623#4819#0" expanded="false" />
-                    <element signature="e#4821#5378#0" expanded="false" />
-                    <element signature="e#5552#8742#0" expanded="false" />
-                    <element signature="e#8941#12023#0" expanded="false" />
-                    <element signature="e#12307#16798#0" expanded="false" />
-                    <element signature="e#16824#19004#0" expanded="false" />
-                    <element signature="e#19006#19783#0" expanded="false" />
-                    <element signature="e#19957#21558#0" expanded="false" />
-                    <element signature="e#21732#24435#0" expanded="false" />
-                    <element signature="e#24609#25358#0" expanded="false" />
-                    <element signature="e#25550#32568#0" expanded="false" />
-                    <element signature="e#32759#32998#0" expanded="false" />
-                    <element signature="e#33191#35471#0" expanded="false" />
-                    <element signature="e#35645#38523#0" expanded="false" />
-                    <element signature="e#38525#39800#0" expanded="false" />
-                    <element signature="e#39802#41114#0" expanded="false" />
-                    <element signature="e#41116#42439#0" expanded="false" />
-                    <element signature="e#42613#43386#0" expanded="false" />
-                    <element signature="e#43388#44315#0" expanded="false" />
-                    <element signature="e#44349#45129#0" expanded="false" />
-                    <element signature="e#45131#47642#0" expanded="false" />
-                    <element signature="e#47644#49852#0" expanded="false" />
-                    <element signature="e#49854#50949#0" expanded="false" />
-                    <element signature="e#50951#55583#0" expanded="false" />
-                    <element signature="e#55610#58644#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="directory.c" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Directory/directory.c">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-66.19355">
-                  <caret line="705" column="0" selection-start-line="705" selection-start-column="0" selection-end-line="705" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#852#870#0" expanded="true" />
-                    <element signature="e#2420#3629#0" expanded="false" />
-                    <element signature="e#3632#4025#0" expanded="false" />
-                    <element signature="e#4027#5742#0" expanded="false" />
-                    <element signature="e#5916#6470#0" expanded="false" />
-                    <element signature="e#6644#8999#0" expanded="false" />
-                    <element signature="e#9191#20588#0" expanded="false" />
-                    <element signature="e#20762#22966#0" expanded="false" />
-                    <element signature="e#23165#23380#0" expanded="false" />
-                    <element signature="e#23659#23898#0" expanded="false" />
-                    <element signature="e#23659#24909#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="replica.c" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Replica/replica.c">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-15.4838705">
-                  <caret line="1082" column="27" selection-start-line="1082" selection-start-column="27" selection-end-line="1082" selection-end-column="27" />
-                  <folding>
-                    <element signature="e#2894#4723#0" expanded="false" />
-                    <element signature="e#4897#5540#0" expanded="false" />
-                    <element signature="e#5714#6486#0" expanded="false" />
-                    <element signature="e#6520#7246#0" expanded="false" />
-                    <element signature="e#7248#9294#0" expanded="false" />
-                    <element signature="e#9296#11463#0" expanded="false" />
-                    <element signature="e#11465#13316#0" expanded="false" />
-                    <element signature="e#13318#15429#0" expanded="false" />
-                    <element signature="e#17610#22085#0" expanded="false" />
-                    <element signature="e#22087#25383#0" expanded="false" />
-                    <element signature="e#25385#27629#0" expanded="false" />
-                    <element signature="e#27631#29420#0" expanded="false" />
-                    <element signature="e#29422#31580#0" expanded="false" />
-                    <element signature="e#36470#39472#0" expanded="false" />
-                    <element signature="e#39474#40815#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="settings" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/Scripts/settings">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.44923505">
-                  <caret line="40" column="32" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="36" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="filemanager.c" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/FileManager/filemanager.c">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-9.774194">
-                  <caret line="367" column="29" selection-start-line="367" selection-start-column="29" selection-end-line="367" selection-end-column="29" />
-                  <folding>
-                    <element signature="e#852#872#0" expanded="true" />
-                    <element signature="e#2995#4545#0" expanded="false" />
-                    <element signature="e#4720#5563#0" expanded="false" />
-                    <element signature="e#5738#7979#0" expanded="false" />
-                    <element signature="e#12755#14537#0" expanded="false" />
-                    <element signature="e#14711#16101#0" expanded="false" />
-                    <element signature="e#16276#17183#0" expanded="false" />
-                    <element signature="e#17357#18031#0" expanded="false" />
-                    <element signature="e#18205#19809#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="tmux.sh" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Directory/tmux.sh">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="config.txt" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Client/config.txt">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="12" column="2" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="replica.h" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Replica/replica.h">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="40" column="19" selection-start-line="40" selection-start-column="19" selection-end-line="40" selection-end-column="19" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="client.c" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/Client/client.c">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.50764954">
-                  <caret line="241" column="0" selection-start-line="241" selection-start-column="0" selection-end-line="241" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#852#870#0" expanded="true" />
-                    <element signature="e#4125#4621#0" expanded="false" />
-                    <element signature="e#4623#4819#0" expanded="false" />
-                    <element signature="e#4821#5378#0" expanded="false" />
-                    <element signature="e#5552#8742#0" expanded="false" />
-                    <element signature="e#8941#12023#0" expanded="false" />
-                    <element signature="e#12307#16798#0" expanded="false" />
-                    <element signature="e#16824#19004#0" expanded="false" />
-                    <element signature="e#19006#19783#0" expanded="false" />
-                    <element signature="e#19957#21558#0" expanded="false" />
-                    <element signature="e#24609#25358#0" expanded="false" />
-                    <element signature="e#25550#32568#0" expanded="false" />
-                    <element signature="e#32759#32998#0" expanded="false" />
-                    <element signature="e#33191#35471#0" expanded="false" />
-                    <element signature="e#38525#39800#0" expanded="false" />
-                    <element signature="e#39802#41114#0" expanded="false" />
-                    <element signature="e#41116#42439#0" expanded="false" />
-                    <element signature="e#42613#43386#0" expanded="false" />
-                    <element signature="e#43388#44315#0" expanded="false" />
-                    <element signature="e#44349#45129#0" expanded="false" />
-                    <element signature="e#45131#47642#0" expanded="false" />
-                    <element signature="e#47644#49852#0" expanded="false" />
-                    <element signature="e#49854#50949#0" expanded="false" />
-                    <element signature="e#50951#55583#0" expanded="false" />
-                    <element signature="e#55610#58644#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="client.c" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Client/client.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.38517442">
+              <caret line="606" column="20" selection-start-line="606" selection-start-column="20" selection-end-line="606" selection-end-column="20" />
+              <folding>
+                <element signature="e#852#870#0" expanded="true" />
+                <element signature="e#4125#4621#0" expanded="false" />
+                <element signature="e#4623#4819#0" expanded="false" />
+                <element signature="e#4821#5378#0" expanded="false" />
+                <element signature="e#8941#12023#0" expanded="false" />
+                <element signature="e#16824#19004#0" expanded="false" />
+                <element signature="e#24611#25360#0" expanded="false" />
+                <element signature="e#25552#32570#0" expanded="false" />
+                <element signature="e#32761#33000#0" expanded="false" />
+                <element signature="e#35879#38757#0" expanded="false" />
+                <element signature="e#38759#40034#0" expanded="false" />
+                <element signature="e#40036#41348#0" expanded="false" />
+                <element signature="e#41350#42673#0" expanded="false" />
+                <element signature="e#42847#43620#0" expanded="false" />
+                <element signature="e#43622#44549#0" expanded="false" />
+                <element signature="e#44583#45363#0" expanded="false" />
+                <element signature="e#47878#50086#0" expanded="false" />
+                <element signature="e#50088#51254#0" expanded="false" />
+                <element signature="e#55915#58949#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="directory.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Directory/directory.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="41" column="29" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="replica.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Replica/replica.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-33.677418">
+              <caret line="1044" column="0" selection-start-line="1044" selection-start-column="0" selection-end-line="1044" selection-end-column="0" />
+              <folding>
+                <element signature="e#2894#4723#0" expanded="false" />
+                <element signature="e#4897#5540#0" expanded="false" />
+                <element signature="e#5714#6486#0" expanded="false" />
+                <element signature="e#6520#7246#0" expanded="false" />
+                <element signature="e#7248#9294#0" expanded="false" />
+                <element signature="e#9296#11463#0" expanded="false" />
+                <element signature="e#11465#13316#0" expanded="false" />
+                <element signature="e#13318#15429#0" expanded="false" />
+                <element signature="e#15431#17608#0" expanded="false" />
+                <element signature="e#17610#22085#0" expanded="false" />
+                <element signature="e#22087#25383#0" expanded="false" />
+                <element signature="e#25385#27629#0" expanded="false" />
+                <element signature="e#27631#29420#0" expanded="false" />
+                <element signature="e#29422#31580#0" expanded="false" />
+                <element signature="e#31582#36468#0" expanded="false" />
+                <element signature="e#36470#39472#0" expanded="false" />
+                <element signature="e#39474#40815#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Scripts/settings">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="55" column="21" selection-start-line="55" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="filemanager.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FileManager/filemanager.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-15.096774">
+              <caret line="579" column="0" selection-start-line="579" selection-start-column="0" selection-end-line="579" selection-end-column="0" />
+              <folding>
+                <element signature="e#852#872#0" expanded="true" />
+                <element signature="e#2995#4545#0" expanded="false" />
+                <element signature="e#4720#5563#0" expanded="false" />
+                <element signature="e#5738#7979#0" expanded="false" />
+                <element signature="e#8153#12580#0" expanded="false" />
+                <element signature="e#12755#14537#0" expanded="false" />
+                <element signature="e#14711#16101#0" expanded="false" />
+                <element signature="e#16276#17183#0" expanded="false" />
+                <element signature="e#17357#18031#0" expanded="false" />
+                <element signature="e#18205#19809#0" expanded="false" />
+                <element signature="e#19898#21209#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="filemanager.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FileManager/filemanager.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
+              <folding>
+                <element signature="e#226#345#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tmux.sh" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Directory/tmux.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Client/config.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="12" column="2" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config2.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Scripts/config2.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="55" column="11" selection-start-line="49" selection-start-column="0" selection-end-line="59" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -252,11 +193,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Client/permission.txt" />
-        <option value="$PROJECT_DIR$/FileManager/filemanager.h" />
         <option value="$PROJECT_DIR$/Directory/directory.h" />
         <option value="$PROJECT_DIR$/Client/test2.txt" />
         <option value="$PROJECT_DIR$/Client/unitest.sh" />
-        <option value="$PROJECT_DIR$/Scripts/config2.txt" />
         <option value="$PROJECT_DIR$/Scripts/settings" />
         <option value="$PROJECT_DIR$/Client/test.txt" />
         <option value="$PROJECT_DIR$/Interface/gui2.c" />
@@ -278,11 +217,13 @@
         <option value="$PROJECT_DIR$/Interface/Client/client.c" />
         <option value="$PROJECT_DIR$/Scripts/tmux.sh" />
         <option value="$PROJECT_DIR$/Directory/tmux.sh" />
+        <option value="$PROJECT_DIR$/Directory/directory.c" />
+        <option value="$PROJECT_DIR$/Replica/replica.c" />
+        <option value="$PROJECT_DIR$/Scripts/config2.txt" />
+        <option value="$PROJECT_DIR$/FileManager/filemanager.h" />
+        <option value="$PROJECT_DIR$/FileManager/filemanager.c" />
         <option value="$PROJECT_DIR$/Client/config.txt" />
         <option value="$PROJECT_DIR$/Client/client.c" />
-        <option value="$PROJECT_DIR$/Directory/directory.c" />
-        <option value="$PROJECT_DIR$/FileManager/filemanager.c" />
-        <option value="$PROJECT_DIR$/Replica/replica.c" />
       </list>
     </option>
   </component>
@@ -337,20 +278,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="DistributedSystems" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DistributedSystems" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DistributedSystems" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scripts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -764,9 +691,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11626638" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13264193" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295099" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2679875" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295099" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -865,12 +792,12 @@
         </line-breakpoint>
         <line-breakpoint type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Client/client.c</url>
-          <line>1920</line>
+          <line>1925</line>
           <option name="timeStamp" value="62" />
         </line-breakpoint>
         <line-breakpoint type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Client/client.c</url>
-          <line>1923</line>
+          <line>1928</line>
           <option name="timeStamp" value="63" />
         </line-breakpoint>
         <line-breakpoint type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
@@ -885,12 +812,12 @@
         </line-breakpoint>
         <line-breakpoint type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Client/client.c</url>
-          <line>1064</line>
+          <line>1068</line>
           <option name="timeStamp" value="75" />
         </line-breakpoint>
         <line-breakpoint type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Client/client.c</url>
-          <line>1067</line>
+          <line>1071</line>
           <option name="timeStamp" value="76" />
         </line-breakpoint>
         <line-breakpoint type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
@@ -930,12 +857,12 @@
         </line-breakpoint>
         <line-breakpoint type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Client/client.c</url>
-          <line>1453</line>
+          <line>1457</line>
           <option name="timeStamp" value="99" />
         </line-breakpoint>
         <line-breakpoint type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Client/client.c</url>
-          <line>1466</line>
+          <line>1470</line>
           <option name="timeStamp" value="100" />
         </line-breakpoint>
         <line-breakpoint type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
@@ -980,7 +907,7 @@
         </line-breakpoint>
         <line-breakpoint type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Client/client.c</url>
-          <line>1438</line>
+          <line>1442</line>
           <option name="timeStamp" value="127" />
         </line-breakpoint>
         <line-breakpoint type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
@@ -1047,6 +974,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="35" column="1" selection-start-line="33" selection-start-column="0" selection-end-line="44" selection-end-column="15" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1074,13 +1002,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="10" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/config2.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="35" column="1" selection-start-line="33" selection-start-column="0" selection-end-line="44" selection-end-column="15" />
         </state>
       </provider>
     </entry>
@@ -1133,6 +1054,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="76" column="54" selection-start-line="76" selection-start-column="54" selection-end-line="76" selection-end-column="54" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1161,6 +1083,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-63.29032">
           <caret line="132" column="27" selection-start-line="132" selection-start-column="27" selection-end-line="132" selection-end-column="27" />
+          <folding>
+            <element signature="e#43#754#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1205,6 +1130,37 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.709678">
           <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
+          <folding>
+            <element signature="e#4098#4279#0" expanded="false" />
+            <element signature="e#4098#4594#0" expanded="false" />
+            <element signature="e#4596#4792#0" expanded="false" />
+            <element signature="e#4794#5351#0" expanded="false" />
+            <element signature="e#5525#8562#0" expanded="false" />
+            <element signature="e#8761#11679#0" expanded="false" />
+            <element signature="e#11963#16062#0" expanded="false" />
+            <element signature="e#13887#14017#0" expanded="false" />
+            <element signature="e#16088#18199#0" expanded="false" />
+            <element signature="e#18201#18978#0" expanded="false" />
+            <element signature="e#19152#20735#0" expanded="false" />
+            <element signature="e#20909#23612#0" expanded="false" />
+            <element signature="e#23786#24552#0" expanded="false" />
+            <element signature="e#24744#31586#0" expanded="false" />
+            <element signature="e#31777#32016#0" expanded="false" />
+            <element signature="e#32209#34382#0" expanded="false" />
+            <element signature="e#34556#37118#0" expanded="false" />
+            <element signature="e#37120#38437#0" expanded="false" />
+            <element signature="e#38439#39751#0" expanded="false" />
+            <element signature="e#39753#41076#0" expanded="false" />
+            <element signature="e#41250#42023#0" expanded="false" />
+            <element signature="e#42025#42952#0" expanded="false" />
+            <element signature="e#42986#43766#0" expanded="false" />
+            <element signature="e#43768#46267#0" expanded="false" />
+            <element signature="e#46269#48460#0" expanded="false" />
+            <element signature="e#48462#53091#0" expanded="false" />
+            <element signature="e#52363#52572#0" expanded="false" />
+            <element signature="e#53118#56084#0" expanded="false" />
+            <element signature="e#56483#57587#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1219,6 +1175,38 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.30041152">
           <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding>
+            <element signature="e#4098#4279#0" expanded="false" />
+            <element signature="e#4098#4594#0" expanded="false" />
+            <element signature="e#4596#4792#0" expanded="false" />
+            <element signature="e#5525#8554#0" expanded="false" />
+            <element signature="e#8753#11771#0" expanded="false" />
+            <element signature="e#12055#16150#0" expanded="false" />
+            <element signature="e#13979#14109#0" expanded="false" />
+            <element signature="e#16176#18356#0" expanded="false" />
+            <element signature="e#18358#19135#0" expanded="false" />
+            <element signature="e#19309#20904#0" expanded="false" />
+            <element signature="e#21078#23781#0" expanded="false" />
+            <element signature="e#23955#24704#0" expanded="false" />
+            <element signature="e#24896#31737#0" expanded="false" />
+            <element signature="e#31928#32167#0" expanded="false" />
+            <element signature="e#32360#34529#0" expanded="false" />
+            <element signature="e#34703#37265#0" expanded="false" />
+            <element signature="e#37267#38584#0" expanded="false" />
+            <element signature="e#38586#39898#0" expanded="false" />
+            <element signature="e#39900#41223#0" expanded="false" />
+            <element signature="e#41397#42170#0" expanded="false" />
+            <element signature="e#42172#43099#0" expanded="false" />
+            <element signature="e#43133#43913#0" expanded="false" />
+            <element signature="e#43915#46409#0" expanded="false" />
+            <element signature="e#46411#48598#0" expanded="false" />
+            <element signature="e#48600#53231#0" expanded="false" />
+            <element signature="e#52501#52710#0" expanded="false" />
+            <element signature="e#53258#56292#0" expanded="false" />
+            <element signature="e#56556#57285#0" expanded="false" />
+            <element signature="e#57666#58792#0" expanded="false" />
+            <element signature="e#58907#59076#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1339,55 +1327,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/config.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="2" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Directory/tmux.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/client.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.419355">
-          <caret line="30" column="41" selection-start-line="30" selection-start-column="41" selection-end-line="30" selection-end-column="41" />
-          <folding>
-            <element signature="e#852#870#0" expanded="true" />
-            <element signature="e#4125#4621#0" expanded="false" />
-            <element signature="e#4623#4819#0" expanded="false" />
-            <element signature="e#4821#5378#0" expanded="false" />
-            <element signature="e#5552#8742#0" expanded="false" />
-            <element signature="e#8941#12023#0" expanded="false" />
-            <element signature="e#12307#16798#0" expanded="false" />
-            <element signature="e#16824#19004#0" expanded="false" />
-            <element signature="e#19006#19783#0" expanded="false" />
-            <element signature="e#19957#21558#0" expanded="false" />
-            <element signature="e#21732#24435#0" expanded="false" />
-            <element signature="e#24609#25358#0" expanded="false" />
-            <element signature="e#25550#32568#0" expanded="false" />
-            <element signature="e#32759#32998#0" expanded="false" />
-            <element signature="e#33191#35471#0" expanded="false" />
-            <element signature="e#35645#38523#0" expanded="false" />
-            <element signature="e#38525#39800#0" expanded="false" />
-            <element signature="e#39802#41114#0" expanded="false" />
-            <element signature="e#41116#42439#0" expanded="false" />
-            <element signature="e#42613#43386#0" expanded="false" />
-            <element signature="e#43388#44315#0" expanded="false" />
-            <element signature="e#44349#45129#0" expanded="false" />
-            <element signature="e#45131#47642#0" expanded="false" />
-            <element signature="e#47644#49852#0" expanded="false" />
-            <element signature="e#49854#50949#0" expanded="false" />
-            <element signature="e#50951#55583#0" expanded="false" />
-            <element signature="e#55610#58644#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1411,38 +1355,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/settings">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="55" column="21" selection-start-line="55" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/config2.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="55" column="11" selection-start-line="49" selection-start-column="0" selection-end-line="59" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/FileManager/filemanager.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19888735">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
           <folding>
             <element signature="e#226#345#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FileManager/filemanager.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.774194">
-          <caret line="367" column="29" selection-start-line="367" selection-start-column="29" selection-end-line="367" selection-end-column="29" />
-          <folding>
-            <element signature="e#852#872#0" expanded="true" />
-            <element signature="e#2995#4545#0" expanded="false" />
-            <element signature="e#4720#5563#0" expanded="false" />
-            <element signature="e#5738#7979#0" expanded="false" />
-            <element signature="e#12755#14537#0" expanded="false" />
-            <element signature="e#14711#16101#0" expanded="false" />
-            <element signature="e#16276#17183#0" expanded="false" />
-            <element signature="e#17357#18031#0" expanded="false" />
-            <element signature="e#18205#19809#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Replica/replica.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.4838705">
-          <caret line="1082" column="27" selection-start-line="1082" selection-start-column="27" selection-end-line="1082" selection-end-column="27" />
+        <state vertical-scroll-proportion="-33.677418">
+          <caret line="1044" column="0" selection-start-line="1044" selection-start-column="0" selection-end-line="1044" selection-end-column="0" />
           <folding>
             <element signature="e#2894#4723#0" expanded="false" />
             <element signature="e#4897#5540#0" expanded="false" />
@@ -1452,22 +1394,72 @@
             <element signature="e#9296#11463#0" expanded="false" />
             <element signature="e#11465#13316#0" expanded="false" />
             <element signature="e#13318#15429#0" expanded="false" />
+            <element signature="e#15431#17608#0" expanded="false" />
             <element signature="e#17610#22085#0" expanded="false" />
             <element signature="e#22087#25383#0" expanded="false" />
             <element signature="e#25385#27629#0" expanded="false" />
             <element signature="e#27631#29420#0" expanded="false" />
             <element signature="e#29422#31580#0" expanded="false" />
+            <element signature="e#31582#36468#0" expanded="false" />
             <element signature="e#36470#39472#0" expanded="false" />
             <element signature="e#39474#40815#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/settings">
+    <entry file="file://$PROJECT_DIR$/FileManager/filemanager.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44923505">
-          <caret line="40" column="32" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="36" />
+        <state vertical-scroll-proportion="-15.096774">
+          <caret line="579" column="0" selection-start-line="579" selection-start-column="0" selection-end-line="579" selection-end-column="0" />
+          <folding>
+            <element signature="e#852#872#0" expanded="true" />
+            <element signature="e#2995#4545#0" expanded="false" />
+            <element signature="e#4720#5563#0" expanded="false" />
+            <element signature="e#5738#7979#0" expanded="false" />
+            <element signature="e#8153#12580#0" expanded="false" />
+            <element signature="e#12755#14537#0" expanded="false" />
+            <element signature="e#14711#16101#0" expanded="false" />
+            <element signature="e#16276#17183#0" expanded="false" />
+            <element signature="e#17357#18031#0" expanded="false" />
+            <element signature="e#18205#19809#0" expanded="false" />
+            <element signature="e#19898#21209#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/config.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="2" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/client.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38517442">
+          <caret line="606" column="20" selection-start-line="606" selection-start-column="20" selection-end-line="606" selection-end-column="20" />
+          <folding>
+            <element signature="e#852#870#0" expanded="true" />
+            <element signature="e#4125#4621#0" expanded="false" />
+            <element signature="e#4623#4819#0" expanded="false" />
+            <element signature="e#4821#5378#0" expanded="false" />
+            <element signature="e#8941#12023#0" expanded="false" />
+            <element signature="e#16824#19004#0" expanded="false" />
+            <element signature="e#24611#25360#0" expanded="false" />
+            <element signature="e#25552#32570#0" expanded="false" />
+            <element signature="e#32761#33000#0" expanded="false" />
+            <element signature="e#35879#38757#0" expanded="false" />
+            <element signature="e#38759#40034#0" expanded="false" />
+            <element signature="e#40036#41348#0" expanded="false" />
+            <element signature="e#41350#42673#0" expanded="false" />
+            <element signature="e#42847#43620#0" expanded="false" />
+            <element signature="e#43622#44549#0" expanded="false" />
+            <element signature="e#44583#45363#0" expanded="false" />
+            <element signature="e#47878#50086#0" expanded="false" />
+            <element signature="e#50088#51254#0" expanded="false" />
+            <element signature="e#55915#58949#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

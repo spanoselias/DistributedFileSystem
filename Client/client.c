@@ -601,7 +601,7 @@ GSList  *read_Query(struct cmd *cmdmsgIn  ,  struct TAG *tag , struct message *m
     }
     else  if(isReceiveMajor ==  -2)
     {
-        printf("*************\n");
+        printf("\n*************\n");
         printf("ACCESS DENIED\n");
         printf("*************\n");
         return NULL;
@@ -1048,13 +1048,17 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
             //get_file(replicaSocks[1] , msg);
             if( reader_oper(message_id , cmdmsg ) == FAILURE )
             {
-                printf("Unable to read the data object\n");
+                printf("---------------------------");
+                printf("\nUNABLE TO READ THE FILE\n");
+                printf("---------------------------");
             }
         }
 
         else
         {
-            printf("Unable to receive the fileid correct\n");
+            printf("---------------------------------------");
+            printf("\nUNABLE TO READ THE FILEID CORRECTLY\n");
+            printf("---------------------------------------");
         }
 
     }
@@ -1653,6 +1657,7 @@ int get_filelist()
     int size = atoi(strtok(buf, ","));
 
     //Display format
+    printf("\n\n-------------------------------------------------\n");
     printf("%-20s%-20s%-20s\n", "Filename","Fileid","owner");
     printf("-------------------------------------------------\n");
 
