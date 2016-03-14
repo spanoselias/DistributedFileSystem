@@ -52,8 +52,8 @@
           <file leaf-file-name="client.c" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Client/client.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.41117477">
-                  <caret line="1619" column="0" selection-start-line="1619" selection-start-column="0" selection-end-line="1619" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.3338109">
+                  <caret line="1598" column="0" selection-start-line="1598" selection-start-column="0" selection-end-line="1598" selection-end-column="0" />
                   <folding>
                     <element signature="e#4078#4574#0" expanded="false" />
                     <element signature="e#4576#4772#0" expanded="false" />
@@ -381,12 +381,6 @@
       <option name="number" value="Default" />
       <updated>1455704124857</updated>
     </task>
-    <task id="LOCAL-00014" summary="#fixingCreatePhaseOfClient">
-      <created>1455805382868</created>
-      <option name="number" value="00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1455805382868</updated>
-    </task>
     <task id="LOCAL-00015" summary="#fixingRegisterFileFunction">
       <created>1455808425324</created>
       <option name="number" value="00015" />
@@ -675,7 +669,13 @@
       <option name="project" value="LOCAL" />
       <updated>1457894754379</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="#Align_Output">
+      <created>1457964887525</created>
+      <option name="number" value="00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1457964887526</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1419,8 +1419,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/client.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41117477">
-          <caret line="1619" column="0" selection-start-line="1619" selection-start-column="0" selection-end-line="1619" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.3338109">
+          <caret line="1598" column="0" selection-start-line="1598" selection-start-column="0" selection-end-line="1598" selection-end-column="0" />
           <folding>
             <element signature="e#4078#4574#0" expanded="false" />
             <element signature="e#4576#4772#0" expanded="false" />
