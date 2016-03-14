@@ -20,9 +20,6 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include "client.h"
-#include <time.h>
-#include <error.h>
-
 
 /***********************************************************************************/
 /*                                   MACROS                                        */
@@ -64,6 +61,8 @@ int    MAX_DIRECTORIES=0;                    //Store the number of directories t
 int    MAX_REPLICAS=0;                       //Store the number of replicas that exist in the system
 int    MAX_FILEMANAGERS;                     //Store the number of filemanagers that exist in the system
 int    *repliVals;
+
+char   permission[40];                       //Store the permission for each client
 
 long   clientID=0;                           //Store clientID
 
@@ -226,7 +225,11 @@ GSList* decode(struct message *msg , char *buf)
         msg->fileID = atol(strtok(NULL, ","));
         msg->msg_id =  atol(strtok(NULL, ","));
     }
-
+    else if((strcmp(msg->type , "ACCESSDENIED" )== 0))
+    {
+        msg->msg_id =  atol(strtok(NULL, ","));
+        msg->fileID = atol(strtok(NULL, ","));
+    }
 
     return NULL;
 
@@ -249,7 +252,7 @@ void encode(struct message *msg , char *buf , char *type)
     //Check if the type of the message is RREAD
     if((strcmp(type , "RREAD" )== 0) )
     {
-        sprintf(buf,"%s,%ld,%s" ,type , message_id , msg->filename);
+        sprintf(buf,"%s,%ld,%s,%ld,%s" ,type , message_id , msg->filename , msg->fileID , permission);
     }
     //Check if the type of the message is RWRITE
     else if( (strcmp(type , "RWRITE" )== 0 ) || (strcmp(type , "WWRITE" )== 0 ) )
@@ -311,13 +314,13 @@ void encode(struct message *msg , char *buf , char *type)
         }
         else
         {
-            sprintf(buf, "%s,0,%ld,%ld,%ld,%s", type , msg->tag.num, msg->tag.clientID, message_id , msg->filename);
+            sprintf(buf, "%s,0,%ld,%ld,%ld,%s", type , msg->tag.num, msg->tag.clientID, message_id , msg->filename );
         }
     }
 
     else if( (strcmp(type , "WREAD" )== 0))
     {
-        sprintf(buf,"%s,%ld,%ld,%s,L1" ,type , message_id , msg->fileID , msg->filename   ) ;
+        sprintf(buf,"%s,%ld,%ld,%s,%s" ,type , message_id , msg->fileID , msg->filename , permission  ) ;
     }
 
 
@@ -378,6 +381,17 @@ GSList* receive_quorum(struct TAG *maxTag, GSList *replicaSet,int ischeck , int 
 
                 //Decode the message that you received from server//
                 msg->replicaSet=decode(msg, buffer);
+
+
+                //Check if the client have the permission to read the file, otherwise return
+                //access denied to the client
+                if(strcmp( msg->type,"ACCESSDENIED") == 0)
+                {
+                    //In case where the client does not have permission to read the file
+                    (*ismajor) = -2;
+
+                    return NULL;
+                }
 
                 //Check if you received the message that you wait..otherwise drop the msg//
                 if (msg->msg_id == message_id)
@@ -578,19 +592,20 @@ GSList  *read_Query(struct cmd *cmdmsgIn  ,  struct TAG *tag , struct message *m
     //Wait until to receive a quorum the last tag with a set of replica that
     //hold the data
     setOfReplica=receive_quorum(tag , setOfReplica , 1 , &isReceiveMajor );
-    if( isReceiveMajor != 1 )
+    if( isReceiveMajor ==  -1 )
     {
         printf("--------------------------------------\n");
         printf("\nUNABLE TO RECEIVE DIRECTORY QUORUM\n");
         printf("--------------------------------------\n");
         return NULL;
     }
-
-    #ifdef DEVMODE
-        printf("TagNum:%d\n" , tag->num);
-        printf("TagID:%d\n" , tag->clientID);
-        printf("Directory READER SECOND PHASE\n");
-    #endif
+    if(isReceiveMajor ==  -2)
+    {
+        printf("*************\n");
+        printf("ACCESS DENIED\n");
+        printf("*************\n");
+        return NULL;
+    }
 
     //Return the uptodate replicas that stored the file
     return setOfReplica;
@@ -1131,6 +1146,10 @@ void readConfig(char *filename)
         {
             while ((read = getline(&line, &len, fp)) != -1)
             {
+                if(strcmp(line,"#PERMISSION\n") == 0)
+                {
+                    break;
+                }
                 if (MAX_FILEMANAGERS == 0)
                 {
                     MAX_FILEMANAGERS = atoi(line);
@@ -1144,7 +1163,13 @@ void readConfig(char *filename)
                 }
             }//While
         }
+        if(strcmp(line,"#PERMISSION\n") == 0)
+        {
+            read = getline(&line, &len, fp);
 
+            //Store the permission for the client
+            strcpy(permission, line);
+        }
     }
 
     fclose(fp);
@@ -1762,6 +1787,7 @@ void inisialization()
     {
         setsockopt(filemanagerSocks[i], SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout , sizeof(timeout));
     }
+
 
 }//Function inisialization
 

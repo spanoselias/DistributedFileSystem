@@ -61,8 +61,12 @@ pthread_mutex_t lockercliCoun;
 //Store all the metadata information by fileID
 GPtrArray *metatable=NULL;
 
+
 //Find the index of metadata for specific fileID
-int findByFileID(char *filename , long fileid , int *freePos)
+//This function return the position where the data are located
+//Otherwise, return -1 if the data does not exist or -2 in case
+//where the client does not have the suitable permission to read the data
+int findByFileID( struct message *msg , int *freePos)
 {
 
    int index=-1;
@@ -83,9 +87,18 @@ int findByFileID(char *filename , long fileid , int *freePos)
        }*/
 
        //Looking up if the file exist using fileid
-       if(point2metadata->file_id == fileid)
+       if(point2metadata->file_id == msg->fileID)
        {
-           index=i;
+           if(strcmp(point2metadata->permission->str , msg->permission) == 0)
+           {
+               index=i;
+           }
+           else
+           {
+               index = -2;
+           }
+
+           //exit from the for
            break;
        }
 
@@ -93,6 +106,7 @@ int findByFileID(char *filename , long fileid , int *freePos)
 
    return index;
 }
+
 
 GSList * insertList(GSList *metadata , GSList *curList )
 {
@@ -126,9 +140,8 @@ int IsMaxTag(struct message *tag2)
     {
         perror2("Failed to lock()",err);
     }
-
             //Find the position for the specific filename
-            int index=findByFileID( tag2->filename , tag2->fileID , &funfreepos);
+            int index=findByFileID(tag2 , &funfreepos);
 
             //Retrieve  the data from the specific index
             point2metadata = (struct metadata *) g_ptr_array_index(metatable , index );
@@ -338,54 +351,80 @@ void *accept_thread(void *accept_sock)
          {
              perror2("Failed to lock()",err);
          }
-            int index = findByFileID(msg->filename, msg->fileID,&freepos);
+            int index = findByFileID( msg ,  &freepos);
 
-         if (index < 0)
+         //Unloack Mutex
+         if (err = pthread_mutex_unlock(&lockermetadata))
+         {
+             perror2("Failed to lock()", err);
+         }
+
+         if (index == -1 )
          {
              printf("Unable to find the file in metadata table\n");
+
+         }
+         else  if(index == -2)
+         {
+             //In case where the client does not have the permission to read the file
+             sprintf(buf, "ACCESSDENIED,%ld,%ld", msg->msg_id, msg->fileID );
+
+             //Send response to the client
+             if (bytes = send(acpt_sock, buf, sizeof(buf), MSG_DONTWAIT) < 0)
+             {
+                 perror("Send() failed");
+                 pthread_exit((void *) 0);
+             }
 
          }
          //<RREAD-OK,tag.num , tag.id ,value,  MSG_ID >//
          //In case when the file exist
          else
          {
-             //Pointer to the metadata
-             struct metadata *point2metadata = NULL;
-
-             //Retrieve  the data from the specific index
-             point2metadata = (struct metadata *) g_ptr_array_index(metatable , index );
-
-             int i = 0, len, repliValue;
-             len = g_slist_length( point2metadata->replicaSet);
-             //Read all replica that hold the data
-             if (len != 0)
+             //Lock strtok due to is not deadlock free
+             if(err=pthread_mutex_lock(&lockermetadata))
              {
-                 //To point on replica set & go through all the list
-                 GSList *iterator = NULL;
-                 //To serialize replicaSet to string
-                 char strSet[256];
-                 char str[40];
+                 perror2("Failed to lock()",err);
+             }
 
-                 //Initialize str
-                 bzero(strSet, sizeof(strSet));
 
-                 for (iterator = point2metadata->replicaSet; iterator; iterator = iterator->next)
+                 //Pointer to the metadata
+                 struct metadata *point2metadata = NULL;
+
+                 //Retrieve  the data from the specific index
+                 point2metadata = (struct metadata *) g_ptr_array_index(metatable , index );
+
+                 int i = 0, len, repliValue;
+                 len = g_slist_length( point2metadata->replicaSet);
+                 //Read all replica that hold the data
+                 if (len != 0)
                  {
-                     bzero(str, sizeof(str));
-                     sprintf(str, ",%d", GPOINTER_TO_INT(iterator->data));
-                     strcat(strSet, str);
-                 }
-                 sprintf(buf, "RREAD-OK,%ld,%ld,%d%s,%ld,%ld", point2metadata->tag.num, point2metadata->tag.id, len,
-                         strSet,
-                         msg->msg_id, msg->fileID);
-             }
-             else
-             {
+                     //To point on replica set & go through all the list
+                     GSList *iterator = NULL;
+                     //To serialize replicaSet to string
+                     char strSet[256];
+                     char str[40];
 
-                 printf("Unable to find the file:%s", msg->filename);
-                 //sprintf(buf, "RREAD-OK,%d,%d,0,%d,%d", metatable[index].tag.num, metatable[index].tag.id, msg->msg_id,
-                 //      msg->fileID);
-             }
+                     //Initialize str
+                     bzero(strSet, sizeof(strSet));
+
+                     for (iterator = point2metadata->replicaSet; iterator; iterator = iterator->next)
+                     {
+                         bzero(str, sizeof(str));
+                         sprintf(str, ",%d", GPOINTER_TO_INT(iterator->data));
+                         strcat(strSet, str);
+                     }
+                     sprintf(buf, "RREAD-OK,%ld,%ld,%d%s,%ld,%ld", point2metadata->tag.num, point2metadata->tag.id, len,
+                             strSet,
+                             msg->msg_id, msg->fileID);
+                 }
+                 else
+                 {
+
+                     printf("Unable to find the file:%s", msg->filename);
+                     //sprintf(buf, "RREAD-OK,%d,%d,0,%d,%d", metatable[index].tag.num, metatable[index].tag.id, msg->msg_id,
+                     //      msg->fileID);
+                 }
              //Unloack Mutex
              if (err = pthread_mutex_unlock(&lockermetadata))
              {
@@ -393,8 +432,9 @@ void *accept_thread(void *accept_sock)
              }
              // sprintf(buf,"RREAD-OK,%d,%d,%d,%d,%d",metatable[index].tag.num,metatable[index].tag.id,metatable[index].replicaSet,msg.msg_id , msg.fileID );
 
+
              //Send response to the client
-             if (bytes = send(acpt_sock, buf, sizeof(buf), 0) < 0)
+             if (bytes = send(acpt_sock, buf, sizeof(buf), MSG_DONTWAIT) < 0)
              {
                  perror("Send() failed");
                  pthread_exit((void *) 0);
@@ -431,7 +471,7 @@ void *accept_thread(void *accept_sock)
                  }
 
                  //Find the index of the filename
-                 int index = findByFileID(msg->filename, msg->fileID, &freepos);
+                 int index = findByFileID(msg , &freepos);
 
                  if(index != -1)
                  {
@@ -490,11 +530,14 @@ void *accept_thread(void *accept_sock)
                      //Insert the string the metadata table
                      g_string_assign( entry->filename ,  g_strdup( msg->filename ) );
 
+                     //Insert permission in the metadata
+                     g_string_assign(entry->permission , g_strdup( msg->permission ));
+
                      //insert new entry in metadata table
                      g_ptr_array_add(metatable, (gpointer) entry );
 
                      //Find the index of the new entry
-                     index = findByFileID(msg->filename,msg->fileID, &freepos);
+                     index = findByFileID(msg , &freepos);
 
                      //Store permission for the file
                      g_string_assign( entry->permission ,  g_strdup( msg->permission ) );
@@ -506,8 +549,11 @@ void *accept_thread(void *accept_sock)
                      point2metadata = (struct metadata *) g_ptr_array_index(metatable , index );
 
                      bzero(buf, sizeof(buf));
-                     sprintf(buf, "WREAD-OK,%ld,%ld,0,%ld,%ld", point2metadata->tag.num, point2metadata->tag.id, msg->msg_id,
-                             point2metadata->file_id);
+                     if(point2metadata != NULL)
+                     {
+                         sprintf(buf, "WREAD-OK,%ld,%ld,0,%ld,%ld", point2metadata->tag.num, point2metadata->tag.id, msg->msg_id,
+                                 point2metadata->file_id);
+                     }
 
                  }
 
@@ -597,6 +643,8 @@ GSList* decode(struct message *msg , char *buf)
         {
             msg->msg_id=atoi(strtok(NULL,","));
             msg->filename=strdup(strtok(NULL,","));
+            msg->fileID = atol(strtok(NULL,","));
+            msg->permission = strdup(strtok(NULL,","));
         }
         else if(strcmp(msg->type , "WREAD" )== 0)
         {

@@ -1,5 +1,5 @@
-#!/bin/bash
-#chmod +x run.sh
+#!/bin/sh
 
-tmux new -s servers
-tmux split-window -h prefix + %
+tmux split-window -h 
+tmux split-window 
+
