@@ -709,7 +709,7 @@ int read_Inform( struct cmd *cmdmsgIn  ,  struct TAG *tag , struct message *msg 
 /***********************************************************************************/
 /*                             READER FUNCTION                                     */
 /***********************************************************************************/
-int reader_oper(int msg_id , struct cmd *cmdmsgIn )
+int reader_oper(int msg_id , struct cmd *cmdfile )
 {
    //Store if the action are
    int isSuccess=FAILURE;
@@ -722,7 +722,7 @@ int reader_oper(int msg_id , struct cmd *cmdmsgIn )
    GSList  *setOfReplica=NULL;
 
    //First phase of ABD algorithm
-   setOfReplica = read_Query(cmdmsgIn,tag,msg);
+   setOfReplica = read_Query(cmdfile , tag , msg);
 
    //Check if it receive a replica set
    if(setOfReplica == NULL)
@@ -731,7 +731,7 @@ int reader_oper(int msg_id , struct cmd *cmdmsgIn )
    }
 
    //Retrive the file from the replica
-   isSuccess = read_Inform(cmdmsgIn, tag , msg , setOfReplica);
+   isSuccess = read_Inform(cmdfile, tag , msg , setOfReplica);
 
    return isSuccess;
 
@@ -740,8 +740,9 @@ int reader_oper(int msg_id , struct cmd *cmdmsgIn )
 /***********************************************************************************/
 /*                           WRITER FUNCTION                                        */
 /***********************************************************************************/
-int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
+int writer_oper(int msg_id , struct cmd *cmdfile  )
 {
+
     int IsSuccess=1;
     int isReceiveMajor;
 
@@ -763,9 +764,9 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     tag->clientID=0;
 
     //Retrieve information about the file
-    msg->fileID = cmdmsgIn->fileid;
-    msg->filename=strdup(cmdmsgIn->filename);
-    msg->filetype=strdup(cmdmsgIn->fileType);
+    msg->fileID = cmdfile->fileid;
+    msg->filename=strdup(cmdfile->filename);
+    msg->filetype=strdup(cmdfile->fileType);
 
     //Initialize buffer
     bzero(buf, sizeof(buf));
@@ -788,14 +789,14 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     //Check if you received the latest tag
     if( isReceiveMajor == -1)
     {
-        printf("----------------------------------\n");
+        printf("-----------------------------------------------\n");
         printf("UNABLE TO RECEIVE QUORUM OF DIRECTORY IN WRITER\n");
-        printf("----------------------------------\n");
+        printf("-----------------------------------------------\n");
         return FAILURE;
     }
     else  if(isReceiveMajor ==  -2)
     {
-        printf("*************\n");
+        printf("\n*************\n");
         printf("ACCESS DENIED\n");
         printf("*************\n");
         return FAILURE;
@@ -832,7 +833,7 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
         //remove(tmpfilename);
 
         //Read the new version of the file
-        read_Inform(cmdmsgIn , tag , msg , setOfReplica);
+        read_Inform(cmdfile , tag , msg , setOfReplica);
 
        //reader_oper(msg_id , cmdmsgIn);
 
@@ -856,12 +857,13 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     {
         int repl= repliVals[i];
 
-        if( send2ftp(cmdmsgIn,replicaSocks[repl] , tag ,(message_id) ) == FAILURE)
+        if( send2ftp(cmdfile,replicaSocks[repl] , tag ,(message_id) ) == FAILURE)
         {
             printf("Error:Send2ftp\n");
             return  FAILURE;
         }
     }
+
 
     setOfReplica = recvrepliquorum(msg,setOfReplica);
     if(setOfReplica  == NULL)
