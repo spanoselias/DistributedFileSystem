@@ -111,7 +111,7 @@ int decode(char *buf , FILEHEADER *header )
 /***********************************************************************************/
 /*                                REQUEST FILE LIST                                */
 /***********************************************************************************/
-GString *req_filelist(GString* strset)
+GString *getfilelist(GString* strset)
 {
     int i;
 
@@ -360,19 +360,14 @@ void *accept_thread(void *accept_sock)
         }
         else if( strcmp(msg->type , "REQFILESLIST" )== 0 )
         {
-            //Buffer message
-            char buflist[99999];
-
             bzero(buf,sizeof(buf));
 
             GString *list=NULL;
 
-            list=req_filelist(list);
+            list=getfilelist(list);
             printf("List\n");
 
-            sprintf(buflist,"%s",list->str);
-
-            if (send(acptsock, buflist, strlen(buflist) , 0) < 0 )
+            if (send(acptsock, list->str, strlen(list->str) , 0) < 0 )
             {
                 perror("Send:Unable to send clientID");
             }

@@ -409,7 +409,7 @@ int ftp_recv(int sock, struct replicaHeader *msg )
     //Retrieve the checksum from the file that the
     //client receive in order to check if receive
     //the whole file
-    char *filechecksum = checksum_get(filename);
+   // char *filechecksum = checksum_get(filename);
 
     //check if it received the whole file
     //otherwise return an error
@@ -417,14 +417,14 @@ int ftp_recv(int sock, struct replicaHeader *msg )
     {
         return FAILURE;
     }
-    else if(strcmp(filechecksum , msg->checksum) != 0)
+   /* else if(strcmp(filechecksum , msg->checksum) != 0)
     {
         printf("Invalid checksum\n");
 
         //Remove the file
         remove(filename);
         return FAILURE;
-    }
+    }*/
 
     printf("Received file: %s successful\n" , filename);
 

@@ -89,7 +89,7 @@ int findByFileID( struct message *msg , int *freePos)
        //Looking up if the file exist using fileid
        if(point2metadata->file_id == msg->fileID)
        {
-           if(strcmp(point2metadata->permission->str , msg->permission) == 0)
+           if( (strcmp(point2metadata->permission->str , msg->permission) == 0) || strcmp(msg->permission,"L0" ) == 0 )
            {
                index=i;
            }
