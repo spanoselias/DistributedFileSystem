@@ -351,7 +351,7 @@ void *accept_thread(void *accept_sock)
          {
              perror2("Failed to lock()",err);
          }
-            int index = findByFileID( msg ,  &freepos);
+            int index = findByFileID( msg ,  &freepos );
 
          //Unloack Mutex
          if (err = pthread_mutex_unlock(&lockermetadata))
@@ -473,7 +473,21 @@ void *accept_thread(void *accept_sock)
                  //Find the index of the filename
                  int index = findByFileID(msg , &freepos);
 
-                 if(index != -1)
+                 if(index == -2)
+                 {
+                     //In case where the client does not have the permission to read the file
+                     sprintf(buf, "ACCESSDENIED,%ld,%ld", msg->msg_id, msg->fileID );
+
+                     //Send response to the client
+                     if (bytes = send(acpt_sock, buf, sizeof(buf), MSG_DONTWAIT) < 0)
+                     {
+                         perror("Send() failed");
+                         pthread_exit((void *) 0);
+                     }
+
+                 }
+
+                else  if(index != -1)
                  {
                      //Pointer to the metadata
                      struct metadata *point2metadata = NULL;

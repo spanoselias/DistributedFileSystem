@@ -599,7 +599,7 @@ GSList  *read_Query(struct cmd *cmdmsgIn  ,  struct TAG *tag , struct message *m
         printf("--------------------------------------\n");
         return NULL;
     }
-    if(isReceiveMajor ==  -2)
+    else  if(isReceiveMajor ==  -2)
     {
         printf("*************\n");
         printf("ACCESS DENIED\n");
@@ -785,13 +785,19 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     //Wait until to receive a quorum with the last tag
     setOfReplica = receive_quorum(tag,setOfReplica,1 , &isReceiveMajor);
 
-
     //Check if you received the latest tag
-    if( isReceiveMajor != 1)
+    if( isReceiveMajor == -1)
     {
         printf("----------------------------------\n");
         printf("UNABLE TO RECEIVE QUORUM OF DIRECTORY IN WRITER\n");
         printf("----------------------------------\n");
+        return FAILURE;
+    }
+    else  if(isReceiveMajor ==  -2)
+    {
+        printf("*************\n");
+        printf("ACCESS DENIED\n");
+        printf("*************\n");
         return FAILURE;
     }
 
