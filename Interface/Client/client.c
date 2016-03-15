@@ -40,6 +40,7 @@
 /***********************************************************************************/
 /*                             GLOBAL VARIABLES                                    */
 /***********************************************************************************/
+
 FILE *LOG_FILE = NULL;                       //File to store the log information
 char msg_info[256];                          //Buffer to store message for the log file
 fd_set direcs_fds;                           //Set of socket descriptor for select for directories
@@ -65,11 +66,14 @@ int    MAX_REPLICAS=0;                       //Store the number of replicas that
 int    MAX_FILEMANAGERS;                     //Store the number of filemanagers that exist in the system
 int    *repliVals;
 
+char   permission[40];                       //Store the permission for each client
+
 long   clientID=0;                           //Store clientID
 
 double    failrate=1;                        //store the rate for the fail
 
 GHashTable * hashFiletags;                   //Metadata table that holds all tag for the data
+
 
 /* Arrange the N elements of ARRAY in random order.
    Only effective if N is much smaller than RAND_MAX;
@@ -226,7 +230,11 @@ GSList* decode(struct message *msg , char *buf)
         msg->fileID = atol(strtok(NULL, ","));
         msg->msg_id =  atol(strtok(NULL, ","));
     }
-
+    else if((strcmp(msg->type , "ACCESSDENIED" )== 0))
+    {
+        msg->msg_id =  atol(strtok(NULL, ","));
+        msg->fileID = atol(strtok(NULL, ","));
+    }
 
     return NULL;
 
@@ -249,7 +257,7 @@ void encode(struct message *msg , char *buf , char *type)
     //Check if the type of the message is RREAD
     if((strcmp(type , "RREAD" )== 0) )
     {
-        sprintf(buf,"%s,%ld,%s" ,type , message_id , msg->filename);
+        sprintf(buf,"%s,%ld,%s,%ld,%s" ,type , message_id , msg->filename , msg->fileID , permission);
     }
         //Check if the type of the message is RWRITE
     else if( (strcmp(type , "RWRITE" )== 0 ) || (strcmp(type , "WWRITE" )== 0 ) )
@@ -311,13 +319,13 @@ void encode(struct message *msg , char *buf , char *type)
         }
         else
         {
-            sprintf(buf, "%s,0,%ld,%ld,%ld,%s", type , msg->tag.num, msg->tag.clientID, message_id , msg->filename);
+            sprintf(buf, "%s,0,%ld,%ld,%ld,%s", type , msg->tag.num, msg->tag.clientID, message_id , msg->filename );
         }
     }
 
     else if( (strcmp(type , "WREAD" )== 0))
     {
-        sprintf(buf,"%s,%ld,%ld,%s,L1" ,type , message_id , msg->fileID , msg->filename   ) ;
+        sprintf(buf,"%s,%ld,%ld,%s,%s" ,type , message_id , msg->fileID , msg->filename , permission  ) ;
     }
 
 
@@ -378,6 +386,17 @@ GSList* receive_quorum(struct TAG *maxTag, GSList *replicaSet,int ischeck , int 
 
                 //Decode the message that you received from server//
                 msg->replicaSet=decode(msg, buffer);
+
+
+                //Check if the client have the permission to read the file, otherwise return
+                //access denied to the client
+                if(strcmp( msg->type,"ACCESSDENIED") == 0)
+                {
+                    //In case where the client does not have permission to read the file
+                    (*ismajor) = -2;
+
+                    return NULL;
+                }
 
                 //Check if you received the message that you wait..otherwise drop the msg//
                 if (msg->msg_id == message_id)
@@ -578,19 +597,20 @@ GSList  *read_Query(struct cmd *cmdmsgIn  ,  struct TAG *tag , struct message *m
     //Wait until to receive a quorum the last tag with a set of replica that
     //hold the data
     setOfReplica=receive_quorum(tag , setOfReplica , 1 , &isReceiveMajor );
-    if( isReceiveMajor != 1 )
+    if( isReceiveMajor ==  -1 )
     {
         printf("--------------------------------------\n");
         printf("\nUNABLE TO RECEIVE DIRECTORY QUORUM\n");
         printf("--------------------------------------\n");
         return NULL;
     }
-
-#ifdef DEVMODE
-    printf("TagNum:%d\n" , tag->num);
-        printf("TagID:%d\n" , tag->clientID);
-        printf("Directory READER SECOND PHASE\n");
-#endif
+    else  if(isReceiveMajor ==  -2)
+    {
+        printf("\n*************\n");
+        printf("ACCESS DENIED\n");
+        printf("*************\n");
+        return NULL;
+    }
 
     //Return the uptodate replicas that stored the file
     return setOfReplica;
@@ -694,7 +714,7 @@ int read_Inform( struct cmd *cmdmsgIn  ,  struct TAG *tag , struct message *msg 
 /***********************************************************************************/
 /*                             READER FUNCTION                                     */
 /***********************************************************************************/
-int reader_oper(int msg_id , struct cmd *cmdmsgIn )
+int reader_oper(int msg_id , struct cmd *cmdfile )
 {
     //Store if the action are
     int isSuccess=FAILURE;
@@ -707,7 +727,7 @@ int reader_oper(int msg_id , struct cmd *cmdmsgIn )
     GSList  *setOfReplica=NULL;
 
     //First phase of ABD algorithm
-    setOfReplica = read_Query(cmdmsgIn,tag,msg);
+    setOfReplica = read_Query(cmdfile , tag , msg);
 
     //Check if it receive a replica set
     if(setOfReplica == NULL)
@@ -716,7 +736,7 @@ int reader_oper(int msg_id , struct cmd *cmdmsgIn )
     }
 
     //Retrive the file from the replica
-    isSuccess = read_Inform(cmdmsgIn, tag , msg , setOfReplica);
+    isSuccess = read_Inform(cmdfile, tag , msg , setOfReplica);
 
     return isSuccess;
 
@@ -725,8 +745,9 @@ int reader_oper(int msg_id , struct cmd *cmdmsgIn )
 /***********************************************************************************/
 /*                           WRITER FUNCTION                                        */
 /***********************************************************************************/
-int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
+int writer_oper(int msg_id , struct cmd *cmdfile  )
 {
+
     int IsSuccess=1;
     int isReceiveMajor;
 
@@ -748,9 +769,9 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     tag->clientID=0;
 
     //Retrieve information about the file
-    msg->fileID = cmdmsgIn->fileid;
-    msg->filename=strdup(cmdmsgIn->filename);
-    msg->filetype=strdup(cmdmsgIn->fileType);
+    msg->fileID = cmdfile->fileid;
+    msg->filename=strdup(cmdfile->filename);
+    msg->filetype=strdup(cmdfile->fileType);
 
     //Initialize buffer
     bzero(buf, sizeof(buf));
@@ -770,13 +791,19 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     //Wait until to receive a quorum with the last tag
     setOfReplica = receive_quorum(tag,setOfReplica,1 , &isReceiveMajor);
 
-
     //Check if you received the latest tag
-    if( isReceiveMajor != 1)
+    if( isReceiveMajor == -1)
     {
-        printf("----------------------------------\n");
+        printf("-----------------------------------------------\n");
         printf("UNABLE TO RECEIVE QUORUM OF DIRECTORY IN WRITER\n");
-        printf("----------------------------------\n");
+        printf("-----------------------------------------------\n");
+        return FAILURE;
+    }
+    else  if(isReceiveMajor ==  -2)
+    {
+        printf("\n*************\n");
+        printf("ACCESS DENIED\n");
+        printf("*************\n");
         return FAILURE;
     }
 
@@ -811,7 +838,7 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
         //remove(tmpfilename);
 
         //Read the new version of the file
-        read_Inform(cmdmsgIn , tag , msg , setOfReplica);
+        read_Inform(cmdfile , tag , msg , setOfReplica);
 
         //reader_oper(msg_id , cmdmsgIn);
 
@@ -835,12 +862,13 @@ int writer_oper(int msg_id , struct cmd *cmdmsgIn  )
     {
         int repl= repliVals[i];
 
-        if( send2ftp(cmdmsgIn,replicaSocks[repl] , tag ,(message_id) ) == FAILURE)
+        if( send2ftp(cmdfile,replicaSocks[repl] , tag ,(message_id) ) == FAILURE)
         {
             printf("Error:Send2ftp\n");
             return  FAILURE;
         }
     }
+
 
     setOfReplica = recvrepliquorum(msg,setOfReplica);
     if(setOfReplica  == NULL)
@@ -1027,13 +1055,17 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
             //get_file(replicaSocks[1] , msg);
             if( reader_oper(message_id , cmdmsg ) == FAILURE )
             {
-                printf("Unable to read the data object\n");
+                printf("---------------------------");
+                printf("\nUNABLE TO READ THE FILE\n");
+                printf("---------------------------");
             }
         }
 
         else
         {
-            printf("Unable to receive the fileid correct\n");
+            printf("---------------------------------------");
+            printf("\nUNABLE TO READ THE FILEID CORRECTLY\n");
+            printf("---------------------------------------");
         }
 
     }
@@ -1131,6 +1163,10 @@ void readConfig(char *filename)
         {
             while ((read = getline(&line, &len, fp)) != -1)
             {
+                if(strcmp(line,"#PERMISSION\n") == 0)
+                {
+                    break;
+                }
                 if (MAX_FILEMANAGERS == 0)
                 {
                     MAX_FILEMANAGERS = atoi(line);
@@ -1144,7 +1180,13 @@ void readConfig(char *filename)
                 }
             }//While
         }
+        if(strcmp(line,"#PERMISSION\n") == 0)
+        {
+            read = getline(&line, &len, fp);
 
+            //Store the permission for the client
+            strcpy(permission, line);
+        }
     }
 
     fclose(fp);
@@ -1616,29 +1658,27 @@ int get_filelist()
         perror("Received() Unable to receive clientID");
     }
 
-
     int i=0;
 
     //Retrieve the size of the list
     int size = atoi(strtok(buf, ","));
 
     //Display format
-    printf("---------------------------------------\n");
-    printf("Filename  ,    Fileid     ,   owner  \n");
-    printf("---------------------------------------\n");
+    printf("\n\n--------------------------------------------------------\n");
+    printf("%-20s%-20s%-20s\n", "Filename","Fileid","owner");
+    printf("--------------------------------------------------------\n");
 
     for(i=0; i<size; i++)
     {
-        printf("%s , ", strtok(NULL, ",") );
-        printf("%s , ",strtok(NULL, ",") );
-        printf("%s",   strtok(NULL, ",") );
+        printf("%-20s", strtok(NULL, ",") );
+        printf("%-20s", strtok(NULL, ",") );
+        printf("%-20s", strtok(NULL, ",") );
         printf("\n");
     }
 
-    printf("---------------------------------------\n");
+    printf("--------------------------------------------------------\n");
 
 }
-
 
 void inisialization()
 {
@@ -1766,6 +1806,7 @@ void inisialization()
         setsockopt(filemanagerSocks[i], SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout , sizeof(timeout));
     }
 
+
 }//Function inisialization
 
 void unitTest(char *filename , char *filetype , char *username)
@@ -1878,6 +1919,7 @@ gchar *selected_filename;
 GtkWidget     *view;
 GtkWidget*    entry;
 GtkWidget     *submit;
+GtkWidget     *list;
 GtkWidget     *upload;
 
 /* The Text Buffer as a global variabel*/
@@ -1917,6 +1959,10 @@ GtkWidget *create_bbox (gint  horizontal,
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
     upload = gtk_button_new_with_label ("Upload");
+
+    list = gtk_button_new_with_label ("List");
+    gtk_container_add (GTK_CONTAINER (bbox), list);
+
     gtk_container_add (GTK_CONTAINER (bbox), upload);
 
     return(frame);
@@ -1959,6 +2005,7 @@ GtkWidget *create_Login (gint  horizontal,
 
     submit = gtk_button_new_with_label("Submit");
 
+
     gtk_container_add (GTK_CONTAINER (bbox), submit);
     gtk_container_add (GTK_CONTAINER (bbox), entry);
 
@@ -1997,6 +2044,14 @@ static void hello( GtkWidget *widget,
                    gpointer   data )
 {
     gtk_widget_show (file_selector);
+}
+
+/* This is a callback function. The data arguments are ignored
+ * in this example. More on callbacks below. */
+static void listOutput( GtkWidget *widget,
+                   gpointer   data )
+{
+    get_filelist();
 }
 
 void hide_file_selector(GtkFileSelection *selector, gpointer user_data)
@@ -2047,8 +2102,6 @@ void store_filename(GtkFileSelection *selector, gpointer user_data)
     g_free(filename);
     free(cmdmsg->filename);
     free(cmdmsg->fileType);
-
-
 
 }
 
@@ -2176,12 +2229,14 @@ int main( int   argc,
     g_signal_connect (G_OBJECT (upload), "clicked",
                       GTK_SIGNAL_FUNC(hello) , NULL);
 
+    g_signal_connect (G_OBJECT (list), "clicked",
+                      GTK_SIGNAL_FUNC(listOutput) , NULL);
+
     gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION(file_selector)->ok_button),
                         "clicked", GTK_SIGNAL_FUNC (store_filename), NULL);
 
     gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION(file_selector)->cancel_button),
                         "clicked", GTK_SIGNAL_FUNC (hide_file_selector), NULL);
-
 
 
     /* This is the singnal connection to call input_callback when we have data in standard output read end pipe. */

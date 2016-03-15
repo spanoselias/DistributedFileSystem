@@ -70,6 +70,7 @@ double    failrate=1;                        //store the rate for the fail
 
 GHashTable * hashFiletags;                   //Metadata table that holds all tag for the data
 
+
 /* Arrange the N elements of ARRAY in random order.
    Only effective if N is much smaller than RAND_MAX;
    if this may not be the case, use a better random

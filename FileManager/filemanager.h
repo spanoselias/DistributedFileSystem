@@ -44,9 +44,27 @@ long countClientIds;
 long countFileIds;
 
 
-long lookUpFileID(char *filename , long owner);
+/***********************************************************************************/
+/*                            PROTOTYPES                                           */
+/***********************************************************************************/
+
+int decode(char *buf , FILEHEADER *header );
+
+GString *getfilelist(GString* strset);
+
+void *bind_thread(void *port);
+
 void *accept_thread(void *accept_sock);
+
 long registerClient(char *username);
+
 long registerFile(char *filename , long owner);
+
+long lookUpFileID(char *filename , long owner);
+
+void initialization();
+
+void signal_handler();
+
 
 #endif //DISTRIBUTEDALGORITHMS_FILEMANAGER_H

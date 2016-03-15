@@ -44,6 +44,24 @@ struct sockaddr_in serv_addr;
 /***********************************************************************************/
 /*                            PROTOTYPES                                           */
 /***********************************************************************************/
+int findByFileID( struct message *msg , int *freePos);
+
+GSList * insertList(GSList *metadata , GSList *curList );
+
+int IsMaxTag(struct message *tag2);
+
+void inisializations(int portIn);
+
+void *bind_thread(void *port);
+
+void *accept_thread(void *accept_sock);
+
+GSList* decode(struct message *msg , char *buf);
+
+int writeLog(char *info);
+
+void signal_handler();
+
 
 
 
