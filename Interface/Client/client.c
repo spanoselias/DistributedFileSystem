@@ -964,12 +964,13 @@ int writer_oper(int msg_id , struct cmd *cmdfile  )
 
 
     //deallocate
-    free(msg->filename);
-    free(msg->filetype);
-    g_slist_free(msg->replicaSet);
-    g_slist_free(setOfReplica);
+     free(msg->filename);
+     free(msg->filetype);
+     g_slist_free(msg->replicaSet);
+    //g_slist_free(setOfReplica);
     free(msg);
     free(tag);
+
 
 }//Function writer
 
@@ -1242,6 +1243,8 @@ int reqClientID(char *username)
 
         //Assign client ID that it received
         clientID = msg->clientID;
+
+        g_print("ClientID: %ld\n" , clientID);
     }
     else
     {
@@ -1918,7 +1921,7 @@ gchar *selected_filename;
 
 GtkWidget     *view;
 GtkWidget*    entry;
-GtkWidget     *submit;
+GtkWidget     *loggin;
 GtkWidget     *list;
 GtkWidget     *upload;
 
@@ -2003,10 +2006,10 @@ GtkWidget *create_Login (gint  horizontal,
     /* insert the following text into the text entry, as its initial value. */
     gtk_entry_set_text(GTK_ENTRY(entry), "spanos");
 
-    submit = gtk_button_new_with_label("Submit");
+    loggin = gtk_button_new_with_label("loggin");
 
 
-    gtk_container_add (GTK_CONTAINER (bbox), submit);
+    gtk_container_add (GTK_CONTAINER (bbox), loggin);
     gtk_container_add (GTK_CONTAINER (bbox), entry);
 
     return(frame);
@@ -2093,9 +2096,12 @@ void store_filename(GtkFileSelection *selector, gpointer user_data)
     cmdmsg->filename=strdup(strtok(g_path_get_basename(selected_filename),"."));
     cmdmsg->fileType=strdup(strtok(NULL," "));
 
-    cmdmsg->fileid = 1;
+
+    cmdmsg->fileid = reqFileID(cmdmsg , clientID);
 
     g_print("%s , %s\n" , cmdmsg->filename , cmdmsg->fileType);
+
+
 
     writer_oper(message_id, cmdmsg);
 
@@ -2114,6 +2120,8 @@ on_button1_clicked(GtkButton* button, gpointer data)
 
     //Request ClientID
     reqClientID(gtk_entry_get_text(entry));
+
+    gtk_widget_set_sensitive(entry,FALSE);
 
 }
 
@@ -2222,7 +2230,7 @@ int main( int   argc,
                         TRUE, TRUE, 0);
 
 
-    gtk_signal_connect(GTK_OBJECT(submit), "clicked",
+    gtk_signal_connect(GTK_OBJECT(loggin), "clicked",
                        GTK_SIGNAL_FUNC(on_button1_clicked),
                        (gpointer)entry);
 
