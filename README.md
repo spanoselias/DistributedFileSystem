@@ -23,7 +23,9 @@ concentrate in the strongest consistency model.
 The layered Data Replication Algorithm(LDR) is suitable especially for large-scale read/write
 data object such as files and at the same time ensure atomic data consistency combining low
 latency cost. The main idea of the algorithm is to store copies of data objects separately from
-metadata about the location of up-to-date copies.LDR’s performance is based on the fact that, in a typical application requiring replication, such
+metadata about the location of up-to-date copies.
+
+LDR’s performance is based on the fact that, in a typical application requiring replication, such
 as a file system, the size of the objects being replicated is usually much larger than the size of the
 metadata used by the algorithm to point or tag the actual objects. Therefore, it is more efficient to
 perform operations on the metadata instead of operating directly on the actual data while all read
@@ -40,6 +42,7 @@ from the quorumalways know the latest data object. Now, the client have to updat
 directories before return the set of up-to-date replicas. This step is necessary for the algorithm for
 consistency issues. Further, client have to communicate with a replica from the up-to-date replica
 set and retrieve the data object.
+
 For a write operation, the client readsfrom a quorum of directories to find the latest tag for the
 specific object. Consequently, the client increase the max tag that found and write the data object
 to a set of replica with the associated tag. Further, writes to a quorum of directories, to indicate
