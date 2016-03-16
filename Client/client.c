@@ -1571,7 +1571,7 @@ int send2ftp(struct cmd *msgCmd, int newsock , struct TAG *tagIn , long msgIDIn 
         return FAILURE;
     }
 
-    // Get file stats //
+    // Get file stats
     if (fstat(fd, &file_stat) < 0)
     {
         printf("Error fstat");
@@ -1581,6 +1581,13 @@ int send2ftp(struct cmd *msgCmd, int newsock , struct TAG *tagIn , long msgIDIn 
 
     // Sending file size //
     file_size=file_stat.st_size;
+
+    //Check if the file is empty
+    if(file_size <= 0)
+    {
+        printf("UNABLE TO SEND AN EMPTY FILE!!\n");
+        return  FAILURE;
+    }
 
     //Retrieve checksum for the file
     char *filechecksum = checksum_get(filename);
@@ -1596,11 +1603,8 @@ int send2ftp(struct cmd *msgCmd, int newsock , struct TAG *tagIn , long msgIDIn 
         close(fd);
         return FAILURE;
     }
+
     //Wait to received acknowledge that received the metadata for the file
-
-    //  printf("Sending... file:%s.%s\n" ,msgCmd->filename, msgCmd->fileType );
-    //printf("Server sent %d bytes for msg size\n" , len);
-
     remain_data = file_stat.st_size;
     // Sending file data //
     while (((sent_bytes = sendfile(newsock, fd, &offset, MAXBUF)) > 0) && (remain_data > 0))
