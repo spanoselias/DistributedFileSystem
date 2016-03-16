@@ -1905,7 +1905,6 @@ void unitTest(char *filename , char *filetype , char *username)
     }//For statment
 
 
-
     //deallocate
     free(cmdmsg->filename);
     free(cmdmsg->fileType);
@@ -1920,10 +1919,15 @@ GtkWidget *file_selector;
 gchar *selected_filename;
 
 GtkWidget     *view;
-GtkWidget*    entry;
+//The entry for the username
+GtkWidget    *entry;
+GtkWidget    *fileentry;
+
+
 GtkWidget     *loggin;
 GtkWidget     *list;
 GtkWidget     *upload;
+GtkWidget      *btnread;
 
 /* The Text Buffer as a global variabel*/
 GtkTextBuffer *buffer;
@@ -1941,7 +1945,6 @@ GtkWidget *create_bbox (gint  horizontal,
 
     GtkWidget *frame;
     GtkWidget *bbox;
-    GtkWidget *button;
 
     frame = gtk_frame_new (title);
 
@@ -1949,6 +1952,11 @@ GtkWidget *create_bbox (gint  horizontal,
         bbox = gtk_hbutton_box_new ();
     else
         bbox = gtk_vbutton_box_new ();
+
+
+    //Read file entry
+    fileentry = gtk_entry_new_with_max_length(30);
+
 
     gtk_container_set_border_width (GTK_CONTAINER (bbox), 5);
     gtk_container_add (GTK_CONTAINER (frame), bbox);
@@ -1958,8 +1966,11 @@ GtkWidget *create_bbox (gint  horizontal,
     gtk_button_box_set_spacing (GTK_BUTTON_BOX (bbox), spacing);
     gtk_button_box_set_child_size (GTK_BUTTON_BOX (bbox), child_w, child_h);
 
-    button = gtk_button_new_with_label ("Read");
-    gtk_container_add (GTK_CONTAINER (bbox), button);
+    btnread = gtk_button_new_with_label ("Read");
+    gtk_container_add (GTK_CONTAINER (bbox), btnread);
+
+    gtk_container_add (GTK_CONTAINER (bbox), fileentry);
+
 
     upload = gtk_button_new_with_label ("Upload");
 
@@ -1983,6 +1994,7 @@ GtkWidget *create_Login (gint  horizontal,
 
     GtkWidget *frame;
     GtkWidget *bbox;
+    GtkWidget *bbox2;
     GtkWidget *button;
 
     frame = gtk_frame_new (title);
@@ -1992,7 +2004,7 @@ GtkWidget *create_Login (gint  horizontal,
     else
         bbox = gtk_vbutton_box_new ();
 
-    gtk_container_set_border_width (GTK_CONTAINER (bbox), 5);
+    gtk_container_set_border_width (GTK_CONTAINER (bbox), 1);
     gtk_container_add (GTK_CONTAINER (frame), bbox);
 
     /* Set the appearance of the Button Box */
@@ -2006,6 +2018,9 @@ GtkWidget *create_Login (gint  horizontal,
     /* insert the following text into the text entry, as its initial value. */
     gtk_entry_set_text(GTK_ENTRY(entry), "spanos");
 
+    //Align the text in the entry
+   // gtk_entry_set_alignment(entry , 0.5);
+
     loggin = gtk_button_new_with_label("loggin");
 
 
@@ -2015,7 +2030,6 @@ GtkWidget *create_Login (gint  horizontal,
     return(frame);
 
 }
-
 
 /* This is a callback function to watch data in standard output and write to a view text widget. */
 void input_callback( gpointer          data,
@@ -2099,8 +2113,7 @@ void store_filename(GtkFileSelection *selector, gpointer user_data)
 
     cmdmsg->fileid = reqFileID(cmdmsg , clientID);
 
-    g_print("%s , %s\n" , cmdmsg->filename , cmdmsg->fileType);
-
+   // g_print("%s , %s\n" , cmdmsg->filename , cmdmsg->fileType);
 
 
     writer_oper(message_id, cmdmsg);
@@ -2111,7 +2124,6 @@ void store_filename(GtkFileSelection *selector, gpointer user_data)
 
 }
 
-
 void
 on_button1_clicked(GtkButton* button, gpointer data)
 {
@@ -2121,9 +2133,38 @@ on_button1_clicked(GtkButton* button, gpointer data)
     //Request ClientID
     reqClientID(gtk_entry_get_text(entry));
 
-    gtk_widget_set_sensitive(entry,FALSE);
+   // gtk_widget_set_sensitive(entry,FALSE);
 
 }
+
+void
+readfile_clicked(GtkButton* button, gpointer data)
+{
+
+    //Cast the data back to a GtkEntry
+    GtkEntry* entry = (GtkEntry*)data;
+
+
+    char* filename =g_strdup(gtk_entry_get_text(entry) );
+
+    struct cmd *cmdmsg = (struct cmd *) malloc((sizeof(struct cmd)));
+
+    cmdmsg->filename=strdup(strtok(filename,"."));
+    cmdmsg->fileType=strdup(strtok(NULL," "));
+
+
+    cmdmsg->fileid = reqFileID(cmdmsg , clientID);
+
+    g_print("%s , %s\n" , cmdmsg->filename , cmdmsg->fileType);
+
+    reader_oper(++message_id , cmdmsg );
+
+    g_free(filename);
+    free(cmdmsg->filename);
+    free(cmdmsg->fileType);
+
+}
+
 
 int main( int   argc,
           char *argv[] )
@@ -2158,7 +2199,6 @@ int main( int   argc,
     GtkWidget *toolbar;
     GtkToolItem *saveTb;
     GtkToolItem *exitTb;
-
 
     // Create a pipe. File descriptors for the two ends of the pipe are placed in fds.
     pipe (fds);
@@ -2221,7 +2261,7 @@ int main( int   argc,
     gtk_container_add (GTK_CONTAINER (frame_horz), vbox);
 
     gtk_box_pack_start (GTK_BOX (vbox),
-                        create_Login (TRUE, "Loggin",40, 85, 20, GTK_BUTTONBOX_SPREAD),
+                        create_Login (FALSE, "Loggin",1, 1, 1, GTK_BUTTONBOX_START),
                         TRUE, TRUE, 0);
 
 
@@ -2233,6 +2273,11 @@ int main( int   argc,
     gtk_signal_connect(GTK_OBJECT(loggin), "clicked",
                        GTK_SIGNAL_FUNC(on_button1_clicked),
                        (gpointer)entry);
+
+    gtk_signal_connect(GTK_OBJECT(btnread), "clicked",
+                       GTK_SIGNAL_FUNC(readfile_clicked),
+                       (gpointer) fileentry);
+
 
     g_signal_connect (G_OBJECT (upload), "clicked",
                       GTK_SIGNAL_FUNC(hello) , NULL);

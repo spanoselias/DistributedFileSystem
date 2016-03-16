@@ -46,11 +46,7 @@ struct serinfo
     int port;
 };
 
-int reqClientID(char *username);
 
-int get_file(int sock, struct message *msg );
-
-int send2ftp(struct cmd *msgCmd, int newsock , struct TAG *tagIn , long msgIDIn );
 
 /***********************************************************************************/
 /*                               FUNCTION PROTOTYPES                               */

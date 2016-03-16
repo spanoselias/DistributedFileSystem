@@ -38,6 +38,9 @@ void add_to_list(GtkWidget *list, const gchar *str)
 
     gtk_list_store_append(store, &iter);
     gtk_list_store_set(store, &iter, LIST_ITEM, str, -1);
+
+
+
 }
 
 void on_changed(GtkWidget *widget, gpointer label) {
@@ -50,10 +53,12 @@ void on_changed(GtkWidget *widget, gpointer label) {
             GTK_TREE_SELECTION(widget), &model, &iter)) {
 
         gtk_tree_model_get(model, &iter, LIST_ITEM, &value,  -1);
-        gtk_label_set_text(GTK_LABEL(label), value);
+        printf("%s\n",value);
+      //  gtk_label_set_text(GTK_LABEL(label), value);
         g_free(value);
     }
 }
+
 
 int main(int argc, char *argv[]) {
 
