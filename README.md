@@ -13,7 +13,7 @@ clients such as file creation, read, modification and deletion.
 ##Consistency model
 By replicating objects some consistency issues arise. For example, we have to keep data
 consistency between multiple copies of the data. The strong consistency model, is a model
-whichensures the strongest consistency among all the others models. With this model, whenever
+which ensures the strongest consistency among all the others models. With this model, whenever
 a write operation completes any subsequent read will return the most updated written value.
 While there are some other consistency models such as Sequential, Relaxed and Eventual
 Consistency which are all weaker than strong consistency model, In this thesis, we are
