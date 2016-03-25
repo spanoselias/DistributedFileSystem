@@ -2005,22 +2005,21 @@ GtkWidget *create_Login (gint  horizontal,
 
     frame = gtk_frame_new (title);
 
-    if (horizontal)
-        bbox = gtk_hbutton_box_new ();
-    else
-        bbox = gtk_vbutton_box_new ();
 
-    gtk_container_set_border_width (GTK_CONTAINER (bbox), 1);
+    bbox = gtk_vbutton_box_new ();
+
+
+    gtk_container_set_border_width (GTK_CONTAINER (bbox), 0);
     gtk_container_add (GTK_CONTAINER (frame), bbox);
 
     bbox2 = gtk_vbutton_box_new ();
     gtk_container_add (GTK_CONTAINER (bbox), bbox2);
 
-
     /* Set the appearance of the Button Box */
     gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), layout);
     gtk_button_box_set_spacing (GTK_BUTTON_BOX (bbox), spacing);
     gtk_button_box_set_child_size (GTK_BUTTON_BOX (bbox), child_w, child_h);
+
 
     /* create a text entry. */
     entry = gtk_entry_new_with_max_length(15);
@@ -2143,7 +2142,10 @@ on_button1_clicked(GtkButton* button, gpointer data)
     //Request ClientID
     reqClientID(gtk_entry_get_text(entry));
 
-   // gtk_widget_set_sensitive(entry,FALSE);
+
+    gtk_widget_set_sensitive(GTK_WIDGET(entry),FALSE);
+
+   // gtk_widget_set_sensitive(,FALSE);
 
 }
 
@@ -2269,8 +2271,8 @@ int main( int   argc,
     gtk_container_add (GTK_CONTAINER (frame_horz), vbox);
 
     gtk_box_pack_start (GTK_BOX (vbox),
-                        create_Login (FALSE, "Loggin",1, 1, 1, GTK_BUTTONBOX_START),
-                        TRUE, TRUE, 0);
+                        create_Login (FALSE, "Loggin",0, 0, 0, GTK_BUTTONBOX_EDGE),
+                        FALSE, FALSE, 0);
 
 
     gtk_box_pack_start (GTK_BOX (vbox),
