@@ -1926,6 +1926,7 @@ GtkWidget     *loggin;
 GtkWidget     *list;
 GtkWidget     *upload;
 GtkWidget      *btnread;
+GtkWidget *chkVisiblebtn;
 
 /* The Text Buffer as a global variabel*/
 GtkTextBuffer *buffer;
@@ -2040,6 +2041,48 @@ GtkWidget *create_Login (gint  horizontal,
 
 }
 
+/* Create a Button Box with the specified parameters */
+GtkWidget *create_label (gint  horizontal,
+                         char* title,
+                         gint  spacing,
+                         gint  child_w,
+                         gint  child_h,
+                         gint  layout)
+{
+
+    GtkWidget *frame;
+    GtkWidget *bbox;
+    GtkWidget *bbox2;
+    GtkWidget *button;
+
+    frame = gtk_frame_new (title);
+
+
+    bbox = gtk_vbutton_box_new ();
+
+
+    //Check button for visibility
+    chkVisiblebtn = gtk_check_button_new_with_label("Log Visibility");
+
+    gtk_container_set_border_width (GTK_CONTAINER (bbox), 0);
+    gtk_container_add (GTK_CONTAINER (frame), bbox);
+
+    bbox2 = gtk_vbutton_box_new ();
+    gtk_container_add (GTK_CONTAINER (bbox), bbox2);
+
+    /* Set the appearance of the Button Box */
+    gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), layout);
+    gtk_button_box_set_spacing (GTK_BUTTON_BOX (bbox), spacing);
+    gtk_button_box_set_child_size (GTK_BUTTON_BOX (bbox), child_w, child_h);
+
+
+    gtk_container_add (GTK_CONTAINER (bbox), chkVisiblebtn);
+
+    return(frame);
+
+}
+
+
 /* This is a callback function to watch data in standard output and write to a view text widget. */
 void input_callback( gpointer          data,
                      gint              source,
@@ -2070,6 +2113,23 @@ static void hello( GtkWidget *widget,
                    gpointer   data )
 {
     gtk_widget_show (file_selector);
+}
+
+static void logVisibility( GtkWidget *widget,
+                   gpointer   data )
+{
+
+    gtk_widget_show(view);
+
+
+}
+
+static void invisibleLog( GtkWidget *widget,
+                           gpointer   data )
+{
+
+    gtk_widget_hide(view);
+
 }
 
 /* This is a callback function. The data arguments are ignored
@@ -2142,9 +2202,10 @@ on_button1_clicked(GtkButton* button, gpointer data)
     //Request ClientID
     reqClientID(gtk_entry_get_text(entry));
 
-
     gtk_widget_set_sensitive(GTK_WIDGET(entry),FALSE);
 
+
+   // gtk_widget_show(view);
    // gtk_widget_set_sensitive(,FALSE);
 
 }
@@ -2200,6 +2261,8 @@ int main( int   argc,
 
     static GtkWidget* window = NULL;
 
+    GtkWidget *scrolled_window;
+
     GtkWidget *main_vbox;
 
     GtkWidget *frame_horz;
@@ -2210,7 +2273,9 @@ int main( int   argc,
 
     GtkWidget *toolbar;
     GtkToolItem *saveTb;
+    GtkToolItem *appearlog;
     GtkToolItem *exitTb;
+
 
     // Create a pipe. File descriptors for the two ends of the pipe are placed in fds.
     pipe (fds);
@@ -2240,14 +2305,26 @@ int main( int   argc,
     /* Create the selector */
      file_selector = gtk_file_selection_new("Please select a file for editing.");
 
-    saveTb = gtk_tool_button_new_from_stock(GTK_STOCK_ADD );
+    saveTb = gtk_tool_button_new_from_stock(GTK_STOCK_CLEAR );
     gtk_toolbar_insert(GTK_TOOLBAR(toolbar), saveTb, -1);
+
+    appearlog = gtk_tool_button_new_from_stock(GTK_STOCK_DND );
+    gtk_toolbar_insert(GTK_TOOLBAR(toolbar), appearlog, -1);
 
     exitTb = gtk_tool_button_new_from_stock(GTK_STOCK_QUIT);
     gtk_toolbar_insert(GTK_TOOLBAR(toolbar), exitTb, -1);
 
+
+    g_signal_connect(G_OBJECT(appearlog), "clicked",
+                     G_CALLBACK(logVisibility), NULL);
+
+    g_signal_connect(G_OBJECT(saveTb), "clicked",
+                     G_CALLBACK(invisibleLog), NULL);
+
+
     g_signal_connect(G_OBJECT(exitTb), "clicked",
                      G_CALLBACK(gtk_main_quit), NULL);
+
 
     g_signal_connect(G_OBJECT(window), "destroy",
                      G_CALLBACK(gtk_main_quit), NULL);
@@ -2258,13 +2335,17 @@ int main( int   argc,
     gtk_box_pack_start (GTK_BOX (main_vbox), frame_horz, TRUE, TRUE, 10);
 
     frame_horz2 = gtk_frame_new ("Log file");
+
     gtk_box_pack_start (GTK_BOX (main_vbox), frame_horz2, TRUE, TRUE, 10);
 
     //Creates a new text view //
     view = gtk_text_view_new ();
 
-    gtk_container_add (GTK_CONTAINER (frame_horz2), view);
+    scrolled_window = gtk_scrolled_window_new(NULL, NULL);
 
+     gtk_container_add (GTK_CONTAINER (frame_horz2), scrolled_window);
+
+     gtk_container_add(GTK_CONTAINER(scrolled_window), view);
 
     vbox = gtk_vbox_new (FALSE, 0);
     gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
@@ -2274,15 +2355,14 @@ int main( int   argc,
                         create_Login (FALSE, "Loggin",0, 0, 0, GTK_BUTTONBOX_EDGE),
                         FALSE, FALSE, 0);
 
-
     gtk_box_pack_start (GTK_BOX (vbox),
-                        create_bbox (TRUE, "Operation", 40, 85, 20, GTK_BUTTONBOX_SPREAD),
+                        create_bbox (TRUE, "Operation", 40, 85, 20, GTK_BUTTONBOX_START),
                         TRUE, TRUE, 0);
-
 
     gtk_signal_connect(GTK_OBJECT(loggin), "clicked",
                        GTK_SIGNAL_FUNC(on_button1_clicked),
                        (gpointer)entry);
+
 
     gtk_signal_connect(GTK_OBJECT(btnread), "clicked",
                        GTK_SIGNAL_FUNC(readfile_clicked),
@@ -2304,7 +2384,6 @@ int main( int   argc,
 
     /* This is the singnal connection to call input_callback when we have data in standard output read end pipe. */
     gdk_input_add(fds[0], GDK_INPUT_READ, input_callback, NULL);
-
 
     /* always display the window as the last step so it all splashes on
      * the screen at once. */
