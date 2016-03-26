@@ -42,8 +42,8 @@
       <file leaf-file-name="client.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Interface/client.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.72112674">
-              <caret line="2308" column="54" selection-start-line="2308" selection-start-column="54" selection-end-line="2308" selection-end-column="54" />
+            <state vertical-scroll-proportion="0.53239435">
+              <caret line="2013" column="61" selection-start-line="2013" selection-start-column="61" selection-end-line="2013" selection-end-column="61" />
               <folding>
                 <element signature="e#852#870#0" expanded="true" />
                 <element signature="e#4185#4681#0" expanded="false" />
@@ -59,6 +59,7 @@
                 <element signature="e#32712#32951#0" expanded="false" />
                 <element signature="e#35834#38712#0" expanded="false" />
                 <element signature="e#38714#40037#0" expanded="false" />
+                <element signature="e#40039#41351#0" expanded="false" />
                 <element signature="e#41353#42676#0" expanded="false" />
                 <element signature="e#42850#43623#0" expanded="false" />
                 <element signature="e#43625#44552#0" expanded="false" />
@@ -66,17 +67,17 @@
                 <element signature="e#45368#47884#0" expanded="false" />
                 <element signature="e#47886#50098#0" expanded="false" />
                 <element signature="e#50100#51287#0" expanded="false" />
+                <element signature="e#51289#55919#0" expanded="false" />
                 <element signature="e#55946#58911#0" expanded="false" />
                 <element signature="e#59371#60870#0" expanded="false" />
-                <element signature="e#60872#62270#0" expanded="false" />
-                <element signature="e#62272#63383#0" expanded="false" />
-                <element signature="e#63386#64115#0" expanded="false" />
-                <element signature="e#64118#64344#0" expanded="false" />
-                <element signature="e#64588#64802#0" expanded="false" />
-                <element signature="e#64804#64915#0" expanded="false" />
-                <element signature="e#64917#66073#0" expanded="false" />
-                <element signature="e#66075#66416#0" expanded="false" />
-                <element signature="e#66418#67026#0" expanded="false" />
+                <element signature="e#62273#63384#0" expanded="false" />
+                <element signature="e#63387#64116#0" expanded="false" />
+                <element signature="e#64119#64345#0" expanded="false" />
+                <element signature="e#64589#64803#0" expanded="false" />
+                <element signature="e#64805#64916#0" expanded="false" />
+                <element signature="e#64918#66074#0" expanded="false" />
+                <element signature="e#66076#66417#0" expanded="false" />
+                <element signature="e#66419#67027#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -386,12 +387,6 @@
       <option name="number" value="Default" />
       <updated>1455704124857</updated>
     </task>
-    <task id="LOCAL-00032" summary="#FixedDecodingMessages">
-      <created>1456055730179</created>
-      <option name="number" value="00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1456055730179</updated>
-    </task>
     <task id="LOCAL-00033" summary="#FixingFunctionForFileManager">
       <created>1456058962229</created>
       <option name="number" value="00033" />
@@ -680,7 +675,13 @@
       <option name="project" value="LOCAL" />
       <updated>1458925679918</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <task id="LOCAL-00081" summary="#implementingInterface">
+      <created>1458937007095</created>
+      <option name="number" value="00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1458937007095</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1208,8 +1209,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Interface/client.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.72112674">
-          <caret line="2308" column="54" selection-start-line="2308" selection-start-column="54" selection-end-line="2308" selection-end-column="54" />
+        <state vertical-scroll-proportion="0.53239435">
+          <caret line="2013" column="61" selection-start-line="2013" selection-start-column="61" selection-end-line="2013" selection-end-column="61" />
           <folding>
             <element signature="e#852#870#0" expanded="true" />
             <element signature="e#4185#4681#0" expanded="false" />
@@ -1225,6 +1226,7 @@
             <element signature="e#32712#32951#0" expanded="false" />
             <element signature="e#35834#38712#0" expanded="false" />
             <element signature="e#38714#40037#0" expanded="false" />
+            <element signature="e#40039#41351#0" expanded="false" />
             <element signature="e#41353#42676#0" expanded="false" />
             <element signature="e#42850#43623#0" expanded="false" />
             <element signature="e#43625#44552#0" expanded="false" />
@@ -1232,17 +1234,17 @@
             <element signature="e#45368#47884#0" expanded="false" />
             <element signature="e#47886#50098#0" expanded="false" />
             <element signature="e#50100#51287#0" expanded="false" />
+            <element signature="e#51289#55919#0" expanded="false" />
             <element signature="e#55946#58911#0" expanded="false" />
             <element signature="e#59371#60870#0" expanded="false" />
-            <element signature="e#60872#62270#0" expanded="false" />
-            <element signature="e#62272#63383#0" expanded="false" />
-            <element signature="e#63386#64115#0" expanded="false" />
-            <element signature="e#64118#64344#0" expanded="false" />
-            <element signature="e#64588#64802#0" expanded="false" />
-            <element signature="e#64804#64915#0" expanded="false" />
-            <element signature="e#64917#66073#0" expanded="false" />
-            <element signature="e#66075#66416#0" expanded="false" />
-            <element signature="e#66418#67026#0" expanded="false" />
+            <element signature="e#62273#63384#0" expanded="false" />
+            <element signature="e#63387#64116#0" expanded="false" />
+            <element signature="e#64119#64345#0" expanded="false" />
+            <element signature="e#64589#64803#0" expanded="false" />
+            <element signature="e#64805#64916#0" expanded="false" />
+            <element signature="e#64918#66074#0" expanded="false" />
+            <element signature="e#66076#66417#0" expanded="false" />
+            <element signature="e#66419#67027#0" expanded="false" />
           </folding>
         </state>
       </provider>
