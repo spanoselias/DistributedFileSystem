@@ -71,10 +71,8 @@ double    failrate=1;                        //store the rate for the fail
 GHashTable * hashFiletags;                   //Metadata table that holds all tag for the data
 
 
-/* Arrange the N elements of ARRAY in random order.
-   Only effective if N is much smaller than RAND_MAX;
-   if this may not be the case, use a better random
-   number generator. */
+/* Shuffle the replica set in order to have
+ * uniform distribution. */
 void shuffle(int *array, size_t n)
 {
     srand(time(NULL));
@@ -1843,7 +1841,7 @@ void unitTest(char *filename , char *filetype , char *username)
         }
         printf("\n--------------------------------------------------------------------\n");
 
-    for(i=0; i<1; i++)
+    for(i=0; i<5; i++)
     {
         //Unit test for the function reqCreate
         //Store the filename with the corresponding type
@@ -1856,7 +1854,7 @@ void unitTest(char *filename , char *filetype , char *username)
         long fileid = reqCreate(newfilename);
 
         //newline
-        if (fileid != FAILURE)
+       /* if (fileid != FAILURE)
         {
             //Store the file id that received
             cmdmsg->fileid = fileid;
@@ -1875,7 +1873,7 @@ void unitTest(char *filename , char *filetype , char *username)
             printf("-----------------------------------\n");
         }
         printf("\n--------------------------------------------------------------------\n");
-
+        */
 
         //message id
         long messageid=0;

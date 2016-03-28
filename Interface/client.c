@@ -2353,11 +2353,11 @@ int main( int   argc,
     gtk_container_add (GTK_CONTAINER (frame_horz), vbox);
 
     gtk_box_pack_start (GTK_BOX (vbox),
-                        create_Login (FALSE, "Loggin",0, 0, 0, GTK_BUTTONBOX_EDGE),
+                        create_Login (FALSE, "Login",0, 0, 0, GTK_BUTTONBOX_EDGE),
                         FALSE, FALSE, 0);
 
     gtk_box_pack_start (GTK_BOX (vbox),
-                        create_bbox (TRUE, "Operation", 40, 85, 20, GTK_BUTTONBOX_START),
+                        create_bbox (TRUE, "Operations", 40, 85, 20, GTK_BUTTONBOX_START),
                         TRUE, TRUE, 0);
 
     gtk_signal_connect(GTK_OBJECT(loggin), "clicked",
