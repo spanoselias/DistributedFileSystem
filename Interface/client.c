@@ -2167,11 +2167,11 @@ void store_filename(GtkFileSelection *selector, gpointer user_data)
 
     // g_print("%s\n", cwd);
 
-    /*sprintf(command,"cp %s %s", selected_filename, cwd);
+    sprintf(command,"cp %s %s", selected_filename, cwd);
 
-    g_print("%s\n", command);
+    //g_print("%s\n", command);
 
-    system(command);*/
+    system(command);
 
     char* filename =g_strdup(g_path_get_basename(selected_filename) );
 

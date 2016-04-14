@@ -17,8 +17,6 @@
 #include <arpa/inet.h> //To retrieve the ip_add to asci
 #include <string.h>
 #include "directory.h"
-#include <time.h>
-#include <err.h>
 #include <pthread.h>
 
 #define GINT_TO_POINTER(i) ((gpointer) (glong) (i))
