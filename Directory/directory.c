@@ -344,6 +344,9 @@ void *accept_thread(void *accept_sock)
 
          bzero(buf, sizeof(buf));
 
+         //Look up the position of the specific fileid
+         //in the metadata.
+
          //Lock strtok due to is not deadlock free
          if(err=pthread_mutex_lock(&lockermetadata))
          {
@@ -356,12 +359,16 @@ void *accept_thread(void *accept_sock)
          {
              perror2("Failed to lock()", err);
          }
-
+         //For any reason if the file which the clint enquired does not
+         //exist in the metadata then it is not possible for the client
+         //to receive an answer.
          if (index == -1 )
          {
              printf("Unable to find the file in metadata table\n");
 
          }
+         //If the user does not have the appropriates then the directory
+         //return <<ACCESSDENIED>> message to the client.
          else  if(index == -2)
          {
              //In case where the client does not have the permission to read the file
@@ -384,7 +391,6 @@ void *accept_thread(void *accept_sock)
              {
                  perror2("Failed to lock()",err);
              }
-
 
                  //Pointer to the metadata
                  struct metadata *point2metadata = NULL;

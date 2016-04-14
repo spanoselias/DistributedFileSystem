@@ -1024,7 +1024,7 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
 
         return 1;
     }
-        //xxx
+
     else if(strcmp(cmd , "list" ) == 0)
     {
 
@@ -1036,8 +1036,15 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
 
     //Retieve information of the file
     temp=strtok(NULL," ");
-    cmdmsg->filename=strdup(strtok(temp,"."));
-    cmdmsg->fileType=strdup(strtok(NULL," "));
+    if(strchr(temp, '.') != NULL)
+    {
+        cmdmsg->filename=strdup(strtok(temp,"."));
+        cmdmsg->fileType=strdup(strtok(NULL," "));
+    }
+    else
+    {
+        cmdmsg->fileType="";
+    }
 
     if(strcmp(cmd , "read" ) == 0 )
     {
