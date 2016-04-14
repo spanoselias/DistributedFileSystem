@@ -219,7 +219,6 @@ int send2ftp(int newsock , struct replicaHeader *msg )
     unsigned    int length;
 
     bzero(sendheader,sizeof(sendheader));
-
     //
     length=sprintf(filename,"%s_%ld_%d_%d_%d.%s",msg->filename,msg->fileid,msg->tag->num , msg->tag->clientID,msg->tag->isSecure,msg->filetype);
     //filename[length-1]='\0';
