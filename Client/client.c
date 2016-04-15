@@ -742,7 +742,6 @@ int reader_oper(int msg_id , struct cmd *cmdfile )
 int writer_oper(int msg_id , struct cmd *cmdfile  )
 {
 
-    int IsSuccess=1;
     int isReceiveMajor;
 
     char buf[512];
