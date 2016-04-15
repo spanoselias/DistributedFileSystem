@@ -242,10 +242,24 @@ void encode(struct message *msg , char *buf , char *type)
 
     bzero(buf,sizeof(buf));
 
+    //Handle the case where file does not have an extension type
+    char filename[256];
+    //Initialize filename in order to know what data exist inside the variable
+    bzero(filename,sizeof(filename));
+    //Check if the file has type extension or not.
+    if(strcmp(msg->filetype,"")==0)
+    {
+        sprintf(filename,"%s",msg->filename);
+    }
+    else
+    {
+        sprintf(filename,"%s.%s",msg->filename,msg->filetype);
+    }
+
     //Check if the message is secure
     if((strcmp(type , "SECURE" )== 0) )
     {
-        sprintf(buf,"%s,%ld,%ld,%ld,%ld,%s,%s" ,type , msg->tag.num , msg->tag.clientID, message_id, msg->fileID , msg->filename , msg->filetype );
+        sprintf(buf,"%s,%ld,%ld,%ld,%ld,%s" ,type , msg->tag.num , msg->tag.clientID, message_id, msg->fileID , filename );
     }
 
     //Check if the type of the message is RREAD
@@ -276,12 +290,12 @@ void encode(struct message *msg , char *buf , char *type)
                     sprintf(str,",%d" , GPOINTER_TO_INT(iterator->data) );
                     strcat(strSet,str);
                 }
-                sprintf(buf, "%s,%d%s,%ld,%ld,%ld,%s", type ,len, strSet ,msg->tag.num, msg->tag.clientID, message_id , msg->filename);
+                sprintf(buf, "%s,%d%s,%ld,%ld,%ld,%s", type ,len, strSet ,msg->tag.num, msg->tag.clientID, message_id , filename);
 
             }
             else
             {
-                sprintf(buf, "%s,0,%ld,%ld,%ld,%s", type , msg->tag.num, msg->tag.clientID, message_id , msg->filename);
+                sprintf(buf, "%s,0,%ld,%ld,%ld,%s", type , msg->tag.num, msg->tag.clientID, message_id , filename);
             }
 
         }//If RWRITE statment
@@ -308,18 +322,18 @@ void encode(struct message *msg , char *buf , char *type)
                 sprintf(str,",%d" , GPOINTER_TO_INT(iterator->data));
                 strcat(strSet,str);
             }
-            sprintf(buf, "%s,%d%s,%ld,%ld,%ld,%s", type ,len, strSet ,msg->tag.num, msg->tag.clientID, message_id , msg->filename);
+            sprintf(buf, "%s,%d%s,%ld,%ld,%ld,%s", type ,len, strSet ,msg->tag.num, msg->tag.clientID, message_id , filename );
 
         }
         else
         {
-            sprintf(buf, "%s,0,%ld,%ld,%ld,%s", type , msg->tag.num, msg->tag.clientID, message_id , msg->filename );
+            sprintf(buf, "%s,0,%ld,%ld,%ld,%s", type , msg->tag.num, msg->tag.clientID, message_id , filename );
         }
     }
 
     else if( (strcmp(type , "WREAD" )== 0))
     {
-        sprintf(buf,"%s,%ld,%ld,%s,%s" ,type , message_id , msg->fileID , msg->filename , permission  ) ;
+        sprintf(buf,"%s,%ld,%ld,%s,%s" ,type , message_id , msg->fileID , filename , permission  ) ;
     }
 
 
@@ -967,16 +981,6 @@ int writer_oper(int msg_id , struct cmd *cmdfile  )
 }//Function writer
 
 /***********************************************************************************/
-/*                              WRITE LOG                                          */
-/***********************************************************************************/
-int writeLog(FILE *log_file , char *info)
-{
-    log_file=fopen("client.log" , "a+");
-    fprintf(log_file , info , sizeof(info));
-    fclose(log_file);
-}//Function writeLog
-
-/***********************************************************************************/
 /*                           READ COMMAND                                          */
 /***********************************************************************************/
 int read_cmd(char *cmd_str , struct cmd *cmdmsg )
@@ -1042,6 +1046,7 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
     }
     else
     {
+        cmdmsg->filename=strdup(temp);
         cmdmsg->fileType="";
     }
 
@@ -1089,7 +1094,7 @@ int read_cmd(char *cmd_str , struct cmd *cmdmsg )
 
     //deallocate
     free(cmdmsg->filename);
-    free(cmdmsg->fileType);
+    //free(cmdmsg->fileType);
 
     return 1;
 }
@@ -1565,7 +1570,17 @@ int send2ftp(struct cmd *msgCmd, int newsock , struct TAG *tagIn , long msgIDIn 
 
     bzero(filename,sizeof(filename));
 
-    unsigned int length=sprintf(filename,"%s.%s", msgCmd->filename,msgCmd->fileType);
+    //Handle the case where file does not have
+    //file extension
+    if(strcmp(msgCmd->fileType,"")==0)
+    {
+        unsigned int length=sprintf(filename,"%s", msgCmd->filename);
+    }
+    else
+    {
+        unsigned int length=sprintf(filename,"%s.%s", msgCmd->filename,msgCmd->fileType);
+    }
+
     //filename[length-1]='\0';
 
     fd = open(filename,  O_RDONLY);
@@ -1597,7 +1612,7 @@ int send2ftp(struct cmd *msgCmd, int newsock , struct TAG *tagIn , long msgIDIn 
     char *filechecksum = checksum_get(filename);
 
     bzero(buf,sizeof(buf));
-    sprintf(buf,"WRITE,%s,%s,%ld,%ld,%ld,%ld,%d,%s" , msgCmd->filename,msgCmd->fileType,tagIn->num,tagIn->clientID , msgCmd->fileid , msgIDIn , file_size, filechecksum );
+    sprintf(buf,"WRITE,%ld,%ld,%ld,%ld,%d,%s,%s" , tagIn->num,tagIn->clientID , msgCmd->fileid , msgIDIn , file_size, filechecksum,filename );
 
     // If connection is established then start communicating //
     len = send(newsock, buf, 512 , 0);
@@ -1684,7 +1699,7 @@ int get_filelist()
 
 }
 
-void inisialization() 
+void inisialization()
 {
 
     int i;

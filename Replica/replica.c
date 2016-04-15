@@ -164,8 +164,6 @@ struct replicaHeader* decode(char *buf )
         msg->type=strdup(strtok(buf, ","));
         if( (strcmp(msg->type , "WRITE" )== 0))
         {
-            msg->filename = strdup(strtok(NULL,","));
-            msg->filetype = strdup(strtok(NULL,","));
             msg->tag->num = atoi(strtok(NULL,","));
             msg->tag->clientID = atoi(strtok(NULL,","));
             msg->fileid = atol(strtok(NULL,","));
@@ -173,6 +171,7 @@ struct replicaHeader* decode(char *buf )
             msg->msgID = atoi(strtok(NULL,","));
             msg->fileSize = atoi(strtok(NULL,","));
             msg->checksum = strdup(strtok(NULL,","));
+            msg->filename = strdup(strtok(NULL,","));
         }
         else if( (strcmp(msg->type , "READ" )== 0))
         {
@@ -181,7 +180,6 @@ struct replicaHeader* decode(char *buf )
             msg->msgID = atoi(strtok(NULL,","));
             msg->fileid = atol(strtok(NULL,","));
             msg->filename = strdup(strtok(NULL,","));
-            msg->filetype = strdup(strtok(NULL,","));
         }
         else if((strcmp(msg->type , "SECURE" )== 0))
         {
@@ -191,10 +189,21 @@ struct replicaHeader* decode(char *buf )
             msg->msgID = atoi(strtok(NULL,","));
             msg->fileid = atol(strtok(NULL,","));
             msg->filename = strdup(strtok(NULL,","));
-            msg->filetype = strdup(strtok(NULL,","));
+        }
+        //Handle the case where a file does not have
+        //file extension
+        if(strchr(msg->filename, '.') != NULL)
+        {
+            char *temp;
+            temp= strtok(msg->filename,".");
+            msg->filetype=strdup(strtok(NULL," "));
+        }
+        else
+        {
+            msg->filetype ="";
         }
 
-    /*Unloack Mutex*/
+    //Unloack Mutex//
     if(err=pthread_mutex_unlock(&locker))
     {
         perror2("Failed to lock()",err);
@@ -307,7 +316,19 @@ int ftp_recv(int sock, struct replicaHeader *msg )
 
     bzero(filename,sizeof(filename));
 
-    length= sprintf(filename , "%s_%ld_%d_%d_0.%s" , msg->filename , msg->fileid , msg->tag->num , msg->tag->clientID , msg->filetype);
+    //Handle the case where file does not have type extension
+    if(strcmp(msg->filetype, "") == 0)
+    {
+        length= sprintf(filename , "%s_%ld_%d_%d_0" , msg->filename , msg->fileid , msg->tag->num , msg->tag->clientID);
+    }
+    else
+    {
+        length= sprintf(filename , "%s_%ld_%d_%d_0.%s" , msg->filename , msg->fileid , msg->tag->num , msg->tag->clientID , msg->filetype);
+    }
+
+
+
+
     //filename[length-1]='\0';
 
     received_file = fopen(filename, "w");
