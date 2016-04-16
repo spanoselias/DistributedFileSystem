@@ -327,8 +327,6 @@ int ftp_recv(int sock, struct replicaHeader *msg )
     }
 
 
-
-
     //filename[length-1]='\0';
 
     received_file = fopen(filename, "w");
@@ -555,6 +553,9 @@ GHashTable *   deleteUnsecureTags(GHashTable * funmetatable ,TAG* secureTag , st
         bzero(filename,sizeof(filename));
 
         sprintf(filename,"%s_%ld",header->filename,header->fileid);
+
+
+        printf("Debug: %s" , filename);
 
 
         //Retrieve all the tags which are associated with the specific filename
@@ -1148,7 +1149,7 @@ void *accept_thread(void *accept_sock)
 
         //deallocate
         free(msg->filename);
-        free(msg->filetype);
+       // free(msg->filetype);
         free(msg->tag);
         free(msg);
 

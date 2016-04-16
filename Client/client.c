@@ -1467,6 +1467,7 @@ int get_file(int sock, struct message *msg )
     //Allocation memory
     recvmsg=(struct message *)malloc(sizeof(struct message));
 
+
     sprintf(buf ,"READ,%ld,%ld,%ld,%ld,%s,%s" , msg->tag.num , msg->tag.clientID , (++msg->msg_id) , msg->fileID, msg->filename , msg->filetype );
 
     //printf("Filename in get_file: %s , length: %d\n",buf, file_size);
