@@ -31,8 +31,8 @@ done
 
 echo "#REPLICAS" >> myfile.txt
 echo "$1" >> myfile.txt 
-for i in {0..1}
-do
+for ((i=1;i<=END;i++)); do
+ 
   STRRep="Replica_"
   STRRep+=$i; 
   repliport=$(($repliport + $i)) 
@@ -50,8 +50,8 @@ done
 
 echo "#FILEMANAGERS" >> myfile.txt
 echo "$1" >> myfile.txt 
-for i in {0..1}
-do
+for ((i=1;i<=END;i++)); do
+ 
   STRManager="FileManager_"
   STRManager+=$i;
   managerport=$(($managerport + $i))  
