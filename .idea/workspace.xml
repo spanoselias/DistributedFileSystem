@@ -15,78 +15,8 @@
     </ADDITIONAL_GENERATION_ENVIRONMENT>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="074f1195-62a4-43e6-a1db-a48c9186e3a6" name="Default" comment="#ConfigurationBashScript">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_0/Directory/dir" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_0/Directory/directory.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_0/Directory/directory.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_0/Directory/error.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_0/Directory/makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_0/Directory/nohup.out" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_0/Directory/run.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_0/Directory/tmux.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_0/dir" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_0/directory.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_0/directory.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_0/error.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_0/makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_0/nohup.out" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_0/run.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_0/tmux.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_1/Directory/dir" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_1/Directory/directory.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_1/Directory/directory.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_1/Directory/error.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_1/Directory/makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_1/Directory/nohup.out" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_1/Directory/run.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_1/Directory/tmux.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_1/dir" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_1/directory.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_1/directory.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_1/error.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_1/makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_1/nohup.out" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_1/run.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Directory_1/tmux.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/FileManager_0/FileManager/fil" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/FileManager_0/FileManager/filemanager.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/FileManager_0/FileManager/filemanager.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/FileManager_0/FileManager/makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/FileManager_0/fil" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/FileManager_0/filemanager.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/FileManager_0/filemanager.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/FileManager_0/makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/FileManager_1/FileManager/fil" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/FileManager_1/FileManager/filemanager.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/FileManager_1/FileManager/filemanager.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/FileManager_1/FileManager/makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/FileManager_1/fil" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/FileManager_1/filemanager.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/FileManager_1/filemanager.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/FileManager_1/makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Replica_0/Replica/config.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Replica_0/Replica/makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Replica_0/Replica/repli" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Replica_0/Replica/replica.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Replica_0/Replica/replica.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Replica_0/config.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Replica_0/makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Replica_0/repli" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Replica_0/replica.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Replica_0/replica.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Replica_1/Replica/config.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Replica_1/Replica/makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Replica_1/Replica/repli" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Replica_1/Replica/replica.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Replica_1/Replica/replica.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Replica_1/config.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Replica_1/makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Replica_1/repli" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Replica_1/replica.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/System/Replica_1/replica.h" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Client/img" afterPath="$PROJECT_DIR$/Client/img.png" />
+    <list default="true" id="074f1195-62a4-43e6-a1db-a48c9186e3a6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/config.txt" afterPath="$PROJECT_DIR$/Client/config.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/confsystem.sh" afterPath="$PROJECT_DIR$/confsystem.sh" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myfile.txt" afterPath="$PROJECT_DIR$/myfile.txt" />
     </list>
@@ -173,20 +103,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config2.txt" pinned="false" current-in-tab="false">
+      <file leaf-file-name="config2.txt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client/config2.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="0.3259053">
               <caret line="13" column="2" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.txt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="config.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/config.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3259053">
+            <state vertical-scroll-proportion="0.0">
               <caret line="13" column="2" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />
               <folding />
             </state>
@@ -197,102 +127,7 @@
         <entry file="file://$PROJECT_DIR$/confsystem.sh">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="myfile.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/myfile.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="replica.c" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Replica/replica.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.903226">
-              <caret line="531" column="0" selection-start-line="531" selection-start-column="0" selection-end-line="531" selection-end-column="0" />
-              <folding>
-                <element signature="e#2895#3538#0" expanded="false" />
-                <element signature="e#4518#5244#0" expanded="false" />
-                <element signature="e#7462#9629#0" expanded="false" />
-                <element signature="e#9631#11743#0" expanded="false" />
-                <element signature="e#11745#13856#0" expanded="false" />
-                <element signature="e#13858#16035#0" expanded="false" />
-                <element signature="e#16037#20554#0" expanded="false" />
-                <element signature="e#20556#23852#0" expanded="false" />
-                <element signature="e#23854#26098#0" expanded="false" />
-                <element signature="e#26100#27889#0" expanded="false" />
-                <element signature="e#37945#39286#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="client.c" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Client/client.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-56.387096">
-              <caret line="1935" column="0" selection-start-line="1935" selection-start-column="0" selection-end-line="1935" selection-end-column="0" />
-              <folding>
-                <element signature="e#852#870#0" expanded="true" />
-                <element signature="e#4126#4512#0" expanded="false" />
-                <element signature="e#4514#4710#0" expanded="false" />
-                <element signature="e#4712#5269#0" expanded="false" />
-                <element signature="e#5443#8633#0" expanded="false" />
-                <element signature="e#17103#19283#0" expanded="false" />
-                <element signature="e#19285#20062#0" expanded="false" />
-                <element signature="e#20236#21839#0" expanded="false" />
-                <element signature="e#22013#24716#0" expanded="false" />
-                <element signature="e#24890#25640#0" expanded="false" />
-                <element signature="e#25832#32853#0" expanded="false" />
-                <element signature="e#41333#42656#0" expanded="false" />
-                <element signature="e#42830#43603#0" expanded="false" />
-                <element signature="e#43605#44532#0" expanded="false" />
-                <element signature="e#44566#45346#0" expanded="false" />
-                <element signature="e#45348#47860#0" expanded="false" />
-                <element signature="e#47862#50260#0" expanded="false" />
-                <element signature="e#50262#51428#0" expanded="false" />
-                <element signature="e#51430#56061#0" expanded="false" />
-                <element signature="e#56088#59134#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="directory.c" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Directory/directory.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="477" column="58" selection-start-line="477" selection-start-column="58" selection-end-line="477" selection-end-column="58" />
-              <folding>
-                <element signature="e#852#870#0" expanded="true" />
-                <element signature="e#2385#3594#0" expanded="false" />
-                <element signature="e#3597#3990#0" expanded="false" />
-                <element signature="e#3992#5707#0" expanded="false" />
-                <element signature="e#5881#6435#0" expanded="false" />
-                <element signature="e#6609#8964#0" expanded="false" />
-                <element signature="e#21117#23321#0" expanded="false" />
-                <element signature="e#23520#23735#0" expanded="false" />
-                <element signature="e#24014#24253#0" expanded="false" />
-                <element signature="e#24014#25264#0" expanded="false" />
-                <element signature="e#25438#26872#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="directory.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Directory/directory.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="39" column="2" selection-start-line="39" selection-start-column="2" selection-end-line="39" selection-end-column="2" />
+              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -398,20 +233,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="DistributedSystems" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DistributedSystems" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DistributedSystems" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Replica" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -531,12 +352,6 @@
       <created>1455704124857</created>
       <option name="number" value="Default" />
       <updated>1455704124857</updated>
-    </task>
-    <task id="LOCAL-00044" summary="#BugReplicaSet">
-      <created>1456175165809</created>
-      <option name="number" value="00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1456175165810</updated>
     </task>
     <task id="LOCAL-00045" summary="#BugFixedReplicaSet">
       <created>1456261627617</created>
@@ -826,7 +641,13 @@
       <option name="project" value="LOCAL" />
       <updated>1460835007429</updated>
     </task>
-    <option name="localTasksCounter" value="93" />
+    <task id="LOCAL-00093" summary="#ConfigurationBashScript">
+      <created>1460836914211</created>
+      <option name="number" value="00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1460836914211</updated>
+    </task>
+    <option name="localTasksCounter" value="94" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1330,14 +1151,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/config2.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="2" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Interface/client.c">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1475,14 +1288,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/confsystem.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myfile.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1491,7 +1296,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/confsystem.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Client/config.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="2" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/config2.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3259053">
           <caret line="13" column="2" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />

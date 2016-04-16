@@ -6,11 +6,14 @@ rm  myfile.txt
 repliport=30005
 dirport=20005
 managerport=40002
+ 
+ 
+END=$1
 
 echo "#DIRECTORIES" >> myfile.txt
 echo "$1" >> myfile.txt
-for i in {0..1}
-do
+for ((i=1;i<=END;i++)); do
+ 
    	
   STRDir="Directory_"
   STRDir+=$i;  
