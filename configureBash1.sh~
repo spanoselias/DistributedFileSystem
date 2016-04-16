@@ -1,0 +1,13 @@
+#!/bin/bash
+#chmod +x run.sh
+
+
+repliport=30003
+dirport=20003
+managerport=40002
+
+
+for i in {0..0}
+do
+  echo "append this text" >> myfile.txt
+done

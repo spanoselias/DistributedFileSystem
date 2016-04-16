@@ -1,0 +1,17 @@
+#!/bin/bash
+#chmod +x run.sh
+
+
+ 
+for i in {1..2}
+do
+  STR="Replica"
+  STR+=$i; 	 	
+   cp -rf Replica/ System/$STR
+   gnome-terminal -x sh -c "cd System/$STR ; ./repli -p 20002; cat"
+done
+
+ 
+
+echo 'Script run'
+exit

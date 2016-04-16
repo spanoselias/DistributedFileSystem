@@ -15,11 +15,8 @@
     </ADDITIONAL_GENERATION_ENVIRONMENT>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="074f1195-62a4-43e6-a1db-a48c9186e3a6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Replica/repli" afterPath="$PROJECT_DIR$/Replica/repli" />
+    <list default="true" id="074f1195-62a4-43e6-a1db-a48c9186e3a6" name="Default" comment="#ConfigurationBashScript">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/client.c" afterPath="$PROJECT_DIR$/Client/client.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Replica/replica.c" afterPath="$PROJECT_DIR$/Replica/replica.c" />
     </list>
     <ignored path="DistributedSystems.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -462,12 +459,6 @@
       <option name="number" value="Default" />
       <updated>1455704124857</updated>
     </task>
-    <task id="LOCAL-00043" summary="#Import_Failrate">
-      <created>1456169229642</created>
-      <option name="number" value="00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1456169229642</updated>
-    </task>
     <task id="LOCAL-00044" summary="#BugReplicaSet">
       <created>1456175165809</created>
       <option name="number" value="00044" />
@@ -756,7 +747,13 @@
       <option name="project" value="LOCAL" />
       <updated>1460710061500</updated>
     </task>
-    <option name="localTasksCounter" value="92" />
+    <task id="LOCAL-00092" summary="#ConfigurationBashScript">
+      <created>1460835007429</created>
+      <option name="number" value="00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1460835007429</updated>
+    </task>
+    <option name="localTasksCounter" value="93" />
     <servers />
   </component>
   <component name="TodoView">
@@ -808,7 +805,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="#fixedGarbageCollector" />
     <MESSAGE value="#optimizingCode" />
     <MESSAGE value="#Import_Failrate" />
     <MESSAGE value="#BugReplicaSet" />
@@ -833,7 +829,8 @@
     <MESSAGE value="#implementingInterface" />
     <MESSAGE value="#FixingBugs" />
     <MESSAGE value="#OptimizingCode" />
-    <option name="LAST_COMMIT_MESSAGE" value="#OptimizingCode" />
+    <MESSAGE value="#ConfigurationBashScript" />
+    <option name="LAST_COMMIT_MESSAGE" value="#ConfigurationBashScript" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.742268" />
   </component>
   <component name="XDebuggerManager">
