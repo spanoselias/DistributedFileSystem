@@ -5,8 +5,7 @@ rm  myfile.txt
 
 repliport=30005
 dirport=20005
-managerport=40002
- 
+managerport=40002 
  
 END=$1
 
