@@ -17,8 +17,6 @@
   <component name="ChangeListManager">
     <list default="true" id="074f1195-62a4-43e6-a1db-a48c9186e3a6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/confsystem.sh" afterPath="$PROJECT_DIR$/confsystem.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myfile.txt" afterPath="$PROJECT_DIR$/myfile.txt" />
     </list>
     <ignored path="DistributedSystems.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -85,8 +83,8 @@
       <file leaf-file-name="client.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client/client.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.45125347">
-              <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+            <state vertical-scroll-proportion="0.47632313">
+              <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
               <folding>
                 <element signature="e#4126#4512#0" expanded="false" />
                 <element signature="e#4514#4710#0" expanded="false" />
@@ -383,12 +381,6 @@
       <option name="number" value="Default" />
       <updated>1455704124857</updated>
     </task>
-    <task id="LOCAL-00048" summary="#FixedFileLayer">
-      <created>1456325596399</created>
-      <option name="number" value="00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1456325596399</updated>
-    </task>
     <task id="LOCAL-00049" summary="#Stablev1.0">
       <created>1456401513414</created>
       <option name="number" value="00049" />
@@ -677,7 +669,13 @@
       <option name="project" value="LOCAL" />
       <updated>1461003989561</updated>
     </task>
-    <option name="localTasksCounter" value="97" />
+    <task id="LOCAL-00097" summary="#ConfigurationBashScript">
+      <created>1461003998449</created>
+      <option name="number" value="00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1461003998449</updated>
+    </task>
+    <option name="localTasksCounter" value="98" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1341,8 +1339,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/client.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45125347">
-          <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.47632313">
+          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
           <folding>
             <element signature="e#4126#4512#0" expanded="false" />
             <element signature="e#4514#4710#0" expanded="false" />
