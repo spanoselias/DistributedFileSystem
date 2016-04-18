@@ -3,14 +3,7 @@
 
 src=$1
 
-gcc client.c  `pkg-config --cflags --libs glib-2.0` -lm -lpthread -o cli
-./cli <<< 'write s1.mp3' &
-./cli <<< 'write s1.mp3' &
-./cli <<< 'write s1.mp3' &
-./cli <<< 'write s1.mp3' &
-./cli <<< 'write s1.mp3'
-
-wait
+gnome-terminal -x sh -c "ssh espano01@clusterCG1.in.cs.ucy.ac.cy; cat"
 
 echo 'Script run'
 exit
