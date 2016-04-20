@@ -215,6 +215,8 @@ struct replicaHeader* decode(char *buf )
 
 int send2ftp(int newsock , struct replicaHeader *msg )
 {
+
+
     int         fd;
     off_t       offset = 0;
     int         remain_data;
@@ -630,7 +632,20 @@ GHashTable *   deleteUnsecureTags(GHashTable * funmetatable ,TAG* secureTag , st
 
             char delfile[256];
             bzero(delfile,sizeof(delfile));
-            length=sprintf(delfile,"%s_%ld_%d_%d_%d.%s",header->filename,header->fileid,curTag->num ,curTag->clientID,curTag->isSecure,header->filetype );
+            //ggg
+
+            //Handle the case where file does not have
+            //file extension
+            if(strcmp(header->filetype ,"")==0)
+            {
+                length=sprintf(delfile,"%s_%ld_%d_%d_%d",header->filename,header->fileid,curTag->num ,curTag->clientID,curTag->isSecure );
+            }
+            else
+            {
+                length=sprintf(delfile,"%s_%ld_%d_%d_%d.%s",header->filename,header->fileid,curTag->num ,curTag->clientID,curTag->isSecure,header->filetype );
+            }
+
+
             //delfile[length-1]='\0';
 
             //remove the file with the specific tag
@@ -721,11 +736,26 @@ GHashTable *   addSecure(GHashTable * funmetatable ,TAG* secureTag , struct repl
                 bzero(oldname,sizeof(oldname));
                 bzero(newname,sizeof(newname));
 
-                length=sprintf(oldname,"%s_%ld_%d_%d_0.%s",header->filename,header->fileid,header->tag->num,header->tag->clientID,header->filetype);
-                //oldname[length-1]='\0';
 
-                length = sprintf(newname,"%s_%ld_%d_%d_1.%s" ,header->filename,header->fileid,header->tag->num,header->tag->clientID,header->filetype);
-                //newname[length-1]='\0';
+
+             //Handle the case where file does not have
+             //file extension
+             if(strcmp(header->filetype ,"")==0)
+             {
+                 length=sprintf(oldname,"%s_%ld_%d_%d_0",header->filename,header->fileid,header->tag->num,header->tag->clientID);
+                 //oldname[length-1]='\0';
+
+                 length = sprintf(newname,"%s_%ld_%d_%d_1" ,header->filename,header->fileid,header->tag->num,header->tag->clientID);
+                 //newname[length-1]='\0';
+             }
+             else
+             {
+                 length=sprintf(oldname,"%s_%ld_%d_%d_0.%s",header->filename,header->fileid,header->tag->num,header->tag->clientID,header->filetype);
+                 //oldname[length-1]='\0';
+
+                 length = sprintf(newname,"%s_%ld_%d_%d_1.%s" ,header->filename,header->fileid,header->tag->num,header->tag->clientID,header->filetype);
+                 //newname[length-1]='\0';
+             }
 
                 //Go through all the list to find which tag are smaller from
                 //the secure tags
@@ -1117,6 +1147,10 @@ void *accept_thread(void *accept_sock)
 
                 printf("ReadOperation, FoundMax, Tag:%d,clientID:%d,isSecure:%d\n", msg->tag->num, msg->tag->clientID,
                        msg->tag->isSecure);
+
+
+                //debug
+                printf("ReadDebug: %s,%s\n",msg->filename,msg->filetype);
 
                 //Send the file to client
                 send2ftp(acptsock, msg);

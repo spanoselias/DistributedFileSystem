@@ -1329,8 +1329,22 @@ long reqFileID(struct cmd *cmdmsg , long clientID)
     long messageID = (++message_id);
 
     bzero(buf,sizeof(buf));
-    //Request from the filemanager to set up a client ID
-    sprintf(buf,"REQFILEID,%s.%s,%ld,%ld" , cmdmsg->filename , cmdmsg->fileType , clientID , messageID );
+
+
+    //Handle the case where file does not have
+    //file extension
+    if(strcmp(cmdmsg->fileType  ,"")==0)
+    {
+        //Request from the filemanager to set up a client ID
+        sprintf(buf,"REQFILEID,%s,%ld,%ld" , cmdmsg->filename , clientID , messageID );
+    }
+    else
+    {
+        //Request from the filemanager to set up a client ID
+        sprintf(buf,"REQFILEID,%s.%s,%ld,%ld" , cmdmsg->filename , cmdmsg->fileType , clientID , messageID );
+
+    }
+
 
     if (bytes = send(filemanagerSocks[0] , buf, sizeof(buf) , 0) < 0)
     {
@@ -1467,8 +1481,7 @@ int get_file(int sock, struct message *msg )
     //Allocation memory
     recvmsg=(struct message *)malloc(sizeof(struct message));
 
-
-    sprintf(buf ,"READ,%ld,%ld,%ld,%ld,%s,%s" , msg->tag.num , msg->tag.clientID , (++msg->msg_id) , msg->fileID, msg->filename , msg->filetype );
+    sprintf(buf ,"READ,%ld,%ld,%ld,%ld,%s.%s" , msg->tag.num , msg->tag.clientID , (++msg->msg_id) , msg->fileID, msg->filename , msg->filetype );
 
     //printf("Filename in get_file: %s , length: %d\n",buf, file_size);
     if ((bytes=send(sock, buf, 512 , 0)) < 0)
