@@ -1362,6 +1362,8 @@ int main(int argc , char  *argv[])
         exit(-1);
     }
 
+    printf("\nPID: %d\n", getpid());
+
     //Initialization functions
     initialization();
 

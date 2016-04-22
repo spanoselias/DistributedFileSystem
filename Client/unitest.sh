@@ -4,12 +4,81 @@
 src=$1
 
 gcc client.c  `pkg-config --cflags --libs glib-2.0` -lm -lpthread -o cli
-./cli s1 mp3 spanos &
-./cli s1 mp3 spa  &
-./cli s1 mp3 spa1 &
-./cli s1 mp3 spa2 &
-./cli s1 mp3 spa3 &
-./cli s1 mp3 spa4 &
+
+ 
+ ./cli << 'EOF'
+loggin spanos2
+list
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+write img.png
+read img.png
+exit
+EOF
+
+ 
+
  
  
 

@@ -764,6 +764,8 @@ int main(int argc , char *argv[])
         exit(-1);
     }
 
+    printf("\nPID: %d\n", getpid());
+
     //Store pthread ID
     pthread_t tid;
     //Store threads errors
