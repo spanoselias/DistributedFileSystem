@@ -22,7 +22,7 @@
 #define GINT_TO_POINTER(i) ((gpointer) (glong) (i))
 #define GPOINTER_TO_INT(p) ((gint)  (glong) (p))
 
-#define MAX_PENDING 200 // Pending clients in
+#define MAX_PENDING 5000 // Pending clients in
 
 
 #define BUFSIZE 256

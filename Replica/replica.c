@@ -27,7 +27,7 @@
 #include "replica.h"
 
 #define BUFSIZE 4098
-#define MAXCLIENT 100
+#define MAXCLIENT 10000
 
 #define SUCCESS  1
 #define FAILURE -1
@@ -60,6 +60,10 @@ pthread_mutex_t lockermetadata;
 
 /*Lock the strtok*/
 pthread_mutex_t locker;
+
+
+//Store all the metadata information
+GPtrArray *metatable=NULL;
 
 
 /***********************************************************************************/
@@ -216,7 +220,6 @@ struct replicaHeader* decode(char *buf )
 int send2ftp(int newsock , struct replicaHeader *msg )
 {
 
-
     int         fd;
     off_t       offset = 0;
     int         remain_data;
@@ -301,6 +304,7 @@ int send2ftp(int newsock , struct replicaHeader *msg )
 
 int ftp_recv(int sock, struct replicaHeader *msg )
 {
+
     FILE     *received_file;
     int      remain_data;
     int      bytes;
@@ -409,17 +413,24 @@ GHashTable *  insertMetadata(GHashTable * funmetatable ,  TAG* filetag , char *f
             //specific filename
             GSList *pointlist=NULL;
 
-            //Retrieve all the tags which are associated withe the specific filename
-            pointlist =(GSList*) g_hash_table_lookup(funmetatable,  filename );
+            //Store all the metadata information by fileID
+            GPtrArray *pointArray=NULL;
 
-            if(pointlist != NULL)
+
+            //Retrieve all the tags which are associated withe the specific filename
+             pointArray =(GPtrArray*) g_hash_table_lookup(funmetatable,  filename );
+
+            if(pointArray != NULL)
             {
 
+
+                g_ptr_array_add(pointArray, (gpointer) newfiletag);
+
                 //Insert first the tag in list and after in hashtable
-                pointlist=g_slist_prepend(pointlist , newfiletag );
+             //   pointlist=g_slist_prepend(pointlist , newfiletag );
 
                 //Insert updated list in hashtable to the associated key(filename)
-                g_hash_table_insert(funmetatable , filename, pointlist);
+                g_hash_table_insert(funmetatable , filename, pointArray);
 
             }
                 //In case where the filename does not exist in hashtable you have to insert
@@ -427,10 +438,14 @@ GHashTable *  insertMetadata(GHashTable * funmetatable ,  TAG* filetag , char *f
             else
             {
                 //Create of the list that will hold the tags for a specific filename
-                GSList *tagset=NULL;
+                GPtrArray *tagset=NULL;
+
+                //Initialize metadata array
+                tagset = g_ptr_array_sized_new(100);
 
                 //Insert new tag in the list
-                tagset=g_slist_prepend(tagset , newfiletag );
+                g_ptr_array_add(tagset, (gpointer) newfiletag);
+                //tagset=g_slist_prepend(tagset , newfiletag );
 
                 //Insert new list in hashtable to the associated key(filename)
                 g_hash_table_insert(funmetatable , g_strdup( filename ), tagset);
@@ -473,14 +488,18 @@ TAG* findMaxTag(GHashTable * funmetatable , TAG* filetag , char *filename  , int
 
     //Pointer to a list to retrieve all the tags for the
     //specific filename
-    GSList *pointlist=NULL;
+    //GSList *pointlist=NULL;
+
+
+    //Store all the metadata information by fileID
+    GPtrArray *pointArray=NULL;
 
 
     //Retrieve all the tags which are associated with the specific filename
-    pointlist =(GSList*) g_hash_table_lookup(funmetatable,filename);
+    pointArray =(GPtrArray*) g_hash_table_lookup(funmetatable,filename);
 
 
-    if(pointlist != NULL)
+    if(pointArray != NULL)
     {
             //To point at the beginning of the list and to go through all the list
             //to detect if the tag that looking for exist. Otherwise, must return
@@ -490,10 +509,31 @@ TAG* findMaxTag(GHashTable * funmetatable , TAG* filetag , char *filename  , int
             //A temp tag to go through the list tags
             TAG* curTag  = NULL;
 
-            for(iter=pointlist; iter; iter = iter->next)
+       /*     for(iter=pointlist; iter; iter = iter->next)
             {
                 //Point to each tag in list
                 curTag = (TAG *) iter->data;
+
+                //Check if the tag that looking for exist in the list
+                if(curTag->num == filetag->num && curTag->clientID == filetag->clientID )
+                {
+                    //Tag found
+                    existTag=curTag;
+                    break;
+                }
+                    //Looking for secure tag
+                else if(curTag->isSecure == 1)
+                {
+                    //Secure tag found
+                    secureTag = curTag;
+                }
+            }*/
+
+            int i=0;
+            for(i=0; i < pointArray->len; i++)
+            {
+                //Retrieve  the data from the specific index
+                curTag = (TAG *) g_ptr_array_index(pointArray ,i );
 
                 //Check if the tag that looking for exist in the list
                 if(curTag->num == filetag->num && curTag->clientID == filetag->clientID )
@@ -537,18 +577,16 @@ GHashTable *   deleteUnsecureTags(GHashTable * funmetatable ,TAG* secureTag , st
 
     //Check if the filename exist in metadata table
     //otherwise you must fill the hasError variable
-    //if(g_hash_table_contains(funmetatable , header->filename) == 1 )
-    //{
-        //Pointer to a list to retrieve all the tags for the
-        //specific filename
-        GSList *pointlist = NULL;
 
-        int err=0;
+        //Store all the metadata information by fileID
+        GPtrArray *pointArray=NULL;
+
 
         //Store all the tags file that you must
         //delete
-        GSList *delSet = NULL;
-
+        GPtrArray *delSet = NULL;
+        //Initialize metadata array
+        delSet = g_ptr_array_sized_new(10);
 
         char filename[256];
 
@@ -561,11 +599,10 @@ GHashTable *   deleteUnsecureTags(GHashTable * funmetatable ,TAG* secureTag , st
 
 
         //Retrieve all the tags which are associated with the specific filename
-        pointlist = (GSList *) g_hash_table_lookup(funmetatable,filename);
+        pointArray =(GPtrArray*) g_hash_table_lookup(funmetatable,filename);
 
-        if(pointlist != NULL)
+        if(pointArray != NULL)
         {
-
                 //To point at the beginning of the list and to go through all the list
                 //to detect if the tag that looking for exist. Otherwise, must return
                 //the max secure tag
@@ -577,10 +614,14 @@ GHashTable *   deleteUnsecureTags(GHashTable * funmetatable ,TAG* secureTag , st
                 //Go through all the list to find which tag are smaller from
                 //the secure tags
                 //So, you have to find all the smaller tags and delete it
-                for (iter = pointlist; iter; )
-                {
+              //  for (iter = pointlist; iter; )
+                //{
+
+            int i=0;
+            for(i=0; i < pointArray->len; i++)
+            {
                     //Point to each tag in list
-                    curTag = (TAG *) iter->data;
+                    curTag = (TAG *) g_ptr_array_index(pointArray ,i );
 
                     //Find all the tags that are smaller than the secure tag
                     //In this case, you must delete all the tags that are smaller
@@ -593,42 +634,35 @@ GHashTable *   deleteUnsecureTags(GHashTable * funmetatable ,TAG* secureTag , st
 
                         //Insert the tag in the delete set
                         //You have to delete this tag
-                        delSet=g_slist_prepend( delSet , deletfiletag );
 
-                        //Delete the tag that you found from the list of metadata
-                         iter=iter->next;
+                        g_ptr_array_add(delSet, (gpointer) deletfiletag);
 
-                         pointlist = g_slist_remove(pointlist , curTag);
-                       //  free(curTag);
+                        g_ptr_array_remove_index(pointArray, i);
+
+                        free(curTag);
+
+                        i=-1;
                     }
-                    else
-                    {
-                          iter=iter->next;
-                    }
+
                 }
 
-
-    /*    for (iter = delSet; iter; iter=iter->next)
-        {
-            //Point to each tag in list
-            curTag = (TAG *) iter->data;
-
-            pointlist = g_slist_remove(pointlist , curTag);
-           // free(curTag);
-        }*/
 
         //Reuse temporary tag
         curTag = NULL;
 
         unsigned    int length;
         //Go through the list to delete all the tags
-        for (iter = delSet; iter; iter=iter->next)
+       // for (iter = delSet; iter; iter=iter->next)
+        //{
+
+        for(i=0; i < delSet->len; i++)
         {
+
             //Store the status of remove function
             int status;
 
             //Point to each tag in list
-            curTag = (TAG *) iter->data;
+            curTag = (TAG *) g_ptr_array_index(delSet ,i );
 
             char delfile[256];
             bzero(delfile,sizeof(delfile));
@@ -648,32 +682,42 @@ GHashTable *   deleteUnsecureTags(GHashTable * funmetatable ,TAG* secureTag , st
 
             //delfile[length-1]='\0';
 
-            //remove the file with the specific tag
-            status=remove(delfile);
-
-            //Check if remove correct the file
-            if(status !=0 )
+            if( access( delfile, F_OK ) != -1 )
             {
-                printf("Unable to delete file:%s\n",delfile);
-                perror("Remove error");
+                //remove the file with the specific tag
+                status=remove(delfile);
+
+                //Check if remove correct the file
+                if(status !=0 )
+                {
+                    printf("Unable to delete file:%s\n",delfile);
+                    perror("Remove error");
+                }
             }
+
         }
 
 
-        //Go through the list to delete all the tags
-        for (iter = delSet; iter; iter=iter->next)
-        {
-            //Point to each tag in list
-           // curTag = (TAG *) iter->data;
-            free(iter->data);
-        }
+            for(i=0; i < delSet->len; i++)
+            {
+                //Point to each tag in list
+                curTag = (TAG *) g_ptr_array_index(delSet ,i );
 
-        g_slist_free(delSet);
+                    g_ptr_array_remove_index(delSet, i);
+
+                    free(curTag);
+
+                    i=-1;
+                }
+
+            }
+
+
+
+
 
         //Insert updated list in hashtable to the associated key(filename)
-        g_hash_table_insert(funmetatable , header->filename , pointlist);
-
-    }
+        g_hash_table_insert(funmetatable , header->filename , pointArray);
 
 
 
@@ -697,7 +741,12 @@ GHashTable *   addSecure(GHashTable * funmetatable ,TAG* secureTag , struct repl
     //{
         //Pointer to a list to retrieve all the tags for the
         //specific filename
-        GSList *pointlist = NULL;
+       // GSList *pointlist = NULL;
+
+
+        //Store all the metadata information by fileID
+        GPtrArray *pointArray=NULL;
+
 
         int err=0;
 
@@ -713,10 +762,11 @@ GHashTable *   addSecure(GHashTable * funmetatable ,TAG* secureTag , struct repl
         sprintf(filename,"%s_%ld",header->filename,header->fileid);
 
 
-         //Retrieve all the tags which are associated with the specific filename
-         pointlist = (GSList *) g_hash_table_lookup(funmetatable, filename);
 
-         if(pointlist != NULL)
+         //Retrieve all the tags which are associated with the specific filename
+         pointArray = (GPtrArray*) g_hash_table_lookup(funmetatable, filename);
+
+         if(pointArray != NULL)
          {
 
                 //To point at the beginning of the list and to go through all the list
@@ -760,10 +810,14 @@ GHashTable *   addSecure(GHashTable * funmetatable ,TAG* secureTag , struct repl
                 //Go through all the list to find which tag are smaller from
                 //the secure tags
                 //So, you have to find all the smaller tags and delete it*/
-                for (iter = pointlist; iter; iter = iter->next )
-                {
+               // for (iter = pointlist; iter; iter = iter->next )
+
+             int i=0;
+             for(i=0; i < pointArray->len; i++)
+             {
+
                     //Point to each tag in list
-                     curTag = (TAG *) iter->data;
+                     curTag = (TAG *) g_ptr_array_index(pointArray ,i );
 
                     //Find all the tags that are smaller than the secure tag
                     //In this case, you must delete all the tags that are smaller
@@ -815,7 +869,11 @@ TAG* findSecureTag(GHashTable * funmetatable , char *filename )
 
     //Pointer to a list to retrieve all the tags for the
     //specific filename
-    GSList *pointlist=NULL;
+    //GSList *pointlist=NULL;
+
+
+    //Store all the metadata information by fileID
+    GPtrArray *pointArray=NULL;
 
     //Lock strtok due to is not deadlock free
     if(err=pthread_mutex_lock(&lockermetadata))
@@ -825,23 +883,27 @@ TAG* findSecureTag(GHashTable * funmetatable , char *filename )
 
 
         //Retrieve all the tags which are associated with the specific filename
-        pointlist =(GSList*) g_hash_table_lookup(funmetatable,filename);
+        pointArray =(GPtrArray*) g_hash_table_lookup(funmetatable,filename);
 
-        if(pointlist != NULL)
+        if(pointArray != NULL)
         {
 
                 //To point at the beginning of the list and to go through all the list
                 //to detect if the tag that looking for exist. Otherwise, must return
                 //the max secure tag
-                GSList* iter=NULL;
+             //   GSList* iter=NULL;
+
+
 
                 //A temp tag to go through the list tags
                 TAG* curTag  = NULL;
 
-                for(iter=pointlist; iter; iter = iter->next)
-                {
+              //  for(iter=pointlist; iter; iter = iter->next)
+            int i=0;
+            for(i=0; i < pointArray->len; i++)
+            {
                     //Point to each tag in list
-                    curTag = (TAG *) iter->data;
+                    curTag = (TAG *) g_ptr_array_index(pointArray ,i );
 
                     //Check if the tag that looking for exist in the list
                     if( (curTag->num > secureTag->num && curTag ->isSecure == 1 ) || (curTag->num == secureTag->num && curTag->clientID > secureTag->clientID && curTag->isSecure == 1) )
@@ -882,7 +944,7 @@ int isTagExist(GHashTable * funmetatable , char *filename , TAG* secureTag )
     GSList *pointlist=NULL;
 
     //Retrieve all the tags which are associated with the specific filename
-    pointlist =(GSList*) g_hash_table_lookup(funmetatable,filename);
+    pointlist =(GPtrArray*) g_hash_table_lookup(funmetatable,filename);
 
     if(pointlist != NULL)
     {
@@ -1047,7 +1109,7 @@ void *accept_thread(void *accept_sock)
         //Waiting...to receive data from the client//
         if (recv(acptsock, buf, 512, 0) < 0)
         {
-            perror("send() failed");
+            perror("send() failed_fntAcceptThread");
             close(acptsock);
             pthread_exit((void *) 0);
         }
@@ -1132,11 +1194,7 @@ void *accept_thread(void *accept_sock)
 
                curTag = findMaxTag( metadatatable , msg->tag , filename , &error);
 
-            //Unloack Mutex//
-            if(err=pthread_mutex_unlock(&lockermetadata))
-            {
-                perror2("Failed to unlock()",err);
-            }
+
 
             if(curTag !=NULL)
             {
@@ -1155,6 +1213,15 @@ void *accept_thread(void *accept_sock)
                 //Send the file to client
                 send2ftp(acptsock, msg);
             }
+
+
+
+            //Unloack Mutex//
+            if(err=pthread_mutex_unlock(&lockermetadata))
+            {
+                perror2("Failed to unlock()",err);
+            }
+
         }
 
         else if(strcmp(msg->type,"SECURE") == 0 )
@@ -1169,7 +1236,11 @@ void *accept_thread(void *accept_sock)
             }
                   metadatatable = addSecure(metadatatable,msg->tag,msg);
 
-                  metadatatable =  deleteUnsecureTags(metadatatable , msg->tag , msg);
+                  //temp
+                  msg->tag->isSecure=1;
+
+
+                   metadatatable =  deleteUnsecureTags(metadatatable , msg->tag , msg);
 
             //Unloack Mutex//
             if(err=pthread_mutex_unlock(&lockermetadata))
@@ -1194,6 +1265,9 @@ void initialization()
 {
     //Initialize metadata table and also determine hash function
     metadatatable = g_hash_table_new( g_str_hash, g_str_equal);
+
+    //Initialize metadata array
+    metatable = g_ptr_array_sized_new(1000);
 
 
     /*Initialization of mutex for strtok in decode function*/
@@ -1301,7 +1375,7 @@ void signal_handler()
 
     for(iter=hashPoint; iter; iter = iter->next)
     {
-       // printf("key:%s\n" , (char *)iter->data);
+        // printf("key:%s\n" , (char *)iter->data);
 
         //Retrieve all the tags which are associated withe the specific filename
         pointlist =(GSList*) g_hash_table_lookup(metadatatable, iter->data );
@@ -1318,8 +1392,8 @@ void signal_handler()
             g_slist_free(pointlist);
         }
 
-       //  tempTag = ( TAG*) iter->data;
-      //  printf("Num:%d, ClientID:%d \n" , tempTag->num , tempTag->clientID );
+        //  tempTag = ( TAG*) iter->data;
+        //  printf("Num:%d, ClientID:%d \n" , tempTag->num , tempTag->clientID );
 
         /*for(tagList=iter; tagList; tagList = tagList->next)
         {

@@ -415,6 +415,8 @@ long registerClient(char *username)
         }
     }
 
+
+
     if(isFound==0)
     {
         //Allocate memory for the new entry

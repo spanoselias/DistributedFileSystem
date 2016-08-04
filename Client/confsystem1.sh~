@@ -1,0 +1,14 @@
+#!/bin/bash
+#chmod +x run.sh
+ 
+
+./cli <<< 'loggin spanos1' &
+           'list'
+
+
+wait
+ 
+   
+
+echo 'Script run'
+exit

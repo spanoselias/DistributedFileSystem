@@ -1,0 +1,114 @@
+#!/bin/bash
+#chmod +x run.sh
+ 
+
+echo "This script is about to run another script."
+
+
+cd /home/elias/Documents/DistributedSystems/Scenarios 
+echo "Starting Scenario5">> senario5.txt 
+echo "-------------------------------">> senario5.txt 
+ 
+cd /home/elias/Documents/DistributedSystems/Scenarios/Scenario5
+ 
+STARTTIME=$(date +%s)
+for ((i=1;i<=1;i++)); do
+
+	sh ./1writer.sh 1 &
+	sh ./1writer.sh 1 &
+	sh ./1writer.sh 2 &
+	sh ./1writer.sh 3 &
+	sh ./1writer.sh 4 &
+	sh ./1writer.sh 5  
+ 	 
+done  
+
+wait 
+
+cd /home/elias/Documents/DistributedSystems/Scenarios
+echo "----------------">> senario5.txt
+echo "Ending for img.png">> senario5.txt 
+echo "-------------------">> senario5.txt
+
+
+echo "Starting for s1.mp3">> senario5.txt 
+cd /home/elias/Documents/DistributedSystems/Scenarios/Scenario5
+for ((i=1;i<=1;i++)); do
+
+	sh ./2writer.sh 1 &
+	sh ./2writer.sh 1 &
+	sh ./2writer.sh 2 &
+	sh ./2writer.sh 3 &
+	sh ./2writer.sh 4 &
+	sh ./2writer.sh 5  
+ 	 
+done  
+
+wait 
+ENDTIME=$(date +%s)
+
+
+
+cd /home/elias/Documents/DistributedSystems/Scenarios
+echo "$(($ENDTIME - $STARTTIME))" >> senario5.txt
+echo "----------------">> senario5.txt
+echo "Ending for s1.mp3">> senario5.txt 
+echo "-------------------">> senario5.txt
+
+echo "Starting for s2.mp3">> senario5.txt 
+echo "-------------------">> senario5.txt
+
+cd /home/elias/Documents/DistributedSystems/Scenarios/Scenario5
+STARTTIME=$(date +%s)
+for ((i=1;i<=1;i++)); do
+
+	sh ./3writer.sh 1 &
+	sh ./3writer.sh 1 &
+	sh ./3writer.sh 2 &
+	sh ./3writer.sh 3 &
+	sh ./3writer.sh 4 &
+	sh ./3writer.sh 5  
+ 	 
+done  
+
+wait 
+ENDTIME=$(date +%s)
+cd /home/elias/Documents/DistributedSystems/Scenarios
+echo "$(($ENDTIME - $STARTTIME))" >> senario5.txt
+
+echo "----------------">> senario5.txt
+echo "Ending for s2.mp3">> senario5.txt 
+echo "-------------------">> senario5.txt
+
+
+cd /home/elias/Documents/DistributedSystems/Scenarios
+
+echo "Starting for t5.zip">> senario5.txt 
+echo "-------------------">> senario5.txt
+
+cd /home/elias/Documents/DistributedSystems/Scenarios/Scenario5
+
+STARTTIME=$(date +%s)
+for ((i=1;i<=1;i++)); do
+
+	sh ./4writer.sh 1 &
+	sh ./4writer.sh 1 &
+	sh ./4writer.sh 2 &
+	sh ./4writer.sh 3 &
+	sh ./4writer.sh 4 &
+	sh ./4writer.sh 5  
+ 	 
+done  
+
+wait 
+ENDTIME=$(date +%s)
+
+cd /home/elias/Documents/DistributedSystems/Scenarios 
+echo "$(($ENDTIME - $STARTTIME))" >> senario5.txt
+echo "----------------">> senario5.txt
+echo "Ending for t5.zip">> senario5.txt 
+echo "----------------">> senario5.txt
+ 
+wait
+echo 'Script run'
+exit

@@ -1,0 +1,49 @@
+#!/bin/bash
+#chmod +x run.sh
+
+ 
+
+echo "This script is about to run another script."
+
+
+cd /home/elias/Documents/DistributedSystems/Scenarios 
+echo "Starting scenario1 , 10 writers">> senario1.txt 
+echo "-----------------------------------------------">> senario1.txt 
+ 
+cd /home/elias/Documents/DistributedSystems/Scenarios/Scenario3
+echo "This script has just run another script."
+for ((i=1;i<=1;i++)); do
+
+	sh ./1writer.sh 1 &
+	sh ./1writer.sh 1 &
+	sh ./1writer.sh 2 &
+	sh ./1writer.sh 3 &
+	sh ./1writer.sh 4 &
+	sh ./1writer.sh 5  
+ 	 
+done  
+
+wait 
+
+
+for ((i=1;i<=1;i++)); do
+
+	sh ./scen.sh 1 &
+	sh ./scen.sh 1 &
+	sh ./scen.sh 2 &
+	sh ./scen.sh 3 &
+	sh ./scen.sh 4 &
+	sh ./scen.sh 5  
+ 	 
+done  
+
+wait 
+
+
+cd /home/elias/Documents/DistributedSystems/Scenarios 
+echo "Ending scenario1 , 10 writers">> senario1.txt 
+echo "-----------------------------------------------">> senario1.txt
+ 
+wait
+echo 'Script run'
+exit
